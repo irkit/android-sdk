@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IRKitサンプルアプリ</string>
+
+    <string name="title_signals">ボタン</string>
+    <string name="title_devices">デバイス</string>
+
+    <string name="navigation_drawer_open">ナビゲーションを開く</string>
+    <string name="navigation_drawer_close">ナビゲーションを閉じる</string>
+
+    <string name="icon">アイコン</string>
+    <string name="add">追加</string>
+    <string name="send">送信</string>
+    <string name="edit">編集</string>
+    <string name="cancel">キャンセル</string>
+    <string name="new_irkit_found">新しいIRKitが見つかりました</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myapp="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/activity_signal__action_save"
+        android:title="@string/activity_signal__action_save"
+        myapp:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/activity_signal__action_show_details"
+        android:checkable="true"
+        android:title="@string/activity_signal__action_show_details"
+        myapp:showAsAction="never" />
+    <item
+        android:id="@+id/activity_signal__action_delete"
+        android:title="@string/activity_signal__action_delete"
+        myapp:showAsAction="never" />
+</menu>

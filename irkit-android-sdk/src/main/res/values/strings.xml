@@ -1,0 +1,144 @@
+<resources>
+    <!-- The order of this array needs to match the constants in IRWifiInfo -->
+    <string-array name="wifi_security_array">
+        <item>WPA/WPA2</item>
+        <item>WEP</item>
+        <item>Open (No password)</item>
+    </string-array>
+
+    <string name="app_name">IRKit</string>
+    <string name="preferences_file_key" translatable="false">com.getirkit.irkit.preferences</string>
+
+    <string name="url_buy_irkit">http://api.getirkit.com/store</string>
+
+    <string name="activity_signal__title_new">Add Button</string>
+    <string name="activity_signal__title_edit">Edit Button</string>
+    <string name="activity_signal__name">Name</string>
+    <string name="activity_signal__icon">Icon</string>
+    <string name="activity_signal__action_save">Save</string>
+    <string name="activity_signal__action_delete">Delete Button</string>
+
+    <string name="title_activity_wait_signal">Waiting for Signal</string>
+    <string name="learn_signal__text">
+        Aim your remote at IRKit and press a button briefly
+    </string>
+    <string name="learn_signal__not_working">
+        <a href="http://getirkit.com/faq/android/#learn-ja">Not working?</a>
+    </string>
+    <string name="wait_signal__irkit">IRKit</string>
+    <string name="wait_signal__remote">Plain Old Remote</string>
+
+    <string name="irkit_password__label">Enter IRKit Wi-Fi password. You can find it in your IRKit package.</string>
+    <string name="irkit_password__ok">OK</string>
+    <string name="irkit_password__show_password">Show password</string>
+
+    <string name="please_connect_to_normal_wifi__text">Disconnect from IRKit Wi-Fi and try again</string>
+    <string name="wifi_not_connected__text">To set up IRKit, connect to home Wi-Fi and try again</string>
+    <string name="wifi_not_connected__close">Back</string>
+
+    <string name="irkit_setup_error__no_internet_connection">Can\'t connect to the Internet. Check your Internet connection and try again.</string>
+    <string name="irkit_setup_error__back">Back</string>
+
+    <string name="turn_on_irkit__turn_on_text">Turn on your\nIRKit</string>
+    <string name="turn_on_irkit__buy_irkit">
+        <a href="http://api.getirkit.com/store">Buy IRKit</a>
+    </string>
+    <string name="turn_on_irkit__connect_usb">Connect USB Micro-B cable</string>
+    <string name="turn_on_irkit__next">Next</string>
+
+    <string name="wifi_connect__status">Connecting…</string>
+
+    <string name="wifi_input__text">Enter Wi-Fi info which IRKit will use. IRKit can only connect to 802.11b/g/n (2.4GHz) networks.</string>
+    <string name="wifi_input__ssid">SSID</string>
+    <string name="wifi_input__security">Security</string>
+    <string name="wifi_input__password">Password</string>
+    <string name="wifi_input__show_password">Show password</string>
+    <string name="wifi_input__ok">Next</string>
+
+    <plurals name="dialog_signals_to_delete__text">
+        <item quantity="one">You have a button associated with this device. This button will also be deleted if you remove this IRKit.</item>
+        <item quantity="other">You have %d buttons associated with this device. These buttons will also be deleted if you remove this IRKit.</item>
+    </plurals>
+
+    <string name="title_activity_irkitsetup">Setup IRKit</string>
+    <string name="title_activity_signal">Button</string>
+    <string name="title_activity_device">IRKit Device</string>
+
+    <string name="activity_device__nickname">Nickname</string>
+    <string name="activity_device__ipaddress">IP Address</string>
+    <string name="activity_device__modelname">Model</string>
+    <string name="activity_device__firmware_version">Firmware</string>
+    <string name="activity_device__device_id">Device ID</string>
+    <string name="activity_device__client_key">Client Key</string>
+    <string name="activity_device__hostname">Hostname</string>
+    <string name="activity_device__ipaddress_not_available">Not available</string>
+    <string name="activity_device__action_save">Save</string>
+    <string name="activity_device__action_delete">Remove Device</string>
+
+    <string name="activity_irkit_setup__action_next">Next</string>
+
+    <string name="select_image_source__select_icon_from_list">Select icon from list</string>
+    <string name="select_image_source__take_photo">Take photo</string>
+    <string name="select_image_source__pick_image_from_gallery">Pick image from Gallery</string>
+    <string name="select_image_source__cancel">Cancel</string>
+
+    <string name="oss_components">
+        OkHttp\n
+        Copyright 2014 Square, Inc.\n
+        <a href="http://square.github.io/okhttp/">http://square.github.io/okhttp/</a>\n
+        \n
+        Retrofit\n
+        Copyright 2013 Square, Inc.\n
+        <a href="http://square.github.io/retrofit/">http://square.github.io/retrofit/</a>\n
+        \n
+        JmDNS\n
+        Copyright 2003-2005 Arthur van Hoff, Rick Blair\n
+        <a href="http://jmdns.sourceforge.net/">http://jmdns.sourceforge.net/</a>
+    </string>
+    <plurals name="signals_to_delete__title">
+        <item quantity="one">Delete button too?</item>
+        <item quantity="other">Delete buttons too?</item>
+    </plurals>
+    <string name="signals_to_delete__delete_button">Delete</string>
+    <string name="signals_to_delete__cancel_button">Cancel</string>
+
+    <string name="setup_status__scanning_for_irkit_wifi">Scanning for IRKit Wi-Fi…</string>
+    <string name="setup_status__obtaining_client_key">Obtaining a client key…</string>
+    <string name="setup_status__obtaining_device_key">Obtaining a device key…</string>
+    <string name="setup_status__waiting_for_postdoor">Waiting for IRKit to be recognized by server…</string>
+    <string name="setup_status__waiting_for_bonjour_discovery">Searching for IRKit on local network…</string>
+    <string name="setup_status__connecting_to_normal_wifi">Connecting to home Wi-Fi…</string>
+    <string name="setup_status__disconnecting_from_irkit_wifi">Disconnecting from IRKit Wi-Fi…</string>
+    <string name="setup_status__connecting_irkit_to_wifi">Sending Wi-Fi info to IRKit…</string>
+    <string name="setup_status__connecting_to_irkit_wifi">Connecting to IRKit Wi-Fi…</string>
+    <string name="setup_status__error_postdoor">IRKit server communication error. Try again later.</string>
+    <string name="setup_status__error_connect_to_normal_wifi">Failed to connect to home Wi-Fi: </string>
+    <string name="setup_status__error_timeout_connect_to_normal_wifi">Failed to connect to home Wi-Fi: timeout</string>
+    <string name="setup_status__error_timeout_postdoor">Failed to set up IRKit. Try again.</string>
+    <string name="setup_status__error_bonjour_discovery">IRKit not found on local network</string>
+    <string name="setup_status__error_timeout_bonjour_discovery">IRKit not found on local network</string>
+    <string name="setup_status__error_connect_irkit_to_wifi">Can\'t connect IRKit to Wi-Fi. Try again.</string>
+    <string name="setup_status__error_timeout_connect_to_wifi">Can\'t connect IRKit to Wi-Fi. Try again.</string>
+    <string name="setup_status__error_connect_to_irkit_wifi">Can\'t connect to IRKit Wi-Fi. Check the password and try again.</string>
+    <string name="setup_status__error_timeout_connect_to_irkit_wifi">Can\'t connect to IRKit Wi-Fi. Check the password and try again.</string>
+    <string name="setup_status__error_irkit_wifi_not_found">IRKit Wi-Fi not found. Make sure IRKit is turned on and try again.</string>
+    <string name="setup_status__error_timeout_obtain_device_key">Can\'t obtain a device key. Check your Internet connection and try again.</string>
+    <string name="setup_status__error_obtain_device_key">Can\'t connect to the Internet. Check your Internet connection and try again.</string>
+    <string name="setup_status__error_no_client_key">Can\'t connect to the Internet. Check your Internet connection and try again.</string>
+    <string name="wifi_connect__close_button">Back</string>
+    <string name="wifi_connect__success">Success!</string>
+    <string name="wifi_connect__tips">
+        <a href="http://getirkit.com/faq/android/#howto-wifi-ja">Tips for setting up IRKit</a>
+    </string>
+    <string name="activity_signal__action_show_details">Show Details</string>
+    <string name="activity_device__action_show_details">Show Details</string>
+    <string name="activity_wait_signal__error_text">Error receiving signal. Check your Internet connection and try again.</string>
+    <string name="activity_wait_signal__close_button">Close</string>
+    <string name="activity_signal__device_id">Device ID</string>
+    <string name="activity_signal__signal_id">Signal ID</string>
+    <string name="activity_signal__icon_imageview_description">Icon</string>
+    <string name="activity_wait_signal__irkit_imageview_description">Aim your remote at IRKit</string>
+    <string name="activity_wait_signal__error_imageview_description">Error</string>
+    <string name="wifi_connect__success_imageview_description">Success</string>
+    <string name="list_item_signal_to_delete__icon_imageview_description">Icon</string>
+</resources>

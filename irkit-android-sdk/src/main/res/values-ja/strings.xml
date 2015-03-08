@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The order of this array needs to match the constants in IRWifiInfo -->
+    <string-array name="wifi_security_array">
+        <item>WPA/WPA2</item>
+        <item>WEP</item>
+        <item>パスワードなし</item>
+    </string-array>
+
+    <string name="app_name">リモコン</string>
+
+    <string name="url_buy_irkit">http://api.getirkit.com/store</string>
+
+    <string name="activity_signal__title_new">ボタンの登録</string>
+    <string name="activity_signal__title_edit">ボタンの編集</string>
+    <string name="activity_signal__name">名前</string>
+    <string name="activity_signal__icon">アイコン</string>
+    <string name="activity_signal__action_save">保存</string>
+    <string name="activity_signal__action_delete">ボタンを削除</string>
+
+    <string name="title_activity_wait_signal">リモコン信号の学習</string>
+    <string name="learn_signal__text">
+        IRKitに向けてボタンを短く押してください
+    </string>
+    <string name="learn_signal__not_working">
+        <a href="http://getirkit.com/faq/android/#learn-ja">認識されない場合</a>
+    </string>
+    <string name="wait_signal__irkit">IRKit</string>
+    <string name="wait_signal__remote">リモコン</string>
+
+    <string name="irkit_password__label">IRKit Wi-Fiのパスワードを入力してください。パスワードはIRKitのパッケージに同梱されています。</string>
+    <string name="irkit_password__ok">OK</string>
+    <string name="irkit_password__show_password">パスワードを表示</string>
+
+    <string name="please_connect_to_normal_wifi__text">セットアップを始めるにはIRKitのWi-Fiから切断し、再度お試しください</string>
+    <string name="wifi_not_connected__text">IRKitのセットアップを始めるには家のWi-Fiに接続してから再度お試しください</string>
+    <string name="wifi_not_connected__close">戻る</string>
+
+    <string name="irkit_setup_error__no_internet_connection">インターネットに接続できません。インターネット接続を確認して再度セットアップをお試しください。</string>
+    <string name="irkit_setup_error__back">戻る</string>
+
+    <string name="title_activity_irkitsetup">セットアップ</string>
+    <string name="turn_on_irkit__turn_on_text">IRKitの電源を\n入れましょう</string>
+    <string name="turn_on_irkit__buy_irkit">
+        <a href="http://api.getirkit.com/store">IRKitを購入</a>
+    </string>
+    <string name="turn_on_irkit__connect_usb">USB Micro-Bケーブルを\nつないでください</string>
+    <string name="turn_on_irkit__next">次へ</string>
+
+    <string name="wifi_input__text">IRKitが使用するWi-Fi情報を入力してください。802.11b/g/n（2.4GHz）のWi-Fiのみ使用できます。</string>
+    <string name="wifi_input__ssid">SSID</string>
+    <string name="wifi_input__security">セキュリティ</string>
+    <string name="wifi_input__password">パスワード</string>
+    <string name="wifi_input__show_password">パスワードを表示</string>
+    <string name="wifi_input__ok">次へ</string>
+
+    <string name="wifi_connect__status">接続中…</string>
+
+    <string name="title_activity_signal">ボタン</string>
+    <plurals name="dialog_signals_to_delete__text">
+        <!-- 日本語ではotherしか使われない -->
+        <item quantity="other">%d個のボタンがこのデバイスに関連付けられています。デバイス情報を削除するとこれらのボタンも削除されます。</item>
+    </plurals>
+
+    <string name="title_activity_device">IRKitデバイス</string>
+    <string name="activity_device__nickname">ニックネーム</string>
+    <string name="activity_device__ipaddress">IPアドレス</string>
+    <string name="activity_device__modelname">モデル</string>
+    <string name="activity_device__firmware_version">ファームウェア</string>
+    <string name="activity_device__device_id">Device ID</string>
+    <string name="activity_device__client_key">Client Key</string>
+    <string name="activity_device__hostname">ホスト名</string>
+    <string name="activity_device__ipaddress_not_available">（利用不可）</string>
+    <string name="activity_device__action_save">保存</string>
+    <string name="activity_device__action_delete">デバイス情報を削除</string>
+
+    <string name="activity_irkit_setup__action_next">次へ</string>
+
+    <string name="select_image_source__select_icon_from_list">リストから選択</string>
+    <string name="select_image_source__take_photo">カメラで撮影</string>
+    <string name="select_image_source__pick_image_from_gallery">写真を選択</string>
+    <string name="select_image_source__cancel">キャンセル</string>
+
+    <string name="oss_components">
+        OkHttp\n
+        Copyright 2014 Square, Inc.\n
+        <a href="http://square.github.io/okhttp/">http://square.github.io/okhttp/</a>\n
+        \n
+        Retrofit\n
+        Copyright 2013 Square, Inc.\n
+        <a href="http://square.github.io/retrofit/">http://square.github.io/retrofit/</a>\n
+        \n
+        JmDNS\n
+        Copyright 2003-2005 Arthur van Hoff, Rick Blair\n
+        <a href="http://jmdns.sourceforge.net/">http://jmdns.sourceforge.net/</a>
+    </string>
+    <plurals name="signals_to_delete__title">
+        <item quantity="other">ボタンを削除しますか？</item>
+    </plurals>
+
+    <string name="signals_to_delete__delete_button">削除</string>
+    <string name="signals_to_delete__cancel_button">キャンセル</string>
+
+    <string name="setup_status__scanning_for_irkit_wifi">IRKitのWi-Fiを検索しています…</string>
+    <string name="setup_status__obtaining_client_key">クライアントキーを取得しています…</string>
+    <string name="setup_status__obtaining_device_key">デバイスキーを取得しています…</string>
+    <string name="setup_status__waiting_for_postdoor">IRKitがサーバに認識されるのを待っています…</string>
+    <string name="setup_status__waiting_for_bonjour_discovery">ローカルネットワーク内のIRKitを検索中…</string>
+    <string name="setup_status__connecting_to_normal_wifi">家のWi-Fiに接続し直しています…</string>
+    <string name="setup_status__disconnecting_from_irkit_wifi">IRKitのWi-Fiから切断しています…</string>
+    <string name="setup_status__connecting_irkit_to_wifi">IRKitにWi-Fi情報を送信しています…</string>
+    <string name="setup_status__connecting_to_irkit_wifi">IRKitのWi-Fiに接続しています…</string>
+    <string name="setup_status__error_postdoor">IRKitサーバとの通信に失敗しました。再度お試しください。</string>
+    <string name="setup_status__error_connect_to_normal_wifi">家のWi-Fiに接続できませんでした: </string>
+    <string name="setup_status__error_timeout_connect_to_normal_wifi">家のWi-Fiに接続できませんでした（タイムアウト）</string>
+    <string name="setup_status__error_timeout_postdoor">IRKitのセットアップに失敗しました。再度お試しください。</string>
+    <string name="setup_status__error_bonjour_discovery">IRKitがローカルネットワーク内に見つかりません</string>
+    <string name="setup_status__error_timeout_bonjour_discovery">IRKitがローカルネットワーク内に見つかりません</string>
+    <string name="setup_status__error_connect_irkit_to_wifi">IRKitがWi-Fiに接続できません。再度お試しください。</string>
+    <string name="setup_status__error_timeout_connect_to_wifi">IRKitがWi-Fiに接続できません。再度お試しください。</string>
+    <string name="setup_status__error_connect_to_irkit_wifi">IRKitのWi-Fiに接続できません。パスワードを確認して再度お試しください。</string>
+    <string name="setup_status__error_timeout_connect_to_irkit_wifi">IRKitのWi-Fiに接続できません。パスワードを確認して再度お試しください。</string>
+    <string name="setup_status__error_irkit_wifi_not_found">IRKitのWi-Fiが見つかりません。IRKitの電源が入っていることを確認して再度お試しください。</string>
+    <string name="setup_status__error_timeout_obtain_device_key">デバイスキーの取得に失敗しました。インターネット接続を確認して再度お試しください。</string>
+    <string name="setup_status__error_obtain_device_key">インターネットに接続できません。インターネット接続を確認して再度お試しください。</string>
+    <string name="setup_status__error_no_client_key">インターネットに接続できません。インターネット接続を確認して再度お試しください。</string>
+    <string name="wifi_connect__close_button">戻る</string>
+    <string name="wifi_connect__success">セットアップ成功！</string>
+    <string name="wifi_connect__tips">
+        <a href="http://getirkit.com/faq/android/#howto-wifi-ja">セットアップのヒント</a>
+    </string>
+    <string name="activity_signal__action_show_details">詳細情報を表示</string>
+    <string name="activity_device__action_show_details">詳細情報を表示</string>
+    <string name="activity_wait_signal__error_text">信号の受信に失敗しました。インターネット接続を確認して再度お試しください。</string>
+    <string name="activity_wait_signal__close_button">閉じる</string>
+    <string name="activity_signal__device_id">Device ID</string>
+    <string name="activity_signal__signal_id">Signal ID</string>
+    <string name="activity_signal__icon_imageview_description">アイコン</string>
+    <string name="activity_wait_signal__irkit_imageview_description">リモコンをIRKitに向けてください</string>
+    <string name="activity_wait_signal__error_imageview_description">エラー</string>
+    <string name="wifi_connect__success_imageview_description">成功</string>
+    <string name="list_item_signal_to_delete__icon_imageview_description">アイコン</string>
+</resources>

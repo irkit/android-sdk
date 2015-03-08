@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="40dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="40dp">
+
+        <!-- Name -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/activity_device__name_label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:gravity="end"
+                android:text="@string/activity_device__nickname" />
+
+            <EditText
+                android:id="@+id/activity_device__name_field"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/activity_device__name_label"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/activity_device__name_label"
+                android:layout_toRightOf="@id/activity_device__name_label"
+                android:inputType="text" />
+        </RelativeLayout>
+
+        <!-- IP address -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/activity_device__ipaddress_label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:gravity="end"
+                android:text="@string/activity_device__ipaddress" />
+
+            <TextView
+                android:id="@+id/activity_device__ipaddress_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/activity_device__ipaddress_label"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/activity_device__ipaddress_label"
+                android:layout_toRightOf="@id/activity_device__ipaddress_label"
+                android:maxWidth="160dp"
+                android:textIsSelectable="true" />
+        </RelativeLayout>
+
+        <!-- Model name -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/activity_device__modelname_label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:gravity="end"
+                android:text="@string/activity_device__modelname" />
+
+            <TextView
+                android:id="@+id/activity_device__modelname_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/activity_device__modelname_label"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/activity_device__modelname_label"
+                android:layout_toRightOf="@id/activity_device__modelname_label"
+                android:maxWidth="160dp"
+                android:textIsSelectable="true" />
+        </RelativeLayout>
+
+        <!-- Firmware version -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/activity_device__firmwareversion_label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:gravity="end"
+                android:text="@string/activity_device__firmware_version" />
+
+            <TextView
+                android:id="@+id/activity_device__firmwareversion_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/activity_device__firmwareversion_label"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/activity_device__firmwareversion_label"
+                android:layout_toRightOf="@id/activity_device__firmwareversion_label"
+                android:maxWidth="160dp"
+                android:textIsSelectable="true" />
+        </RelativeLayout>
+
+        <!-- Hostname -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/activity_device__hostname_label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:gravity="end"
+                android:text="@string/activity_device__hostname" />
+
+            <TextView
+                android:id="@+id/activity_device__hostname_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/activity_device__hostname_label"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/activity_device__hostname_label"
+                android:layout_toRightOf="@id/activity_device__hostname_label"
+                android:maxWidth="160dp"
+                android:textIsSelectable="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_device__details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Device ID -->
+            <RelativeLayout
+                android:id="@+id/activity_device__device_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:id="@+id/activity_device__device_id_label"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="end"
+                    android:text="@string/activity_device__device_id" />
+
+                <TextView
+                    android:id="@+id/activity_device__device_id_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/activity_device__device_id_label"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/activity_device__device_id_label"
+                    android:layout_toRightOf="@id/activity_device__device_id_label"
+                    android:maxWidth="160dp"
+                    android:textIsSelectable="true" />
+            </RelativeLayout>
+
+            <!-- Client Key -->
+            <RelativeLayout
+                android:id="@+id/activity_device__client_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/activity_device__client_key_label"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="end"
+                    android:text="@string/activity_device__client_key" />
+
+                <TextView
+                    android:id="@+id/activity_device__client_key_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/activity_device__client_key_label"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/activity_device__client_key_label"
+                    android:layout_toRightOf="@id/activity_device__client_key_label"
+                    android:maxWidth="160dp"
+                    android:textIsSelectable="true" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -2,13 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.getirkit.example" >
 
+    <!-- Permissions used by IRKit SDK -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +24,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- Activities in IRKit SDK -->
+        <!-- Setup activity -->
+        <activity
+            android:name="com.getirkit.activity.IRKitSetupActivity"
+            android:label="@string/title_activity_irkitsetup" />
+        <!-- Signal detail activity -->
+        <activity
+            android:name="com.getirkit.activity.SignalActivity"
+            android:label="@string/title_activity_signal" />
+        <!-- Wait for signal activity -->
+        <activity
+            android:name="com.getirkit.activity.WaitSignalActivity"
+            android:label="@string/title_activity_wait_signal" />
+        <!-- Device activity -->
+        <activity
+            android:name="com.getirkit.activity.DeviceActivity"
+            android:label="@string/title_activity_device" />
+
+        <!-- IRKit apikey -->
+        <!-- See http://getirkit.com/en/ for details -->
+        <!-- apikeyの取得方法は http://getirkit.com/ を参照してください -->
+        <meta-data android:name="com.getirkit.IRKIT_API_KEY" android:value="YOUR_API_KEY" />
+    </application>
 </manifest>

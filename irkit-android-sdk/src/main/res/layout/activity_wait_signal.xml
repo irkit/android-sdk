@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Waiting for Signal activity -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/activity_wait_signal__scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="40dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="40dp">
+
+            <TextView
+                android:id="@+id/activity_wait_signal__text_irkit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/wait_signal__irkit"
+                android:textColor="@color/irkit_cyan" />
+
+            <ImageView
+                android:id="@+id/activity_wait_signal__image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/activity_wait_signal__irkit_imageview_description"
+                android:src="@drawable/img_remote3" />
+
+            <TextView
+                android:id="@+id/activity_wait_signal__text_remote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:text="@string/wait_signal__remote"
+                android:textColor="@color/irkit_cyan" />
+
+            <TextView
+                android:id="@+id/activity_wait_signal__text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:text="@string/learn_signal__text" />
+
+            <TextView
+                android:id="@+id/activity_wait_signal__not_working"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/learn_signal__not_working"
+                android:textIsSelectable="true" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Error view -->
+    <LinearLayout
+        android:id="@+id/activity_wait_signal__error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:contentDescription="@string/activity_wait_signal__error_imageview_description"
+            android:src="@drawable/error" />
+
+        <TextView
+            android:id="@+id/community_apps__error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/activity_wait_signal__error_text" />
+
+        <Button
+            android:id="@+id/activity_wait_signal__error_close_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/activity_wait_signal__close_button" />
+    </LinearLayout>
+</merge>
