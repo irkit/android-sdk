@@ -52,3 +52,8 @@ See [app/src/main/java/com/getirkit/example/activity/MainActivity.java](app/src/
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+This project contains [JmDNS](http://jmdns.sourceforge.net/) library.
+
+    Copyright 2003-2005 Arthur van Hoff, Rick Blair
+    Licensed under Apache License version 2.0
