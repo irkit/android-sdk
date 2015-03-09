@@ -17,7 +17,7 @@ Android Studioをお使いの場合、モジュールのbuild.gradleの`dependen
 1. Android Studioを開く
 2. "Open an existing Android Studio project" をクリック
 3. このフォルダを選択
-4. AndroidManifest.xmlを開いてYOUR_API_KEYを置き換える
+4. AndroidManifest.xmlを開いて`YOUR_API_KEY`を置き換える
 5. "Run 'app'" をクリック
 
 ## サンプルコード
@@ -42,7 +42,7 @@ If you are using Android Studio, add the following line to the `dependencies` se
 1. Open Android Studio
 2. Click "Open an existing Android Studio project"
 3. Choose this directory
-4. Open AndroidManifest.xml and replace YOUR_API_KEY with your IRKit apikey
+4. Open AndroidManifest.xml and replace `YOUR_API_KEY` with your IRKit apikey
 5. Click "Run 'app'"
 
 ## Example source code
