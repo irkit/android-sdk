@@ -6,6 +6,12 @@ IRKitの機能をAndroidアプリに組み込むためのSDKです。
 - リモコン信号の学習
 - リモコン信号の送信
 
+## ダウンロード
+
+Android Studioをお使いの場合、モジュールのbuild.gradleの`dependencies`内に以下の1行を追加してください。
+
+    compile 'com.getirkit:irkit-android-sdk:1.0.0'
+
 ## サンプルアプリの動かし方
 
 1. Android Studioを開く
@@ -24,6 +30,12 @@ IRKitの機能をAndroidアプリに組み込むためのSDKです。
 - Set up IRKit devices
 - Learn remote signals
 - Send remote signals
+
+## Download
+
+If you are using Android Studio, add the following line to the `dependencies` section in your module-level build.gradle.
+
+    compile 'com.getirkit:irkit-android-sdk:1.0.0'
 
 ## How to run the example app
 
