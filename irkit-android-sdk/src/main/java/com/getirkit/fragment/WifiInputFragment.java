@@ -42,15 +42,17 @@ public class WifiInputFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        CheckBox showPasswordCheckBox = (CheckBox) rootView.findViewById(R.id.wifi__showpassword);
-        outState.putBoolean("showPassword", showPasswordCheckBox.isChecked());
-        EditText ssidEditText = (EditText) rootView.findViewById(R.id.wifi__ssid_field);
-        outState.putString("ssid", ssidEditText.getText().toString());
-        EditText passwordEditText = (EditText) rootView.findViewById(R.id.wifi__password_field);
-        outState.putString("password", passwordEditText.getText().toString());
-        Spinner securitySpinner = (Spinner) rootView.findViewById(R.id.wifi__security_spinner);
-        int security = securitySpinner.getSelectedItemPosition();
-        outState.putInt("security", security);
+        if (rootView != null) {
+            CheckBox showPasswordCheckBox = (CheckBox) rootView.findViewById(R.id.wifi__showpassword);
+            outState.putBoolean("showPassword", showPasswordCheckBox.isChecked());
+            EditText ssidEditText = (EditText) rootView.findViewById(R.id.wifi__ssid_field);
+            outState.putString("ssid", ssidEditText.getText().toString());
+            EditText passwordEditText = (EditText) rootView.findViewById(R.id.wifi__password_field);
+            outState.putString("password", passwordEditText.getText().toString());
+            Spinner securitySpinner = (Spinner) rootView.findViewById(R.id.wifi__security_spinner);
+            int security = securitySpinner.getSelectedItemPosition();
+            outState.putInt("security", security);
+        }
     }
 
     @Override

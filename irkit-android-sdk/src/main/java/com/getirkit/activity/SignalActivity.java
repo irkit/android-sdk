@@ -57,7 +57,9 @@ public class SignalActivity extends ActionBarActivity implements SignalImageDial
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         EditText nameEditText = (EditText) findViewById(R.id.activity_signal__name_field);
-        outState.putString("name", nameEditText.getText().toString());
+        if (nameEditText != null) {
+            outState.putString("name", nameEditText.getText().toString());
+        }
         outState.putInt("mode", mode);
         outState.putParcelable("signal", signal);
         outState.putBoolean("showDetails", showDetails);

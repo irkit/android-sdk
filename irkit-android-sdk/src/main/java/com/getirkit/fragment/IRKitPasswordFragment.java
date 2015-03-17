@@ -37,8 +37,12 @@ public class IRKitPasswordFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("password", passwordEditText.getText().toString());
-        outState.putBoolean("showPassword", showPasswordCheckBox.isChecked());
+        if (passwordEditText != null) {
+            outState.putString("password", passwordEditText.getText().toString());
+        }
+        if (showPasswordCheckBox != null) {
+            outState.putBoolean("showPassword", showPasswordCheckBox.isChecked());
+        }
     }
 
     @Override

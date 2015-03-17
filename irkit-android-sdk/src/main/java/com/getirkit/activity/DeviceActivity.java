@@ -32,7 +32,9 @@ public class DeviceActivity extends ActionBarActivity implements SignalsToDelete
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         EditText nameEditText = (EditText)findViewById(R.id.activity_device__name_field);
-        outState.putString("name", nameEditText.getText().toString());
+        if (nameEditText != null) {
+            outState.putString("name", nameEditText.getText().toString());
+        }
         outState.putParcelable("peripheral", peripheral);
         outState.putString("apiKey", apiKey);
         outState.putBoolean("showDetails", showDetails);
