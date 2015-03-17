@@ -62,7 +62,10 @@ public class IRKitPasswordFragment extends Fragment {
 
         showPasswordCheckBox = (CheckBox) rootView.findViewById(R.id.irkitpassword__show_password);
         if (args != null) {
-            passwordEditText.setText(args.getString("password"));
+            String password = args.getString("password");
+            if (password != null) {
+                passwordEditText.setText(password);
+            }
             showPasswordCheckBox.setChecked(args.getBoolean("showPassword", false));
         } else {
             showPasswordCheckBox.setChecked(false);

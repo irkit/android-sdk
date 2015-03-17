@@ -136,7 +136,10 @@ public class SignalActivity extends ActionBarActivity implements SignalImageDial
 
         EditText nameEditText = (EditText) findViewById(R.id.activity_signal__name_field);
         if (args.containsKey("name")) {
-            nameEditText.setText(args.getString("name"));
+            String name = args.getString("name");
+            if (name != null) {
+                nameEditText.setText(name);
+            }
         } else {
             nameEditText.setText(signal.getName());
         }

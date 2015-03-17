@@ -74,7 +74,10 @@ public class DeviceActivity extends ActionBarActivity implements SignalsToDelete
         }
 
         if (args.containsKey("name")) {
-            nameEditText.setText(args.getString("name"));
+            String name = args.getString("name");
+            if (name != null) {
+                nameEditText.setText(name);
+            }
         } else {
             nameEditText.setText(peripheral.getCustomizedName());
         }
