@@ -84,14 +84,17 @@
     <string name="oss_components">
         OkHttp\n
         Copyright 2014 Square, Inc.\n
+        Licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>\n
         <a href="http://square.github.io/okhttp/">http://square.github.io/okhttp/</a>\n
         \n
         Retrofit\n
         Copyright 2013 Square, Inc.\n
+        Licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>\n
         <a href="http://square.github.io/retrofit/">http://square.github.io/retrofit/</a>\n
         \n
         JmDNS\n
         Copyright 2003-2005 Arthur van Hoff, Rick Blair\n
+        Licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>\n
         <a href="http://jmdns.sourceforge.net/">http://jmdns.sourceforge.net/</a>
     </string>
     <plurals name="signals_to_delete__title">
