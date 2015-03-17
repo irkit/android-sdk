@@ -61,7 +61,6 @@ import retrofit.client.Response;
 public class IRKit {
     public String TAG;
     public static final String SERVICE_TYPE = "_irkit._tcp.local.";
-    public static final String SDK_VERSION = "1.0.0";
     public static final String PREF_KEY_BONJOUR_HOSTNAME = "debuginfo.bonjour.hostname";
     public static final String PREF_KEY_BONJOUR_RESOLVED_AT = "debuginfo.bonjour.resolved_at";
     private static final int SEND_SIGNAL_LOCAL_TIMEOUT_MS = 3000;
@@ -707,7 +706,7 @@ public class IRKit {
 
             debugInfo.put("bonjour", bonjour);
 
-            debugInfo.put("version", SDK_VERSION);
+            debugInfo.put("version", BuildConfig.VERSION_NAME);
             debugInfo.put("platform", "android");
 
             return debugInfo.toString();
