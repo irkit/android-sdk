@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.getirkit.IRSignal;
+import com.getirkit.irkit.IRSignal;
 import com.getirkit.example.R;
 import com.getirkit.example.view.AsyncDrawable;
 import com.getirkit.example.view.BitmapWorkerTask;

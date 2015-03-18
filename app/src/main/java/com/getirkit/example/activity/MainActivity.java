@@ -13,15 +13,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.getirkit.IRKit;
-import com.getirkit.IRKitEventListener;
-import com.getirkit.IRPeripheral;
-import com.getirkit.IRPeripherals;
-import com.getirkit.IRSignal;
-import com.getirkit.activity.DeviceActivity;
-import com.getirkit.activity.IRKitSetupActivity;
-import com.getirkit.activity.SignalActivity;
-import com.getirkit.activity.WaitSignalActivity;
+import com.getirkit.irkit.IRKit;
+import com.getirkit.irkit.IRKitEventListener;
+import com.getirkit.irkit.IRPeripheral;
+import com.getirkit.irkit.IRPeripherals;
+import com.getirkit.irkit.IRSignal;
+import com.getirkit.irkit.activity.DeviceActivity;
+import com.getirkit.irkit.activity.IRKitSetupActivity;
+import com.getirkit.irkit.activity.SignalActivity;
+import com.getirkit.irkit.activity.WaitSignalActivity;
 import com.getirkit.example.R;
 import com.getirkit.example.adapter.DeviceListAdapter;
 import com.getirkit.example.adapter.SignalListAdapter;
@@ -29,8 +29,8 @@ import com.getirkit.example.fragment.DevicesFragment;
 import com.getirkit.example.fragment.NavigationDrawerFragment;
 import com.getirkit.example.fragment.SelectSignalActionDialogFragment;
 import com.getirkit.example.fragment.SignalsFragment;
-import com.getirkit.net.IRAPIError;
-import com.getirkit.net.IRAPIResult;
+import com.getirkit.irkit.net.IRAPIError;
+import com.getirkit.irkit.net.IRAPIResult;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, IRKitEventListener, DevicesFragment.DevicesFragmentListener,

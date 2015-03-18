@@ -12,22 +12,22 @@
 
         <!-- Setup activity -->
         <activity
-            android:name=".activity.IRKitSetupActivity"
+            android:name=".irkit.activity.IRKitSetupActivity"
             android:label="@string/title_activity_irkitsetup" />
 
         <!-- Signal detail activity -->
         <activity
-            android:name=".activity.SignalActivity"
+            android:name=".irkit.activity.SignalActivity"
             android:label="@string/title_activity_signal" />
 
         <!-- Wait for signal activity -->
         <activity
-            android:name=".activity.WaitSignalActivity"
+            android:name=".irkit.activity.WaitSignalActivity"
             android:label="@string/title_activity_wait_signal" />
 
         <!-- Device activity -->
         <activity
-            android:name=".activity.DeviceActivity"
+            android:name=".irkit.activity.DeviceActivity"
             android:label="@string/title_activity_device" />
 
     </application>

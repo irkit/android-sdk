@@ -28,19 +28,19 @@
         <!-- Activities in IRKit SDK -->
         <!-- Setup activity -->
         <activity
-            android:name="com.getirkit.activity.IRKitSetupActivity"
+            android:name="com.getirkit.irkit.activity.IRKitSetupActivity"
             android:label="@string/title_activity_irkitsetup" />
         <!-- Signal detail activity -->
         <activity
-            android:name="com.getirkit.activity.SignalActivity"
+            android:name="com.getirkit.irkit.activity.SignalActivity"
             android:label="@string/title_activity_signal" />
         <!-- Wait for signal activity -->
         <activity
-            android:name="com.getirkit.activity.WaitSignalActivity"
+            android:name="com.getirkit.irkit.activity.WaitSignalActivity"
             android:label="@string/title_activity_wait_signal" />
         <!-- Device activity -->
         <activity
-            android:name="com.getirkit.activity.DeviceActivity"
+            android:name="com.getirkit.irkit.activity.DeviceActivity"
             android:label="@string/title_activity_device" />
 
         <!-- IRKit apikey -->

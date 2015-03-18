@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.getirkit.IRPeripheral;
+import com.getirkit.irkit.IRPeripheral;
 import com.getirkit.example.R;
 
 import java.util.ArrayList;

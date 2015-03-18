@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.getirkit.IRKit;
+import com.getirkit.irkit.IRKit;
 import com.getirkit.example.R;
 import com.getirkit.example.activity.MainActivity;
 import com.getirkit.example.adapter.DeviceListAdapter;
