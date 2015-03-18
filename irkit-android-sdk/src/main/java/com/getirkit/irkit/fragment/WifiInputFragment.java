@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.getirkit.irkit.R;
 import com.getirkit.irkit.net.IRHTTPClient;
 import com.getirkit.irkit.IRKit;
 import com.getirkit.irkit.IRWifiInfo;
@@ -24,7 +25,6 @@ import com.getirkit.irkit.net.IRInternetAPIService;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import com.getirkit.R;
 
 /**
  * View for entering Wi-Fi info which will be used by IRKit.

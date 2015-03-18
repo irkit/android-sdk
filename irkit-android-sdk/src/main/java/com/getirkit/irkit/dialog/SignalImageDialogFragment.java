@@ -15,8 +15,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.getirkit.irkit.IRViewUtils;
+import com.getirkit.irkit.R;
 import com.getirkit.irkit.adapter.SignalImageGridAdapter;
-import com.getirkit.R;
 
 /**
  * Dialog for selecting image from list.

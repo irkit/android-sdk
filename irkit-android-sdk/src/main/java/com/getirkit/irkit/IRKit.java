@@ -22,8 +22,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.getirkit.BuildConfig;
-import com.getirkit.R;
 import com.getirkit.irkit.net.IRAPICallback;
 import com.getirkit.irkit.net.IRAPIError;
 import com.getirkit.irkit.net.IRAPIResult;

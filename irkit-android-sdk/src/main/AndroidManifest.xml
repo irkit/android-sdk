@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.getirkit">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.getirkit.irkit">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -12,22 +12,22 @@
 
         <!-- Setup activity -->
         <activity
-            android:name=".irkit.activity.IRKitSetupActivity"
+            android:name=".activity.IRKitSetupActivity"
             android:label="@string/title_activity_irkitsetup" />
 
         <!-- Signal detail activity -->
         <activity
-            android:name=".irkit.activity.SignalActivity"
+            android:name=".activity.SignalActivity"
             android:label="@string/title_activity_signal" />
 
         <!-- Wait for signal activity -->
         <activity
-            android:name=".irkit.activity.WaitSignalActivity"
+            android:name=".activity.WaitSignalActivity"
             android:label="@string/title_activity_wait_signal" />
 
         <!-- Device activity -->
         <activity
-            android:name=".irkit.activity.DeviceActivity"
+            android:name=".activity.DeviceActivity"
             android:label="@string/title_activity_device" />
 
     </application>

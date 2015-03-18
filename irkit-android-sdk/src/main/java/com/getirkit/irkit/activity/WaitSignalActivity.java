@@ -14,12 +14,12 @@ import android.widget.TextView;
 
 import com.getirkit.irkit.IRKit;
 import com.getirkit.irkit.IRSignal;
+import com.getirkit.irkit.R;
 import com.getirkit.irkit.net.IRAPICallback;
 import com.getirkit.irkit.net.IRInternetAPIService;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import com.getirkit.R;
 
 /**
  * Waits for an IRSignal.

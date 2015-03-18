@@ -13,8 +13,9 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.getirkit.irkit.R;
+
 import java.lang.ref.WeakReference;
-import com.getirkit.R;
 
 /**
  * Adapter for listing signals in SignalImageDialogFragment

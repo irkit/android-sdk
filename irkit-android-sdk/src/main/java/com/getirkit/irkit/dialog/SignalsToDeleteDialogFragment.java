@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.getirkit.irkit.IRSignals;
 import com.getirkit.irkit.IRViewUtils;
+import com.getirkit.irkit.R;
 import com.getirkit.irkit.adapter.DeleteSignalsAdapter;
-import com.getirkit.R;
 
 /**
  * Dialog for warning a user that some signals will also be deleted if they remove the device.

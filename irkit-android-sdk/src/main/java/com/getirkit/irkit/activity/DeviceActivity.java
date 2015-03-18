@@ -12,9 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.getirkit.irkit.IRKit;
-import com.getirkit.R;
 import com.getirkit.irkit.IRPeripheral;
 import com.getirkit.irkit.IRSignals;
+import com.getirkit.irkit.R;
 import com.getirkit.irkit.dialog.SignalsToDeleteDialogFragment;
 
 import java.net.InetAddress;

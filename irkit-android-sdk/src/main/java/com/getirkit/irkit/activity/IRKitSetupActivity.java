@@ -12,11 +12,11 @@ import android.view.MenuItem;
 
 import com.getirkit.irkit.IRKit;
 import com.getirkit.irkit.IRWifiInfo;
+import com.getirkit.irkit.R;
 import com.getirkit.irkit.fragment.IRKitPasswordFragment;
 import com.getirkit.irkit.fragment.TurnOnIRKitFragment;
 import com.getirkit.irkit.fragment.WifiConnectFragment;
 import com.getirkit.irkit.fragment.WifiInputFragment;
-import com.getirkit.R;
 
 /**
  * Sets up a new IRKit. To set up, IRKit needs to be disconnected from Wi-Fi.

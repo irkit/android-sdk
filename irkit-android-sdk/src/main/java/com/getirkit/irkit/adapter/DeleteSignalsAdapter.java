@@ -12,10 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.getirkit.irkit.IRSignal;
+import com.getirkit.irkit.R;
 
 import java.io.File;
 import java.util.ArrayList;
-import com.getirkit.R;
 
 /**
  * Adapter for listing signals in SignalsToDeleteDialogFragment

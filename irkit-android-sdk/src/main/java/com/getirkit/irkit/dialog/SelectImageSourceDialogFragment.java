@@ -7,7 +7,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import com.getirkit.R;
+
+import com.getirkit.irkit.R;
 
 /**
  * Dialog for selecting image source.

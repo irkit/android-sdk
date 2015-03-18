@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.getirkit.irkit.IRSignal;
+import com.getirkit.irkit.R;
 import com.getirkit.irkit.dialog.SelectImageSourceDialogFragment;
 import com.getirkit.irkit.dialog.SignalImageDialogFragment;
 
@@ -30,7 +31,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import com.getirkit.R;
 
 /**
  * Show details of IRSignal.

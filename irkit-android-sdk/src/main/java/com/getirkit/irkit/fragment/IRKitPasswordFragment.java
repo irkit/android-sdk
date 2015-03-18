@@ -11,7 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import com.getirkit.R;
+
+import com.getirkit.irkit.R;
 
 /**
  * View for entering IRKit Wi-Fi password.

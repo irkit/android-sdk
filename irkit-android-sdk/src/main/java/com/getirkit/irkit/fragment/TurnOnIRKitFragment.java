@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import com.getirkit.R;
+
+import com.getirkit.irkit.R;
 
 /**
  * View to tell the user to turn on IRKit.

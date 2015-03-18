@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.getirkit.irkit.IRKit;
 import com.getirkit.irkit.IRWifiInfo;
-import com.getirkit.R;
+import com.getirkit.irkit.R;
 
 /**
  * View to showing the status of ongoing setup.

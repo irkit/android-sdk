@@ -8,7 +8,6 @@ import android.net.wifi.WifiInfo;
 import android.os.Handler;
 import android.util.Log;
 
-import com.getirkit.R;
 import com.getirkit.irkit.net.IRAPICallback;
 import com.getirkit.irkit.net.IRAPIResult;
 import com.getirkit.irkit.net.IRDeviceAPIService;
