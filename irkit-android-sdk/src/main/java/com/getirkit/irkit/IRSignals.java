@@ -107,6 +107,9 @@ public class IRSignals extends ArrayList<IRSignal> implements Parcelable {
     }
 
     public void removeIRSignalsForDeviceId(String deviceId) {
+        if (deviceId == null) {
+            return;
+        }
         for (Iterator<IRSignal> iter = this.iterator(); iter.hasNext(); ) {
             IRSignal signal = iter.next();
             if (signal.getDeviceId().equals(deviceId)) {
@@ -117,9 +120,11 @@ public class IRSignals extends ArrayList<IRSignal> implements Parcelable {
 
     public IRSignals getIRSignalsByDeviceId(String deviceId) {
         IRSignals signals = new IRSignals();
-        for (IRSignal signal : this) {
-            if (signal.getDeviceId().equals(deviceId)) {
-                signals.add(signal);
+        if (deviceId != null) {
+            for (IRSignal signal : this) {
+                if (signal.getDeviceId().equals(deviceId)) {
+                    signals.add(signal);
+                }
             }
         }
         return signals;

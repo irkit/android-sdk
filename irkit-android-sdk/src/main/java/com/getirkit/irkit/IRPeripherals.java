@@ -33,8 +33,11 @@ public class IRPeripherals extends ArrayList<IRPeripheral> {
 
     public IRPeripheral getPeripheralByDeviceId(String deviceId) {
         for (IRPeripheral peripheral : this) {
-            if (peripheral.getDeviceId().equals(deviceId)) {
-                return peripheral;
+            if (peripheral != null) {
+                String _deviceId = peripheral.getDeviceId();
+                if (_deviceId != null && _deviceId.equals(deviceId)) {
+                    return peripheral;
+                }
             }
         }
         return null;
