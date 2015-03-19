@@ -22,8 +22,8 @@ android {
     }
 }
 
-def siteUrl = 'https://github.com/irkit/irkit-android-sdk'
-def gitUrl = 'https://github.com/irkit/irkit-android-sdk.git'
+def siteUrl = 'https://github.com/irkit/android-sdk'
+def gitUrl = 'https://github.com/irkit/android-sdk.git'
 def projectName = 'irkit-android-sdk'
 def projectDescription = 'IRKit SDK for Android'
 group = "com.getirkit"
