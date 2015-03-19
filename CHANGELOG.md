@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+Version 1.1.1 *(2015-03-19)*
+----------------------------
+
+### 変更点
+
+- deviceidを取得できていないIRPeripheralが存在する際にNullPointerExceptionが発生するバグを修正しました。
+
+
+### Changes
+
+- Fix: IRPeripheral throws NullPointerException if deviceid has not been obtained.
+
+
 Version 1.1.0 *(2015-03-18)*
 ----------------------------
 
