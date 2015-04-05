@@ -44,7 +44,7 @@ SignalActivity     | ボタン（信号）情報を表示・編集する
 
 ### IRKitSetupActivity
 
-IRKitSetupActivityを起動するとIRKitのセットアップ画面が表示されます。
+IRKitSetupActivityを起動すると、IRKitのセットアップをユーザに行わせることができます。
 
 [![IRKitSetupActivity](images/IRKitSetupActivity-w260.png)](images/IRKitSetupActivity.png)
 
@@ -64,7 +64,7 @@ IRKitSetupActivityを起動するとIRKitのセットアップ画面が表示さ
 
 ### WaitSignalActivity
 
-WaitSignalActivityを起動すると、リモコン信号の学習画面が表示されます。
+WaitSignalActivityを起動すると、リモコン信号の学習をユーザに行わせることができます。
 
 [![WaitSignalActivity](images/WaitSignalActivity-w260.png)](images/WaitSignalActivity.png)
 
