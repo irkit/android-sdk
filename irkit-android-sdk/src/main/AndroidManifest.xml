@@ -13,22 +13,26 @@
         <!-- Setup activity -->
         <activity
             android:name=".activity.IRKitSetupActivity"
-            android:label="@string/title_activity_irkitsetup" />
+            android:label="@string/title_activity_irkitsetup"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
 
         <!-- Signal detail activity -->
         <activity
             android:name=".activity.SignalActivity"
-            android:label="@string/title_activity_signal" />
+            android:label="@string/title_activity_signal"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
 
         <!-- Wait for signal activity -->
         <activity
             android:name=".activity.WaitSignalActivity"
-            android:label="@string/title_activity_wait_signal" />
+            android:label="@string/title_activity_wait_signal"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
 
         <!-- Device activity -->
         <activity
             android:name=".activity.DeviceActivity"
-            android:label="@string/title_activity_device" />
+            android:label="@string/title_activity_device"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
 
     </application>
 </manifest>
