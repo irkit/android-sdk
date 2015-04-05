@@ -148,7 +148,7 @@ WaitSignalActivityを起動すると、リモコン信号の学習画面が表�
 
 ### DeviceActivity
 
-IRKitデバイスの詳細情報を表示／編集／削除する際はこのActivityを呼び出します。
+IRKitデバイスの詳細情報を表示、編集、削除する画面を表示します。
 
 [![DeviceActivity](images/DeviceActivity-w260.png)](images/DeviceActivity.png)
 
