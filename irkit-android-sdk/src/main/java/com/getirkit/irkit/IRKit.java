@@ -354,6 +354,10 @@ public class IRKit {
      * @return
      */
     public String getIRKitAPIKey() {
+        if (context == null) {
+            throw new IllegalStateException("Context is not set. Have you called IRKit.sharedInstance().init(context)?");
+        }
+
         // Fetch IRKit api key in whatever way you want
         ApplicationInfo ai = null;
         try {
