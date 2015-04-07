@@ -79,12 +79,12 @@ WaitSignalActivityを起動すると、リモコン信号の学習をユーザ�
 
         if (requestCode == REQUEST_WAIT_SIGNAL && resultCode == RESULT_OK) {
             Bundle args = data.getExtras();
-            IRSignal signal = args.getParcelable("signal");
+            IRSignal signal = args.getParcelable("signal"); // 受信した信号
             IRKit irkit = IRKit.sharedInstance();
-            signal.setId(irkit.signals.getNewId());
+            signal.setId(irkit.signals.getNewId()); // ランダムなidを割り当てる
 
             if (signal.hasBitmapImage()) { // アイコンに写真が指定された
-                // signal.renameToSuggestedImageFilename()はsetId()より後に呼ぶ
+                // signal.renameToSuggestedImageFilename() は setId() より後に呼ぶ
                 if (!signal.renameToSuggestedImageFilename(this)) {
                     // ファイル名変更失敗
                 }
