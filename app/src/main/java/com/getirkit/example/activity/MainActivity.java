@@ -251,34 +251,30 @@ public class MainActivity extends ActionBarActivity
         } else if (requestCode == REQUEST_WAIT_SIGNAL) {  // Returned from WaitSignalActivity
             if (resultCode == RESULT_OK) {
                 Bundle args = data.getExtras();
-                String action = args.getString("action");
                 IRSignal signal = args.getParcelable("signal");
-                int mode = args.getInt("mode");
-                if (mode == SignalActivity.MODE_NEW) {
-                    if (signal == null) {
-                        Log.e(TAG, "no active registeringSignal");
-                        return;
-                    }
-                    IRKit irkit = IRKit.sharedInstance();
-                    signal.setId(irkit.signals.getNewId());
-                    signal.setName(signal.getName());
+                if (signal == null) {
+                    Log.e(TAG, "failed to receive signal");
+                    return;
+                }
+                Log.d(TAG, "received signal: " + signal);
+                IRKit irkit = IRKit.sharedInstance();
+                signal.setId(irkit.signals.getNewId());
 
-                    if (signal.hasBitmapImage()) {
-                        // Do not call renameToSuggestedImageFilename before
-                        // assigning an ID to the signal.
-                        if (!signal.renameToSuggestedImageFilename(this)) {
-                            Log.e(TAG, "Failed to rename bitmap file");
-                        }
-                    } else {
-                        signal.onUpdateImageResourceId(getResources());
+                if (signal.hasBitmapImage()) {
+                    // Do not call renameToSuggestedImageFilename before
+                    // assigning an ID to the signal.
+                    if (!signal.renameToSuggestedImageFilename(this)) {
+                        Log.e(TAG, "Failed to rename bitmap file");
                     }
+                } else {
+                    signal.onUpdateImageResourceId(getResources());
+                }
 
-                    // Add and save the signal
-                    irkit.signals.add(signal);
-                    irkit.signals.save();
-                    if (signalListAdapter != null) {
-                        signalListAdapter.notifyDataSetChanged();
-                    }
+                // Add and save the signal
+                irkit.signals.add(signal);
+                irkit.signals.save();
+                if (signalListAdapter != null) {
+                    signalListAdapter.notifyDataSetChanged();
                 }
             }
         } else if (requestCode == REQUEST_DEVICE_DETAIL) {  // Returned from DeviceActivity

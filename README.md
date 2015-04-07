@@ -82,7 +82,6 @@ WaitSignalActivityを起動すると、リモコン信号の学習をユーザ�
             IRSignal signal = args.getParcelable("signal");
             IRKit irkit = IRKit.sharedInstance();
             signal.setId(irkit.signals.getNewId());
-            signal.setName(signal.getName());
 
             if (signal.hasBitmapImage()) { // アイコンに写真が指定された
                 // signal.renameToSuggestedImageFilename()はsetId()より後に呼ぶ
