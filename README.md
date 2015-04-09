@@ -112,7 +112,7 @@ WaitSignalActivityを起動すると、リモコン信号の学習をユーザ�
     intent.putExtras(args);
     startActivityForResult(intent, REQUEST_SIGNAL_DETAIL);
 
-ユーザが「保存」または「削除」を押した場合はRESULT_OKが返ります。actionには、保存の場合は`save`、削除の場合は`delete`が入ります。
+ユーザが「保存」または「削除」を押した場合はRESULT_OKが返ります。下のコードで変数actionには、保存の場合は`save`、削除の場合は`delete`という文字列が入ります。
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -157,7 +157,7 @@ IRKitデバイスの詳細情報を表示、編集、削除する画面を表示
     intent.putExtras(args);
     startActivityForResult(intent, REQUEST_DEVICE_DETAIL);
 
-「保存」または「削除」ボタンが押された場合はRESULT_OKが返ります。actionには、保存の場合は`save`、削除の場合は`delete`が入ります。
+「保存」または「削除」ボタンが押された場合はRESULT_OKが返ります。下のコードで変数actionには、保存の場合は`save`、削除の場合は`delete`という文字列が入ります。
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
