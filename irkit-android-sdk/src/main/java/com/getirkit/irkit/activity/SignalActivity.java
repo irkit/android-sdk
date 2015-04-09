@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -221,6 +222,11 @@ public class SignalActivity extends ActionBarActivity implements SignalImageDial
         int id = item.getItemId();
         if (id == android.R.id.home) {
             deleteTemporaryBitmap();
+
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("back_to_home", true);
+            setResult(RESULT_CANCELED, resultIntent);
+
             finish();
             return true;
         } else if (id == R.id.activity_signal__action_save) {
@@ -350,6 +356,15 @@ public class SignalActivity extends ActionBarActivity implements SignalImageDial
     @Override
     public void onBackPressed() {
         deleteTemporaryBitmap();
-        super.onBackPressed();
+        if (mode == MODE_NEW) {
+            // Go back to WaitSignalActivity
+            finish();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                // Change the activity transition animation
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+            }
+        } else {
+            super.onBackPressed();
+        }
     }
 }

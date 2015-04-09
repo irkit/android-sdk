@@ -152,8 +152,15 @@ public class WaitSignalActivity extends ActionBarActivity {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtras(data.getExtras());
                 setResult(RESULT_OK, resultIntent);
+                finish();
+            } else {
+                if (data != null) {
+                    boolean gotoHome = data.getBooleanExtra("back_to_home", false);
+                    if (gotoHome) {
+                        finish();
+                    }
+                }
             }
-            finish();
         }
     }
 }
