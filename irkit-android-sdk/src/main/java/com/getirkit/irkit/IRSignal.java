@@ -98,6 +98,11 @@ public class IRSignal implements Serializable, Parcelable {
         this.imageResourceId = imageResourceId;
     }
 
+    public void setImageResourceId(int imageResourceId, Resources res) {
+        setImageResourceId(imageResourceId);
+        onUpdateImageResourceId(res);
+    }
+
     public String getImageResourceName() {
         return imageResourceName;
     }
@@ -154,9 +159,8 @@ public class IRSignal implements Serializable, Parcelable {
             }
             setImageFilename( signal.getImageFilename() );
         } else {
-            setImageResourceId( signal.getImageResourceId() );
+            setImageResourceId(signal.getImageResourceId(), context.getResources());
             removeBitmapImage(context);
-            onUpdateImageResourceId(context.getResources());
         }
     }
 

@@ -266,8 +266,6 @@ public class MainActivity extends ActionBarActivity
                     if (!signal.renameToSuggestedImageFilename(this)) {
                         Log.e(TAG, "Failed to rename bitmap file");
                     }
-                } else {
-                    signal.onUpdateImageResourceId(getResources());
                 }
 
                 // Add and save the signal

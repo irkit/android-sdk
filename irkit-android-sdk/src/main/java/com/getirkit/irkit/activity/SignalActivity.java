@@ -116,7 +116,7 @@ public class SignalActivity extends ActionBarActivity implements SignalImageDial
             int resId = signal.getImageResourceId();
             if (resId == 0) {
                 resId = R.drawable.btn_icon_256_0;
-                signal.setImageResourceId(resId);
+                signal.setImageResourceId(resId, getResources());
             }
             imageView.setImageResource(resId);
         }
@@ -249,7 +249,7 @@ public class SignalActivity extends ActionBarActivity implements SignalImageDial
         deleteTemporaryBitmap();
         signalImageBitmap = null;
         signal.setImageFilename(null);
-        signal.setImageResourceId(resourceId);
+        signal.setImageResourceId(resourceId, getResources());
         ImageView imageView = (ImageView) findViewById(R.id.activity_signal__image);
         imageView.setImageDrawable(getResources().getDrawable(resourceId));
     }

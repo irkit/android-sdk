@@ -256,8 +256,7 @@ public class IRKit {
 //        testSignal.setName("Warm");
         testSignal.setName("暖房");
         testSignal.setId(signals.getNewId());
-        testSignal.setImageResourceId(R.drawable.btn_icon_256_aircon);
-        testSignal.onUpdateImageResourceId(context.getResources());
+        testSignal.setImageResourceId(R.drawable.btn_icon_256_aircon, context.getResources());
         testSignal.setDeviceId("testdeviceid");
         testSignal.setViewPosition(0);
         signals.add(testSignal);
@@ -271,8 +270,7 @@ public class IRKit {
 //        testSignal.setName("Cool");
         testSignal.setName("冷房");
         testSignal.setId(signals.getNewId());
-        testSignal.setImageResourceId(R.drawable.btn_icon_256_aircon);
-        testSignal.onUpdateImageResourceId(context.getResources());
+        testSignal.setImageResourceId(R.drawable.btn_icon_256_aircon, context.getResources());
         testSignal.setDeviceId("testdeviceid");
         testSignal.setViewPosition(1);
         signals.add(testSignal);
@@ -285,8 +283,7 @@ public class IRKit {
         testSignal.setFrequency(38.0f);
         testSignal.setName("\uD83D\uDCA4");
         testSignal.setId(signals.getNewId());
-        testSignal.setImageResourceId(R.drawable.btn_icon_256_aircon);
-        testSignal.onUpdateImageResourceId(context.getResources());
+        testSignal.setImageResourceId(R.drawable.btn_icon_256_aircon, context.getResources());
         testSignal.setDeviceId("testdeviceid");
         testSignal.setViewPosition(2);
         signals.add(testSignal);
@@ -301,8 +298,7 @@ public class IRKit {
 //        testSignal.setName("Living Room");
         testSignal.setName("リビング");
         testSignal.setId(signals.getNewId());
-        testSignal.setImageResourceId(R.drawable.btn_icon_256_light);
-        testSignal.onUpdateImageResourceId(context.getResources());
+        testSignal.setImageResourceId(R.drawable.btn_icon_256_light, context.getResources());
         testSignal.setDeviceId("testdeviceid");
         testSignal.setViewPosition(3);
         signals.add(testSignal);
