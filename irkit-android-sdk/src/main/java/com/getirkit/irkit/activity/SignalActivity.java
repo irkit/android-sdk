@@ -251,7 +251,7 @@ public class SignalActivity extends ActionBarActivity implements SignalImageDial
         signal.setImageFilename(null);
         signal.setImageResourceId(resourceId, getResources());
         ImageView imageView = (ImageView) findViewById(R.id.activity_signal__image);
-        imageView.setImageDrawable(getResources().getDrawable(resourceId));
+        imageView.setImageResource(resourceId);
     }
 
     @Override
