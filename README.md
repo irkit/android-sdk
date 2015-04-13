@@ -197,6 +197,73 @@ IRKitデバイスの詳細情報を表示、編集、削除する画面を表示
         }
     }
 
+### クラスの概要
+
+クラス名      | 役割
+------------- | -------------------------------
+IRKit         | SDKの基本クラス
+IRSignal      | 赤外線信号1個を表す
+IRSignals     | IRSignalを格納するArrayList
+IRPeripheral  | IRKitデバイス1個を表す
+IRPeripherals | IRPeripheralを格納するArrayList
+
+SDKの基本となるIRKitインスタンスは`IRKit.sharedInstance()`で取得できます。IRSignalsとIRPeripheralsの各インスタンスは以下のようにして取得できます。
+
+    IRKit irkit = IRKit.sharedInstance();
+
+    // 保存されている赤外線信号一覧を取得
+    IRSignals signals = irkit.signals;
+
+    // 保存済のIRKitデバイス一覧を取得
+    IRPeripherals peripherals = irkit.peripherals;
+
+### IRKitデバイス発見イベントを受け取る
+
+SDKはローカルネットワーク内のIRKitをmDNSで自動検出します。IRKitデバイスが見つかった際にイベントを受け取るには、IRKitEventListenerを実装して以下2つのメソッドをオーバーライドします。
+
+    @Override
+    public void onNewIRKitFound(IRPeripheral peripheral) {
+        // 新しいIRKitデバイスを発見した
+    }
+
+    @Override
+    public void onExistingIRKitFound(IRPeripheral peripheral) {
+        // 既存のIRKitデバイスを発見した
+    }
+
+実装したIRKitEventListenerを引数として`setIRKitEventListener()`を呼ぶと、IRKit検出イベントを受け取れるようになります。
+
+    IRKit.sharedInstance().setIRKitEventListener(this);
+
+SDKが新しいIRKitデバイスを発見した場合、内部的な設定とIRKit.sharedInstance().peripheralsへの追加をSDKが自動的に行います。検出したIRKitが「新しいIRKit」として認識されるのは、IRKit.sharedInstance().peripheralsに含まれていないIRKitを発見した場合です。
+
+### 信号を手動で登録する
+
+    IRSignals signals = IRKit.sharedInstance().signals;
+
+    IRSignal signal = new IRSignal();
+    // format, freq, dataの仕様は http://getirkit.com/#toc_5 を参照
+    signal.setFormat("raw");
+    signal.setFrequency(38.0f);
+    signal.setData(new int[]{
+        18031, 8755, 1190, 1190, 1190, 3341, 1190, 3341, 1190, 3341, 1190, 1190, 1190, 3341, 1190, 3341, 1190, 3341, 1190, 3341, 1190, 3341, 1190, 3341, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 3341, 1190, 3341, 1190, 1190, 1190, 3341, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 1190, 3341, 1190, 3341, 1190, 3341, 1190, 3341, 1190, 3341, 1190, 65535, 0, 9379, 18031, 4400, 1190
+    });
+
+    signal.setId(signals.getNewId()); // 新しいidを割り振る
+    signal.setName("暖房"); // 信号の名前
+
+    // Drawableリソースをアイコンとして使う場合
+    signal.setImageResourceId(R.drawable.btn_icon_256_aircon, getResources());
+
+    // 画像ファイルをアイコンとして使う場合
+    signal.setImageFilename("image.png"); // 内部ストレージ上の画像ファイルのパス
+
+    signal.setDeviceId("testdeviceid"); // 対応するIRKitデバイスのdeviceid
+
+    // IRSignalsに追加して保存
+    signals.add(signal);
+    signals.save();
+
 ### サンプルコード
 
 その他の使い方については[app/src/main/java/com/getirkit/example/activity/MainActivity.java](app/src/main/java/com/getirkit/example/activity/MainActivity.java)を見てください。
