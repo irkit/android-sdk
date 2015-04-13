@@ -174,7 +174,7 @@ public class IRKit {
         if (networkStateChangeReceiver == null) {
             networkStateChangeReceiver = new NetworkStateChangeReceiver();
         }
-        context.registerReceiver(networkStateChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        context.getApplicationContext().registerReceiver(networkStateChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     /**
@@ -183,7 +183,7 @@ public class IRKit {
      */
     public void unregisterWifiStateChangeListener() {
         if (networkStateChangeReceiver != null) {
-            context.unregisterReceiver(networkStateChangeReceiver);
+            context.getApplicationContext().unregisterReceiver(networkStateChangeReceiver);
             networkStateChangeReceiver = null;
         }
     }
