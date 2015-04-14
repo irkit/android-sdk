@@ -207,7 +207,24 @@ IRSignals     | IRSignalを格納するArrayList
 IRPeripheral  | IRKitデバイス1個を表す
 IRPeripherals | IRPeripheralを格納するArrayList
 
-SDKの基本となるIRKitインスタンスは`IRKit.sharedInstance()`で取得できます。IRSignalsとIRPeripheralsの各インスタンスは以下のようにして取得できます。
+### SDKの初期化
+
+SDKの基本となるIRKitインスタンスは`IRKit.sharedInstance()`で取得できます。IRKit SDKを使用するActivityのonCreate()内で以下のようにSDKを初期化（有効化）します。
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ...
+
+        // ContextをセットしてSDKを初期化する。すでに初期化済みの場合は
+        // Contextのセットのみ行われる。
+        IRKit.sharedInstance().init(getApplicationContext());
+    }
+
+init()は初回呼び出し時のみデータ読み込みなどの初期化を行います。複数のActivityのonCreate()にinit()を入れて問題ありません。
+
+IRSignalsとIRPeripheralsの各インスタンスは以下のように取得できます。
 
     IRKit irkit = IRKit.sharedInstance();
 
