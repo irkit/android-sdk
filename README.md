@@ -234,6 +234,28 @@ IRSignalsとIRPeripheralsの各インスタンスは以下のように取得で�
     // 保存済のIRKitデバイス一覧を取得
     IRPeripherals peripherals = irkit.peripherals;
 
+### 赤外線信号を送信する
+
+IRSignalインスタンスを引数にして`sendSignal()`を呼びます。
+
+    IRSignal signal = IRKit.sharedInstance().signals.get(0);
+    IRKit.sharedInstance().sendSignal(signal, new IRAPIResult() {
+        @Override
+        public void onSuccess() {
+            // 送信成功
+        }
+
+        @Override
+        public void onError(IRAPIError error) {
+            // 送信エラー
+        }
+
+        @Override
+        public void onTimeout() {
+            // 送信エラー（タイムアウト）
+        }
+    });
+
 ### IRKitデバイス発見イベントを受け取る
 
 SDKはローカルネットワーク内のIRKitをmDNSで自動検出します。IRKitデバイスが見つかった際にイベントを受け取るには、IRKitEventListenerを実装して以下2つのメソッドをオーバーライドします。
