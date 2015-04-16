@@ -23,6 +23,7 @@ IRKitの機能をAndroidアプリに組み込むためのSDKです。
   - [SignalActivity](#signalactivity-ja)
   - [DeviceActivity](#deviceactivity-ja)
 - [IRKitデバイス発見イベントを受け取る](#receiving-events-ja)
+- [Javadoc](http://irkit.github.io/android-sdk/javadoc/)
 - [サンプルコード](#sample-ja)
 - [サンプルアプリの動かし方](#sample-app-ja)
 
