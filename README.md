@@ -271,7 +271,37 @@ Internet HTTP APIを直接使いたい場合は以下のようにします。
 
 ### <a name="setup-irkit-ja"></a>新しいIRKitをセットアップする
 
-[IRKitSetupActivity](#irkitsetupactivity-ja)を起動するとセットアップ用UIが表示されます。
+[IRKitSetupActivity](#irkitsetupactivity-ja)を起動するとセットアップ用のUIが表示されます。IRKitSetupActivityを使わずにセットアップを行うには以下のようにします。
+
+    // IRKitの接続先となるWi-Fi
+    IRWifiInfo irWifiInfo = new IRWifiInfo();
+    irWifiInfo.setSSID("home-wifi-ssid");
+    irWifiInfo.setSecurity(IRWifiInfo.SECURITY_WPA_WPA2);
+    irWifiInfo.setPassword("home-wifi-password");
+
+    // IRKitのセットアップ用Wi-Fiのパスワード
+    String irkitWifiPassword = "0000000000";
+
+    // apikeyをAndroidManifest.xmlから取得する
+    String apikey = IRKit.sharedInstance().getIRKitAPIKey();
+
+    // IRKitのセットアップを開始
+    IRKit.sharedInstance().setupIRKit(apikey, irWifiInfo, irkitWifiPassword, new IRKit.IRKitConnectWifiListener() {
+        @Override
+        public void onStatus(String status) {
+            // セットアップ状況が更新された
+        }
+
+        @Override
+        public void onError(String message) {
+            // セットアップ失敗
+        }
+
+        @Override
+        public void onComplete() {
+            // セットアップ完了
+        }
+    });
 
 ### <a name="activities-ja"></a>Activityの使い方
 
