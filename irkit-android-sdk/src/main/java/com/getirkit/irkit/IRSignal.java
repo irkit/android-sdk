@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 /**
  * An IR signal.
+ * 赤外線信号を表す。
  */
 public class IRSignal implements Serializable, Parcelable {
     public static final String TAG = IRSignal.class.getSimpleName();
@@ -151,6 +152,13 @@ public class IRSignal implements Serializable, Parcelable {
         return id + ".png";
     }
 
+    /**
+     * Copy contents from the given IRSignal to this instance.
+     * 引数のIRSignalの内容をこのインスタンスにコピーします。
+     *
+     * @param signal Source. コピー元の信号。
+     * @param context Context
+     */
     public void copyFrom(IRSignal signal, Context context) {
         setName( signal.getName() );
         if (signal.hasBitmapImage()) {
