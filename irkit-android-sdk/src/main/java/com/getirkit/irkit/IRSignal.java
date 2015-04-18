@@ -172,6 +172,13 @@ public class IRSignal implements Serializable, Parcelable {
         }
     }
 
+    /**
+     * Rename the filename of the bitmap image to a suggested one.
+     * ビットマップ画像のファイル名を推奨されたファイル名に変更する。
+     *
+     * @param context Context
+     * @return True if the renaming succeeded. ファイル名変更が成功した場合はtrue。
+     */
     public boolean renameToSuggestedImageFilename(Context context) {
         if (imageFilename == null) {
             throw new IllegalStateException("imageFilename is null");
@@ -186,8 +193,9 @@ public class IRSignal implements Serializable, Parcelable {
 
     /**
      * Returns JSON string which will be used for API parameters.
+     * APIのリクエストパラメータに使用するためのJSON文字列を返す。
      *
-     * @return
+     * @return JSON string
      */
     public String toJson() {
         JSONObject jsonObj = new JSONObject();
@@ -208,11 +216,23 @@ public class IRSignal implements Serializable, Parcelable {
         return jsonObj.toString();
     }
 
+    /**
+     * Export format and freq to the given HashMap.
+     * 引数のHashMapにformatとfreqを追加する。
+     *
+     * @param map HashMap object
+     */
     public void export(HashMap<String, String> map) {
         map.put("format", format);
         map.put("freq", String.valueOf(frequency));
     }
 
+    /**
+     * Returns whether a bitmap image is associated with this instance.
+     * ビットマップ画像を持っているかどうかを返す。
+     *
+     * @return True if this instance has a bitmap. ビットマップ画像を持っていればtrue。
+         */
     public boolean hasBitmapImage() {
         return imageFilename != null;
     }
