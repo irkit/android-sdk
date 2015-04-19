@@ -232,7 +232,7 @@ public class IRSignal implements Serializable, Parcelable {
      * ビットマップ画像を持っているかどうかを返す。
      *
      * @return True if this instance has a bitmap. ビットマップ画像を持っていればtrue。
-         */
+     */
     public boolean hasBitmapImage() {
         return imageFilename != null;
     }
