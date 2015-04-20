@@ -56,66 +56,161 @@ public class IRSignal implements Serializable, Parcelable {
     // id which uniquely identifies this signal on this device
     private String id;
 
+    /**
+     * Constructor.
+     * コンストラクタ。
+     */
     public IRSignal() {
     }
 
+    /**
+     * Return the data array of this IR signal.
+     * 赤外線信号のdataを返します。
+     *
+     * @return IR signal data. 赤外線信号データ。
+     */
     public int[] getData() {
         return data;
     }
 
+    /**
+     * Set the data array for this IR signal.
+     * 赤外線信号のdataをセットします。
+     *
+     * @param data IR signal data. 赤外線信号データ。
+     */
     public void setData(int[] data) {
         this.data = data;
     }
 
+    /**
+     * Return the format of this IR signal.
+     * 赤外線信号のformatを返します。
+     *
+     * @return IR signal format. 赤外線信号フォーマット。
+     */
     public String getFormat() {
         return format;
     }
 
+    /**
+     * Set the format for this IR signal.
+     * 赤外線信号のformatをセットします。
+     *
+     * @param format IR signal format. 赤外線信号フォーマット。
+     */
     public void setFormat(String format) {
         this.format = format;
     }
 
+    /**
+     * Return the carrier frequency of this IR signal.
+     * 赤外線信号のfreq（キャリア周波数）を返します。
+     *
+     * @return Carrier frequency. キャリア周波数。
+     */
     public float getFrequency() {
         return frequency;
     }
 
+    /**
+     * Set the carrier frequency for this IR signal.
+     * 赤外線信号のfreq（キャリア周波数）をセットします。
+     *
+     * @param frequency Carrier frequency. キャリア周波数。
+     */
     public void setFrequency(float frequency) {
         this.frequency = frequency;
     }
 
+    /**
+     * Return the name of this IR signal.
+     * 赤外線信号の名前を返します。
+     *
+     * @return IR signal name. 赤外線信号の名前。
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the name for this IR signal.
+     * 赤外線信号の名前をセットします。
+     *
+     * @param name IR signal name. 赤外線信号の名前。
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Returns the resource id of the icon image.
+     * アイコンのリソースIDを返します。
+     *
+     * @return Resource id. リソースID。
+     */
     public int getImageResourceId() {
         return imageResourceId;
     }
 
+    /**
+     * Set the icon image using resource id. imageResourceName will not be updated.
+     * リソースIDを使ってアイコンをセットします。imageResourceNameは更新されません。
+     *
+     * @param imageResourceId Resource id. リソースID。
+     */
     public void setImageResourceId(int imageResourceId) {
         this.imageResourceId = imageResourceId;
     }
 
+    /**
+     * Set the icon image using resource id. imageResourceName will be updated as well.
+     * リソースIDを使ってアイコンをセットします。imageResourceNameも同時に更新されます。
+     *
+     * @param imageResourceId Resource id. リソースID。
+     * @param res Resources object
+     */
     public void setImageResourceId(int imageResourceId, Resources res) {
         setImageResourceId(imageResourceId);
         onUpdateImageResourceId(res);
     }
 
+    /**
+     * Return the resource name of the icon image.
+     * アイコンのリソース名を返します。
+     *
+     * @return Resource name. リソース名。
+     */
     public String getImageResourceName() {
         return imageResourceName;
     }
 
+    /**
+     * Set the resource name for the icon image. imageResourceId will not be updated.
+     * アイコンのリソース名をセットします。imageResourceIdは更新されません。
+     *
+     * @param imageResourceName Resource name. リソース名。
+     */
     public void setImageResourceName(String imageResourceName) {
         this.imageResourceName = imageResourceName;
     }
 
+    /**
+     * Return the filename of the icon image.
+     * アイコンのファイル名を返します。
+     *
+     * @return Filename. ファイル名。
+     */
     public String getImageFilename() {
         return imageFilename;
     }
 
+    /**
+     * Set the filename of the icon image. Used for bitmap image.
+     * アイコンの画像ファイル名をセットします。ビットマップ画像をアイコンとして使う際に用います。
+     *
+     * @param imageFilename
+     */
     public void setImageFilename(String imageFilename) {
         this.imageFilename = imageFilename;
         if (imageFilename != null) {
@@ -124,30 +219,72 @@ public class IRSignal implements Serializable, Parcelable {
         }
     }
 
+    /**
+     * Return the deviceid.
+     * deviceidを返します。
+     *
+     * @return deviceid
+     */
     public String getDeviceId() {
         return deviceId;
     }
 
+    /**
+     * Set the deviceid.
+     * deviceidをセットします。
+     *
+     * @param deviceId deviceid
+     */
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
     }
 
+    /**
+     * Return the position in view.
+     * ビューに表示する際の位置を返します。
+     *
+     * @return Position in view. ビュー内の位置。
+     */
     public int getViewPosition() {
         return viewPosition;
     }
 
+    /**
+     * Set the position in view.
+     * ビューに表示する際の位置をセットします。
+     *
+     * @param viewPosition Position in view. ビュー内の位置。
+     */
     public void setViewPosition(int viewPosition) {
         this.viewPosition = viewPosition;
     }
 
+    /**
+     * Return the id of this IR signal.
+     * 赤外線信号のidを返します。
+     *
+     * @return id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Set the id for this IR signal.
+     * 赤外線信号のidをセットします。
+     *
+     * @param id id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Return the suggested filename of the icon image.
+     * アイコン画像の保存場所として推奨されるファイル名を返します。
+     *
+     * @return Filename. ファイル名。
+     */
     public String getSuggestedImageFilename() {
         return id + ".png";
     }
@@ -237,10 +374,20 @@ public class IRSignal implements Serializable, Parcelable {
         return imageFilename != null;
     }
 
+    /**
+     * Unset the bitmap icon image.
+     * アイコンのビットマップ画像を削除します。
+     */
     public void removeBitmapImage() {
         removeBitmapImage(null);
     }
 
+    /**
+     * Unset the bitmap icon image and delete the associated file.
+     * アイコンのビットマップ画像とファイルを削除します。
+     *
+     * @param context Context object
+     */
     public void removeBitmapImage(Context context) {
         if (imageFilename != null && context != null) {
             if (!context.deleteFile(imageFilename)) {
@@ -250,6 +397,12 @@ public class IRSignal implements Serializable, Parcelable {
         imageFilename = null;
     }
 
+    /**
+     * Update imageResourceName based on current imageResourceId.
+     * 現在のimageResourceIdを元にimageResourceNameを更新します。
+     *
+     * @param resources Resources object
+     */
     public void onUpdateImageResourceId(Resources resources) {
         try {
             String name = resources.getResourceName(this.getImageResourceId());
