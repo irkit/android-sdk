@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 /**
  * An IR signal.
- * 赤外線信号を表す。
+ * 赤外線信号を表します。
  */
 public class IRSignal implements Serializable, Parcelable {
     public static final String TAG = IRSignal.class.getSimpleName();
@@ -311,7 +311,7 @@ public class IRSignal implements Serializable, Parcelable {
 
     /**
      * Rename the filename of the bitmap image to a suggested one.
-     * ビットマップ画像のファイル名を推奨されたファイル名に変更する。
+     * ビットマップ画像のファイル名を推奨されたファイル名に変更します。
      *
      * @param context Context
      * @return True if the renaming succeeded. ファイル名変更が成功した場合はtrue。
@@ -330,7 +330,7 @@ public class IRSignal implements Serializable, Parcelable {
 
     /**
      * Returns JSON string which will be used for API parameters.
-     * APIのリクエストパラメータに使用するためのJSON文字列を返す。
+     * APIのリクエストパラメータに使用するためのJSON文字列を返します。
      *
      * @return JSON string
      */
@@ -355,7 +355,7 @@ public class IRSignal implements Serializable, Parcelable {
 
     /**
      * Export format and freq to the given HashMap.
-     * 引数のHashMapにformatとfreqを追加する。
+     * 引数のHashMapにformatとfreqを追加します。
      *
      * @param map HashMap object
      */
@@ -366,7 +366,7 @@ public class IRSignal implements Serializable, Parcelable {
 
     /**
      * Returns whether a bitmap image is associated with this instance.
-     * ビットマップ画像を持っているかどうかを返す。
+     * ビットマップ画像を持っているかどうかを返します。
      *
      * @return True if this instance has a bitmap. ビットマップ画像を持っていればtrue。
      */
