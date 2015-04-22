@@ -26,34 +26,63 @@ public class IRSignal implements Serializable, Parcelable {
     // Never change this or you'll get InvalidClassException!
     private static final long serialVersionUID = 1L;
 
-    // signal data (array of on/off time periods in 2MHz clock)
+    /**
+     * Signal data (array of on/off time periods in 2MHz clock).
+     * 信号データ（2Mhzクロックでのon/off時間の配列）。
+     */
     private int[] data;
 
-    // only "raw" is allowed
+    /**
+     * Signal format. Only "raw" is supported at this time.
+     * フォーマット。現状 "raw" のみサポートされています。
+     */
     private String format = "raw";
 
-    // carrier frequency in kHz
+    /**
+     * Carrier frequency in kHz.
+     * キャリア周波数（kHz）。
+     */
     private float frequency = 38;
 
-    // name of this command
+    /**
+     * Name of this signal.
+     * 信号の名前。
+     */
     private String name;
 
-    // icon image resource id (if it's selected from preset images)
+    /**
+     * Resource id of the icon image. Used only if the icon is a drawable resource.
+     * アイコン画像のリソースID。アイコンがDrawableリソースの場合のみ使用されます。
+     */
     private transient int imageResourceId;
 
-    // icon image resource name (if it's selected from preset images)
+    /**
+     * Resource name of the icon image. Used only if the icon is a drawable resource.
+     * アイコン画像のリソース名。アイコンがDrawableリソースの場合のみ使用されます。
+     */
     private String imageResourceName;
 
-    // icon image filename (if it's stored on internal storage)
+    /**
+     * Filename of the icon image. Used only if the icon is a bitmap image.
+     * アイコン画像のファイル名。アイコンがビットマップ画像の場合のみ使用されます。
+     */
     private String imageFilename;
 
-    // associated device id
+    /**
+     * IRKit deviceid.
+     */
     private String deviceId;
 
-    // position in view
+    /**
+     * Position in a view. Optional.
+     * View内の位置。不要な場合はセットしなくてOK。
+     */
     private int viewPosition;
 
-    // id which uniquely identifies this signal on this device
+    /**
+     * ID which uniquely identifies this signal on the device.
+     * 端末上でIRSignalをユニークに識別するためのID。
+     */
     private String id;
 
     /**

@@ -25,6 +25,7 @@ import retrofit.client.Response;
 
 /**
  * An IRKit device.
+ * IRKitデバイスを表す。
  */
 public class IRPeripheral implements Serializable, Parcelable {
     // Never change this or you'll get InvalidClassException!
@@ -33,36 +34,42 @@ public class IRPeripheral implements Serializable, Parcelable {
     public transient static final String TAG = "IRPeripheral";
 
     /**
-     * Device hostname (remain unchanged over time)
+     * Hostname which uniquely identifies an IRKit device. Hostname will remain unchanged over time.
+     * IRKitデバイスに固有のホスト名。ホスト名はIRKitをリセットしても変わりません。
      */
     private String hostname;
 
     /**
-     * User-provided name
+     * User-provided nickname.
+     * ユーザが設定したニックネーム。
      */
     private String customizedName;
 
     /**
-     * First found date
+     * First found date on a local network.
+     * このIRKitを初めてローカルネットワーク内に発見した日時。
      */
     private Date foundDate;
 
     /**
-     * Unique device ID
+     * A deviceid which is assigned by IRKit Server.
+     * IRKitサーバから割り当てられたdeviceid。
      */
     private String deviceId;
 
     /**
-     * IRKit model name provided by Server header (e.g. "IRKit")
+     * IRKit model name provided by Server header (e.g. "IRKit").
+     * IRKitのモデル名。Device HTTP APIのServerヘッダに含まれる。
      */
     private String modelName;
 
     /**
-     * IRKit firmware version provided by Server header (e.g. "2.0.2.0.g838e0ea")
+     * IRKit firmware version provided by Server header (e.g. "2.0.2.0.g838e0ea").
+     * ファームウェアバージョン。Device HTTP APIのServerヘッダに含まれる。
      */
     private String firmwareVersion;
 
-    // transient == prevent the field from serialization
+    // transient == prevent the field from serializing
     private transient InetAddress host;
     private transient int port;
     private transient boolean isFetchingDeviceId = false;
@@ -80,7 +87,7 @@ public class IRPeripheral implements Serializable, Parcelable {
         public void onErrorFetchingModelInfo(String message);
     }
 
-    // listener won't be packed in a Parcelable
+    // listener won't be packed in a Parcelable since it's transient
     private transient IRPeripheralListener listener;
 
     public IRPeripheralListener getListener() {
@@ -172,9 +179,14 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
+     * Parse the value of Server header in Device HTTP API response.
+     * modelName and firmwareVersion may be updated.
+     * Device HTTP APIのレスポンスに含まれるServerヘッダの値を解釈する。
+     * modelNameとfirmwareVersionの値が変化している場合はフィールドに保存する。
      *
-     * @param server
-     * @return true if modified, false if not modified.
+     * @param server Server header value
+     * @return True if modelName or firmwareVersion has modified.
+     *         modelNameまたはfirmwareVersionの値が更新された場合はtrue。
      */
     public boolean parseServerValue(String server) {
         String[] params = server.split("/", 2);
@@ -193,9 +205,11 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
+     * Parse headers in Device HTTP API response and store in fields if updated.
+     * Device HTTP APIのレスポンスヘッダを解釈してフィールドを必要に応じて更新する。
      *
-     * @param response
-     * @return  true if modified, false if not modified.
+     * @param response Response object
+     * @return  True if a field is modified. フィールドが更新された場合はtrue。
      */
     public boolean storeResponseHeaders(Response response) {
         for (Header header : response.getHeaders()) {
@@ -210,10 +224,20 @@ public class IRPeripheral implements Serializable, Parcelable {
         return false;
     }
 
+    /**
+     * Fetch modelName and firmwareVersion using Device HTTP API.
+     * modelNameとfirmwareVersionをDevice HTTP APIを利用して取得する。
+     */
     public void fetchModelInfo() {
         fetchModelInfo(0);
     }
 
+    /**
+     * Fetch modelName and firmwareVersion using Device HTTP API.
+     * modelNameとfirmwareVersionをDevice HTTP APIを利用して取得する。
+     *
+     * @param retryCount Max retry count. 最大リトライ数。
+     */
     public void fetchModelInfo(final int retryCount) {
         if (!this.isLocalAddressResolved()) {
             Log.e(TAG, "fetchModelInfo: local address isn't resolved");
