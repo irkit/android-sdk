@@ -280,7 +280,7 @@ public class IRPeripheral implements Serializable, Parcelable {
      * POST /keys を呼んでdeviceidを取得します。
      * Fetch deviceid by calling POST /keys.
      *
-     * @see <a href="http://getirkit.com/#toc_3">POST /keys</a>
+     * @see <a href="http://getirkit.com/#toc_3" target="_top">POST /keys</a>
      */
     public void fetchDeviceId() {
         fetchDeviceId(0);
@@ -291,7 +291,7 @@ public class IRPeripheral implements Serializable, Parcelable {
      * Fetch deviceid by calling POST /keys.
      *
      * @param retryCount 現在のリトライ数。 Current retry count.
-     * @see <a href="http://getirkit.com/#toc_3">POST /keys</a>
+     * @see <a href="http://getirkit.com/#toc_3" target="_top">POST /keys</a>
      */
     private void fetchDeviceId(final int retryCount) {
         if (!isLocalAddressResolved()) {
