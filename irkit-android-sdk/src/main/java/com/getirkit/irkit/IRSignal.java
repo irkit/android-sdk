@@ -15,8 +15,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * An IR signal.
  * 赤外線信号を表します。
+ * An IR signal.
  */
 public class IRSignal implements Serializable, Parcelable {
     public static final String TAG = IRSignal.class.getSimpleName();
@@ -27,176 +27,177 @@ public class IRSignal implements Serializable, Parcelable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Signal data (array of on/off time periods in 2MHz clock).
      * 信号データ（2Mhzクロックでのon/off時間の配列）。
+     * Signal data (array of on/off time periods in 2MHz clock).
      */
     private int[] data;
 
     /**
-     * Signal format. Only "raw" is supported at this time.
      * フォーマット。現状 "raw" のみサポートされています。
+     * Signal format. Only "raw" is supported at this time.
      */
     private String format = "raw";
 
     /**
-     * Carrier frequency in kHz.
      * キャリア周波数（kHz）。
+     * Carrier frequency in kHz.
      */
     private float frequency = 38;
 
     /**
-     * Name of this signal.
      * 信号の名前。
+     * Name of this signal.
      */
     private String name;
 
     /**
-     * Resource id of the icon image. Used only if the icon is a drawable resource.
      * アイコン画像のリソースID。アイコンがDrawableリソースの場合のみ使用されます。
+     * Resource id of the icon image. Used only if the icon is a drawable resource.
      */
     private transient int imageResourceId;
 
     /**
-     * Resource name of the icon image. Used only if the icon is a drawable resource.
      * アイコン画像のリソース名。アイコンがDrawableリソースの場合のみ使用されます。
+     * Resource name of the icon image. Used only if the icon is a drawable resource.
      */
     private String imageResourceName;
 
     /**
-     * Filename of the icon image. Used only if the icon is a bitmap image.
      * アイコン画像のファイル名。アイコンがビットマップ画像の場合のみ使用されます。
+     * Filename of the icon image. Used only if the icon is a bitmap image.
      */
     private String imageFilename;
 
     /**
-     * IRKit deviceid.
+     * この信号の送信対象となるIRKitのdeviceid。
+     * deviceid of IRKit which this signal will be sent from.
      */
     private String deviceId;
 
     /**
-     * Position in a view. Optional.
      * View内の位置。不要な場合はセットしなくてOK。
+     * Position in a view. Optional.
      */
     private int viewPosition;
 
     /**
-     * ID which uniquely identifies this signal on the device.
      * 端末上でIRSignalをユニークに識別するためのID。
+     * ID which uniquely identifies this signal on the device.
      */
     private String id;
 
     /**
-     * Constructor.
      * コンストラクタ。
+     * Constructor.
      */
     public IRSignal() {
     }
 
     /**
-     * Return the data array of this IR signal.
      * 赤外線信号のdataを返します。
+     * Return the data array of this IR signal.
      *
-     * @return IR signal data. 赤外線信号データ。
+     * @return 赤外線信号データ。 IR signal data.
      */
     public int[] getData() {
         return data;
     }
 
     /**
-     * Set the data array for this IR signal.
      * 赤外線信号のdataをセットします。
+     * Set the data array for this IR signal.
      *
-     * @param data IR signal data. 赤外線信号データ。
+     * @param data 赤外線信号データ。 IR signal data.
      */
     public void setData(int[] data) {
         this.data = data;
     }
 
     /**
-     * Return the format of this IR signal.
      * 赤外線信号のformatを返します。
+     * Return the format of this IR signal.
      *
-     * @return IR signal format. 赤外線信号フォーマット。
+     * @return 赤外線信号フォーマット。 IR signal format.
      */
     public String getFormat() {
         return format;
     }
 
     /**
-     * Set the format for this IR signal.
      * 赤外線信号のformatをセットします。
+     * Set the format for this IR signal.
      *
-     * @param format IR signal format. 赤外線信号フォーマット。
+     * @param format 赤外線信号フォーマット。 IR signal format.
      */
     public void setFormat(String format) {
         this.format = format;
     }
 
     /**
-     * Return the carrier frequency of this IR signal.
      * 赤外線信号のfreq（キャリア周波数）を返します。
+     * Return the carrier frequency of this IR signal.
      *
-     * @return Carrier frequency. キャリア周波数。
+     * @return キャリア周波数。 Carrier frequency.
      */
     public float getFrequency() {
         return frequency;
     }
 
     /**
-     * Set the carrier frequency for this IR signal.
      * 赤外線信号のfreq（キャリア周波数）をセットします。
+     * Set the carrier frequency for this IR signal.
      *
-     * @param frequency Carrier frequency. キャリア周波数。
+     * @param frequency キャリア周波数。 Carrier frequency.
      */
     public void setFrequency(float frequency) {
         this.frequency = frequency;
     }
 
     /**
-     * Return the name of this IR signal.
      * 赤外線信号の名前を返します。
+     * Return the name of this IR signal.
      *
-     * @return IR signal name. 赤外線信号の名前。
+     * @return 赤外線信号の名前。 IR signal name.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Set the name for this IR signal.
      * 赤外線信号の名前をセットします。
+     * Set the name for this IR signal.
      *
-     * @param name IR signal name. 赤外線信号の名前。
+     * @param name 赤外線信号の名前。 IR signal name.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Returns the resource id of the icon image.
      * アイコンのリソースIDを返します。
+     * Returns the resource id of the icon image.
      *
-     * @return Resource id. リソースID。
+     * @return リソースID。 Resource id.
      */
     public int getImageResourceId() {
         return imageResourceId;
     }
 
     /**
-     * Set the icon image using resource id. imageResourceName will not be updated.
      * リソースIDを使ってアイコンをセットします。imageResourceNameは更新されません。
+     * Set the icon image using resource id. imageResourceName will not be updated.
      *
-     * @param imageResourceId Resource id. リソースID。
+     * @param imageResourceId リソースID。 Resource id.
      */
     public void setImageResourceId(int imageResourceId) {
         this.imageResourceId = imageResourceId;
     }
 
     /**
-     * Set the icon image using resource id. imageResourceName will be updated as well.
      * リソースIDを使ってアイコンをセットします。imageResourceNameも同時に更新されます。
+     * Set the icon image using resource id. imageResourceName will be updated as well.
      *
-     * @param imageResourceId Resource id. リソースID。
+     * @param imageResourceId リソースID。 Resource id.
      * @param res Resources object
      */
     public void setImageResourceId(int imageResourceId, Resources res) {
@@ -205,40 +206,40 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Return the resource name of the icon image.
      * アイコンのリソース名を返します。
+     * Return the resource name of the icon image.
      *
-     * @return Resource name. リソース名。
+     * @return リソース名。 Resource name.
      */
     public String getImageResourceName() {
         return imageResourceName;
     }
 
     /**
-     * Set the resource name for the icon image. imageResourceId will not be updated.
      * アイコンのリソース名をセットします。imageResourceIdは更新されません。
+     * Set the resource name for the icon image. imageResourceId will not be updated.
      *
-     * @param imageResourceName Resource name. リソース名。
+     * @param imageResourceName リソース名。 Resource name.
      */
     public void setImageResourceName(String imageResourceName) {
         this.imageResourceName = imageResourceName;
     }
 
     /**
-     * Return the filename of the icon image.
      * アイコンのファイル名を返します。
+     * Return the filename of the icon image.
      *
-     * @return Filename. ファイル名。
+     * @return ファイル名。 Filename.
      */
     public String getImageFilename() {
         return imageFilename;
     }
 
     /**
-     * Set the filename of the icon image. Used for bitmap image.
      * アイコンの画像ファイル名をセットします。ビットマップ画像をアイコンとして使う際に用います。
+     * Set the filename of the icon image. Used for bitmap image.
      *
-     * @param imageFilename
+     * @param imageFilename 内部ストレージ上の画像ファイル名。 Filename of the image on internal storage.
      */
     public void setImageFilename(String imageFilename) {
         this.imageFilename = imageFilename;
@@ -249,8 +250,8 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Return the deviceid.
      * deviceidを返します。
+     * Return the deviceid.
      *
      * @return deviceid
      */
@@ -259,8 +260,8 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Set the deviceid.
      * deviceidをセットします。
+     * Set the deviceid.
      *
      * @param deviceId deviceid
      */
@@ -269,28 +270,29 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Return the position in view.
      * ビューに表示する際の位置を返します。
+     * Return the position in view.
      *
-     * @return Position in view. ビュー内の位置。
+     * @return ビュー内の位置。セットされていない場合はVIEW_POSITION_INVALID。
+     *         Position in view, or VIEW_POSITION_INVALID if position is not set.
      */
     public int getViewPosition() {
         return viewPosition;
     }
 
     /**
-     * Set the position in view.
      * ビューに表示する際の位置をセットします。
+     * Set the position in view.
      *
-     * @param viewPosition Position in view. ビュー内の位置。
+     * @param viewPosition ビュー内の位置。 Position in view.
      */
     public void setViewPosition(int viewPosition) {
         this.viewPosition = viewPosition;
     }
 
     /**
-     * Return the id of this IR signal.
      * 赤外線信号のidを返します。
+     * Return the id of this IR signal.
      *
      * @return id
      */
@@ -299,8 +301,8 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Set the id for this IR signal.
      * 赤外線信号のidをセットします。
+     * Set the id for this IR signal.
      *
      * @param id id
      */
@@ -309,21 +311,21 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Return the suggested filename of the icon image.
      * アイコン画像の保存場所として推奨されるファイル名を返します。
+     * Return the suggested filename of the icon image.
      *
-     * @return Filename. ファイル名。
+     * @return ファイル名。 Filename.
      */
     public String getSuggestedImageFilename() {
         return id + ".png";
     }
 
     /**
-     * Copy contents from the given IRSignal to this instance.
      * 引数のIRSignalの内容をこのインスタンスにコピーします。
+     * Copy contents from the given IRSignal to this instance.
      *
-     * @param signal Source. コピー元の信号。
-     * @param context Context
+     * @param signal コピー元の信号。 Source.
+     * @param context Context object
      */
     public void copyFrom(IRSignal signal, Context context) {
         setName( signal.getName() );
@@ -339,11 +341,11 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Rename the filename of the bitmap image to a suggested one.
      * ビットマップ画像のファイル名を推奨されたファイル名に変更します。
+     * Rename the filename of the bitmap image to a suggested one.
      *
-     * @param context Context
-     * @return True if the renaming succeeded. ファイル名変更が成功した場合はtrue。
+     * @param context Context object
+     * @return ファイル名変更が成功した場合はtrue。 True if the renaming succeeded.
      */
     public boolean renameToSuggestedImageFilename(Context context) {
         if (imageFilename == null) {
@@ -358,8 +360,8 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Returns JSON string which will be used for API parameters.
      * APIのリクエストパラメータに使用するためのJSON文字列を返します。
+     * Returns JSON string which will be used for API parameters.
      *
      * @return JSON string
      */
@@ -383,8 +385,8 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Export format and freq to the given HashMap.
      * 引数のHashMapにformatとfreqを追加します。
+     * Export format and freq to the given HashMap.
      *
      * @param map HashMap object
      */
@@ -394,26 +396,26 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Returns whether a bitmap image is associated with this instance.
      * ビットマップ画像を持っているかどうかを返します。
+     * Returns whether a bitmap image is associated with this instance.
      *
-     * @return True if this instance has a bitmap. ビットマップ画像を持っていればtrue。
+     * @return ビットマップ画像がセットされている場合はtrue。 True if this instance has a bitmap.
      */
     public boolean hasBitmapImage() {
         return imageFilename != null;
     }
 
     /**
-     * Unset the bitmap icon image.
      * アイコンのビットマップ画像を削除します。
+     * Unset the bitmap icon image.
      */
     public void removeBitmapImage() {
         removeBitmapImage(null);
     }
 
     /**
-     * Unset the bitmap icon image and delete the associated file.
      * アイコンのビットマップ画像とファイルを削除します。
+     * Unset the bitmap icon image and delete the associated file.
      *
      * @param context Context object
      */
@@ -427,8 +429,8 @@ public class IRSignal implements Serializable, Parcelable {
     }
 
     /**
-     * Update imageResourceName based on current imageResourceId.
      * 現在のimageResourceIdを元にimageResourceNameを更新します。
+     * Update imageResourceName based on current imageResourceId.
      *
      * @param resources Resources object
      */
