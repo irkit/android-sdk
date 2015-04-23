@@ -24,8 +24,8 @@ import retrofit.client.Header;
 import retrofit.client.Response;
 
 /**
- * An IRKit device.
  * IRKitデバイスを表します。
+ * An IRKit device.
  */
 public class IRPeripheral implements Serializable, Parcelable {
     // Never change this or you'll get InvalidClassException!
@@ -34,38 +34,38 @@ public class IRPeripheral implements Serializable, Parcelable {
     public transient static final String TAG = "IRPeripheral";
 
     /**
-     * Hostname which uniquely identifies an IRKit device. Hostname will remain unchanged over time.
      * IRKitデバイスに固有のホスト名。ホスト名はIRKitをリセットしても変わりません。
+     * Hostname which uniquely identifies an IRKit device. Hostname will remain unchanged over time.
      */
     private String hostname;
 
     /**
-     * User-provided nickname.
      * ユーザが設定したニックネーム。
+     * User-provided nickname.
      */
     private String customizedName;
 
     /**
-     * First found date on a local network.
      * このIRKitを初めてローカルネットワーク内に発見した日時。
+     * First found date on a local network.
      */
     private Date foundDate;
 
     /**
-     * A deviceid which is assigned by IRKit Server.
      * IRKitサーバから割り当てられたdeviceid。
+     * A deviceid which is assigned by IRKit Server.
      */
     private String deviceId;
 
     /**
-     * IRKit model name provided by Server header (e.g. "IRKit").
      * IRKitのモデル名。Device HTTP APIのServerヘッダから取得されます。
+     * IRKit model name provided by Server header (e.g. "IRKit").
      */
     private String modelName;
 
     /**
-     * IRKit firmware version provided by Server header (e.g. "2.0.2.0.g838e0ea").
      * ファームウェアバージョン。Device HTTP APIのServerヘッダから取得されます。
+     * IRKit firmware version provided by Server header (e.g. "2.0.2.0.g838e0ea").
      */
     private String firmwareVersion;
 
@@ -179,14 +179,14 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Parse the value of Server header in Device HTTP API response.
-     * modelName and firmwareVersion may be updated.
      * Device HTTP APIのレスポンスに含まれるServerヘッダの値を解釈します。
      * modelNameとfirmwareVersionの値が変化している場合はフィールドに保存します。
+     * Parse the value of Server header in Device HTTP API response.
+     * modelName and firmwareVersion may be updated.
      *
      * @param server Server header value
-     * @return True if modelName or firmwareVersion has modified.
-     *         modelNameまたはfirmwareVersionの値が更新された場合はtrue。
+     * @return modelNameまたはfirmwareVersionの値が更新された場合はtrue。
+     *         True if modelName or firmwareVersion has modified.
      */
     public boolean parseServerValue(String server) {
         String[] params = server.split("/", 2);
@@ -205,11 +205,11 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Parse headers in Device HTTP API response and store in fields if updated.
      * Device HTTP APIのレスポンスヘッダを解釈してフィールドを必要に応じて更新します。
+     * Parse headers in Device HTTP API response and store in fields if updated.
      *
      * @param response Response object
-     * @return  True if a field is modified. フィールドが更新された場合はtrue。
+     * @return  フィールドが更新された場合はtrue。 True if a field is modified.
      */
     public boolean storeResponseHeaders(Response response) {
         for (Header header : response.getHeaders()) {
@@ -225,18 +225,18 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Fetch modelName and firmwareVersion.
      * modelNameとfirmwareVersionを取得します。
+     * Fetch modelName and firmwareVersion.
      */
     public void fetchModelInfo() {
         fetchModelInfo(0);
     }
 
     /**
-     * Fetch modelName and firmwareVersion.
      * modelNameとfirmwareVersionを取得します。
+     * Fetch modelName and firmwareVersion.
      *
-     * @param retryCount Max retry count. 最大リトライ数。
+     * @param retryCount 最大リトライ数。 Max retry count.
      */
     public void fetchModelInfo(final int retryCount) {
         if (!this.isLocalAddressResolved()) {
@@ -277,8 +277,8 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Fetch deviceid by calling POST /keys.
      * POST /keys を呼んでdeviceidを取得します。
+     * Fetch deviceid by calling POST /keys.
      *
      * @see <a href="http://getirkit.com/#toc_3">POST /keys</a>
      */
@@ -287,10 +287,10 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Fetch deviceid by calling POST /keys.
      * POST /keys を呼んでdeviceidを取得します。
+     * Fetch deviceid by calling POST /keys.
      *
-     * @param retryCount Current retry count. 現在のリトライ数。
+     * @param retryCount 現在のリトライ数。 Current retry count.
      * @see <a href="http://getirkit.com/#toc_3">POST /keys</a>
      */
     private void fetchDeviceId(final int retryCount) {
@@ -362,11 +362,11 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Return a local network endpoint for this IRKit device.
      * このIRKitデバイスにローカルネットワーク内で接続するためのエンドポイントを返します。
+     * Return a local network endpoint for this IRKit device.
      *
-     * @return A string like "http://host:port", or null if this peripheral is not found on local network.
-     *         "http://host:port" のような文字列。またはIRKitがローカルネットワーク内に見つからない場合はnull。
+     * @return "http://host:port" のような文字列。またはIRKitがローカルネットワーク内に見つからない場合はnull。
+     *         A string like "http://host:port", or null if this peripheral is not found on local network.
      */
     public String getDeviceAPIEndpoint() {
         if ( isLocalAddressResolved() ) {
@@ -377,20 +377,20 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Return whether this IRKit is found on local network.
      * IRKitがローカルネットワーク内に見つかっているかどうかを返します。
+     * Return whether this IRKit is found on local network.
      *
-     * @return True if IRKit is found on local network. IRKitがローカルネットワーク内に検出済みの場合はtrue。
+     * @return IRKitがローカルネットワーク内に検出済みの場合はtrue。 True if IRKit is found on local network.
      */
     public boolean isLocalAddressResolved() {
         return host != null;
     }
 
     /**
-     * Test whether this IRKit is reachable on local network. Blocks up to 100 milliseconds.
      * IRKitへローカルネットワーク内で到達可能かどうかをテストします。最大で100ミリ秒ブロックします。
+     * Test whether this IRKit is reachable on local network. Blocks up to 100 milliseconds.
      *
-     * @return True if IRKit is reachable. IRKitに到達可能な場合はtrue。
+     * @return IRKitに到達可能な場合はtrue。 True if IRKit is reachable.
      */
     public boolean isReachable() {
         if ( isLocalAddressResolved() ) {
@@ -406,28 +406,28 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Callback interface for testReachability().
      * testReachability()で使用するコールバック用インタフェースです。
+     * Callback interface for testReachability().
      *
      * @see IRPeripheral#testReachability(ReachabilityResult)
      */
     public interface ReachabilityResult {
         /**
-         * Called when IRKit is reachable on local network. Device HTTP API is available.
          * IRKitがローカルネットワーク内で到達可能な時に呼ばれます。この場合はDevice HTTP APIを利用できます。
+         * Called when IRKit is reachable on local network. Device HTTP API is available.
          */
         public void reachable();
 
         /**
-         * Called when IRKit is not reachable on local network. Device HTTP API is unavailable.
          * IRKitがローカルネットワーク内で到達できない時に呼ばれます。この場合はDevice HTTP APIを利用できません。
+         * Called when IRKit is not reachable on local network. Device HTTP API is unavailable.
          */
         public void notReachable();
     }
 
     /**
-     * Test asynchronously whether this IRKit is reachable on local network.
      * IRKitにローカルネットワーク内で到達可能かどうかを非同期にテストします。
+     * Test asynchronously whether this IRKit is reachable on local network.
      *
      * @param result ReachabilityResult object
      */
@@ -455,8 +455,8 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Call this method when IRKit is no longer reachable on local network.
      * IRKitにローカルネットワーク内で到達できなくなった際にこのメソッドを呼びます。
+     * Call this method when IRKit is no longer reachable on local network.
      */
     public void lostLocalAddress() {
         this.host = null;
