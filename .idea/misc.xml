@@ -15,9 +15,9 @@
     <option name="OPTION_DOCUMENT_TAG_VERSION" value="false" />
     <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true" />
     <option name="OPTION_DEPRECATED_LIST" value="true" />
-    <option name="OTHER_OPTIONS" value="-bootclasspath /usr/local/android-sdk/platforms/android-22/android.jar" />
+    <option name="OTHER_OPTIONS" value="-bootclasspath /usr/local/android-sdk/platforms/android-22/android.jar -encoding UTF-8 -docencoding UTF-8 -charset UTF-8" />
     <option name="HEAP_SIZE" />
-    <option name="LOCALE" />
+    <option name="LOCALE" value="ja" />
     <option name="OPEN_IN_BROWSER" value="true" />
     <option name="OPTION_INCLUDE_LIBS" value="false" />
   </component>
