@@ -303,6 +303,11 @@ Internet HTTP APIを直接使いたい場合は以下のようにします。
         }
     });
 
+進行中のセットアップをキャンセルするにはcancelIRKitSetup()を呼びます。
+
+    // セットアップをキャンセルする
+    IRKit.sharedInstance().cancelIRKitSetup();
+
 ### <a name="activities-ja"></a>Activityの使い方
 
 SDKには4つのActivityが用意されています。
