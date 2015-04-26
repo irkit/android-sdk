@@ -159,8 +159,13 @@ public class IRKit {
     }
 
     /**
+     * <p class="ja">
      * IRKitデバイスのセットアップを開始します。すでにセットアップが進行中の場合はlistenerの更新だけを行います。
+     * </p>
+     *
+     * <p class="en">
      * Begin IRKit device setup. If a setup is already started, it only updates the listener.
+     * </p>
      *
      * @param apiKey apikey
      * @param connectDestination IRKitを接続させるWi-Fi。 Wi-Fi which will be connected by IRKit.
@@ -340,8 +345,13 @@ public class IRKit {
     }
 
     /**
+     * <p class="ja">
      * contextをセットし、またIRKitインスタンスが初期化されていない場合は初期化します。
+     * </p>
+     *
+     * <p class="en">
      * Set context, and initialize IRKit instance if it is not initialized yet.
+     * </p>
      *
      * @param context Context object
      */
@@ -1178,13 +1188,13 @@ public class IRKit {
     }
 
     /**
-     * <p>
+     * <p class="ja">
      * IRKitから赤外線信号を送信します。ローカルネットワーク内でIRKitに接続できる場合はDevice HTTP APIが使われ、
      * Device HTTP APIが利用できない場合はInternet HTTP APIで送信します。sendSignal()が短時間に複数回
      * 呼ばれた際は、IRKitがパニックを起こさないよう1個ずつ順に送信されます。
      * </p>
      *
-     * <p>
+     * <p class="en">
      * Send signal via IRKit device. When sendSignal() is called multiple times in a short period
      * of time, it will be sent one by one to prevent IRKit device panic.
      * NOTE: IRKit panics when received parallel requests from local network.
