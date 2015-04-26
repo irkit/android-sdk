@@ -1178,15 +1178,20 @@ public class IRKit {
     }
 
     /**
-     * signalをIRKitから送信します。ローカルネットワーク内でIRKitに接続できる場合はDevice HTTP APIが使われ、
+     * <p>
+     * IRKitから赤外線信号を送信します。ローカルネットワーク内でIRKitに接続できる場合はDevice HTTP APIが使われ、
      * Device HTTP APIが利用できない場合はInternet HTTP APIで送信します。sendSignal()が短時間に複数回
      * 呼ばれた際は、IRKitがパニックを起こさないよう1個ずつ順に送信されます。
+     * </p>
+     *
+     * <p>
      * Send signal via IRKit device. When sendSignal() is called multiple times in a short period
      * of time, it will be sent one by one to prevent IRKit device panic.
      * NOTE: IRKit panics when received parallel requests from local network.
+     * </p>
      *
-     * @param signal
-     * @param callback
+     * @param signal 送信する赤外線信号。 IR signal to be sent.
+     * @param callback 結果を受け取るコールバック。 Callback for receiving the result.
      */
     public void sendSignal(IRSignal signal, IRAPIResult callback) {
         synchronized (sendSignalQueue) {
