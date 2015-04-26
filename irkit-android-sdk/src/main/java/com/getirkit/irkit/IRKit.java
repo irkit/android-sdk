@@ -56,7 +56,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * IRKit library main class
+ * IRKit SDKの基本となるクラスです。
+ * Main class for IRKit SDK.
  */
 public class IRKit {
     public String TAG;
@@ -66,14 +67,14 @@ public class IRKit {
     private static final int SEND_SIGNAL_LOCAL_TIMEOUT_MS = 3000;
 
     /**
+     * 既存のIRPeripheralインスタンスが格納されたIRPeripheralsインスタンスです。
      * IRPeripherals instance which holds existing IRPeripheral instances.
-     * 既存のIRPeripheralインスタンスが格納されたIRPeripheralsインスタンス。
      */
     public IRPeripherals peripherals;
 
     /**
+     * 既存のIRSignalインスタンスが格納されたIRSignalsインスタンスです。
      * IRSignals instance which holds existing IRSignal instances.
-     * 既存のIRSignalインスタンスが格納されたIRSignalsインスタンス。
      */
     public IRSignals signals;
 
@@ -100,8 +101,8 @@ public class IRKit {
     private static IRKit ourInstance = new IRKit();
 
     /**
-     * Returns a singleton instance.
      * singletonのインスタンスを返します。
+     * Returns a singleton instance.
      *
      * @return
      */
@@ -121,7 +122,8 @@ public class IRKit {
     }
 
     /**
-     * Load data from shared preferences
+     * SharedPreferencesからデータをロードします。
+     * Load data from SharedPreferences.
      */
     public void loadData() {
         if (!isDataLoaded) {
@@ -141,6 +143,10 @@ public class IRKit {
         }
     }
 
+    /**
+     * デバイスのセットアップをキャンセルします。セットアップが進行中でない場合は何もしません。
+     * Cancel IRKit device setup. Do nothing if setup is not being performed.
+     */
     public void cancelIRKitSetup() {
         if (setupManager != null) {
             setupManager.cancel();
@@ -152,6 +158,15 @@ public class IRKit {
         httpClient.clearDeviceKeyCache();
     }
 
+    /**
+     * IRKitデバイスのセットアップを開始します。すでにセットアップが進行中の場合はlistenerの更新だけを行います。
+     * Begin IRKit device setup. If a setup is already started, it only updates the listener.
+     *
+     * @param apiKey apikey
+     * @param connectDestination IRKitを接続させるWi-Fi。 Wi-Fi which will be connected by IRKit.
+     * @param irkitWifiPassword IRKit Wi-Fiのパスワード。 IRKit Wi-Fi password.
+     * @param listener IRKitConnectWifiListener instance
+     */
     public void setupIRKit(String apiKey, IRWifiInfo connectDestination, String irkitWifiPassword, IRKitConnectWifiListener listener) {
         if (setupManager != null && setupManager.isActive()) {  // There is an active setup
             setupManager.setIrKitConnectWifiListener(listener);
@@ -164,11 +179,11 @@ public class IRKit {
     }
 
     /**
+     * Wi-Fi状態の変化を監視し、Wi-Fiが有効になったらBonjour検索を
+     * 開始し、Wi-Fiが無効になったらBonjour検索を停止します。
      * Watch Wi-Fi state change. When Wi-Fi is enabled, Bonjour discovery
      * will automatically start. When Wi-Fi is disabled, Bonjour discovery
      * will automatically stop.
-     * Wi-Fi状態の変化を監視し、Wi-Fiが有効になったらBonjour検索を
-     * 開始し、Wi-Fiが無効になったらBonjour検索を停止します。
      */
     public void registerWifiStateChangeListener() {
         if (networkStateChangeReceiver == null) {
@@ -178,8 +193,8 @@ public class IRKit {
     }
 
     /**
-     * Unwatch Wi-Fi state change.
      * Wi-Fi状態の監視を停止します。
+     * Unwatch Wi-Fi state change.
      */
     public void unregisterWifiStateChangeListener() {
         if (networkStateChangeReceiver != null) {
@@ -189,8 +204,8 @@ public class IRKit {
     }
 
     /**
-     * Start Bonjour discovery for IRKit.
-     * IRKitのBonjour検索を開始します。
+     * mDNSによるIRKitの検索を開始します。
+     * Start IRKit discovery by mDNS.
      */
     public void startServiceDiscovery() {
         if (!isWifiConnected()) {
@@ -207,8 +222,8 @@ public class IRKit {
     }
 
     /**
-     * Stop Bonjour discovery for IRKit.
-     * IRKitのBonjour検索を停止します。
+     * mDNSによるIRKitの検索を停止します。
+     * Stop IRKit discovery.
      */
     public void stopServiceDiscovery() {
         synchronized (this) {
@@ -220,10 +235,20 @@ public class IRKit {
         stopBonjourDiscovery();
     }
 
+    /**
+     * 初期化が完了しているかどうかを返します。
+     * Return whether the initialization has been done.
+     *
+     * @return 初期化が完了していればtrue。 True if initialization has been done.
+     */
     public boolean isInitialized() {
         return isInitialized;
     }
 
+    /**
+     * peripheralsとsignalsが空の場合にテスト用データを追加します。
+     * Add example data to peripherals and signals if they are empty.
+     */
     public void addExampleDataIfEmpty() {
         if (peripherals.isEmpty()) {
             addExamplePeripheral();
@@ -233,6 +258,10 @@ public class IRKit {
         }
     }
 
+    /**
+     * peripheralsにテストデータを追加します。
+     * Add example data to peripherals.
+     */
     public void addExamplePeripheral() {
         IRPeripheral peripheral = new IRPeripheral();
         peripheral.setHostname("IRKit1234");
@@ -245,6 +274,10 @@ public class IRKit {
         peripherals.save();
     }
 
+    /**
+     * signalsにテストデータを追加します。
+     * Add example data to signals.
+     */
     public void addExampleSignal() {
         // debug (add signal)
         IRSignal testSignal = new IRSignal();
@@ -307,10 +340,10 @@ public class IRKit {
     }
 
     /**
-     * Set context, and initialize IRKit instance if it is not initialized yet.
      * contextをセットし、またIRKitインスタンスが初期化されていない場合は初期化します。
+     * Set context, and initialize IRKit instance if it is not initialized yet.
      *
-     * @param context Application context
+     * @param context Context object
      */
     public void init(Context context) {
         setContext(context);
@@ -321,6 +354,13 @@ public class IRKit {
         }
     }
 
+    /**
+     * SharedPreferencesに文字列データを保存します。
+     * Store data in SharedPreferences.
+     *
+     * @param key Key
+     * @param value Value
+     */
     public void savePreference(String key, String value) {
         SharedPreferences sharedPrefs = context.getSharedPreferences(
                 context.getString(R.string.preferences_file_key), Context.MODE_PRIVATE
@@ -332,6 +372,13 @@ public class IRKit {
         this.requestBackup();
     }
 
+    /**
+     * SharedPreferencesから文字列データを読み込みます。
+     * Fetch data from SharedPreferences.
+     *
+     * @param key Key
+     * @return String, or null if the specified key does not exist.
+     */
     public String getPreference(String key) {
         SharedPreferences sharedPrefs = context.getSharedPreferences(
                 context.getString(R.string.preferences_file_key), Context.MODE_PRIVATE
@@ -339,15 +386,20 @@ public class IRKit {
         return sharedPrefs.getString(key, null);
     }
 
+    /**
+     * Androidバックアップサービスにバックアップをリクエストします。
+     * Request backup to Android backup service.
+     */
     public void requestBackup() {
         BackupManager bm = new BackupManager(context);
         bm.dataChanged();
     }
 
     /**
-     * Returns the global IRKit API key.
+     * 現在セットされているIRKit SDKのapikeyを返します。
+     * Returns the current IRKit apikey.
      *
-     * @return
+     * @return apikey
      */
     public String getIRKitAPIKey() {
         if (context == null) {
@@ -372,10 +424,10 @@ public class IRKit {
     }
 
     /**
-     * If we have not received clientkey yet, fetch it using apikey.
-     * If apikey is null, it is read from AndroidManifest.xml.
      * clientkeyが未取得の場合はapikeyを使って取得します。apikeyがnullの場合は
      * AndroidManifest.xmlで指定されたapikeyを使用します。
+     * If we have not received clientkey yet, fetch it using apikey.
+     * If apikey is null, it is read from AndroidManifest.xml.
      */
     public void registerClient(String apikey) {
         if (apikey == null) {
@@ -397,13 +449,19 @@ public class IRKit {
     }
 
     /**
-     * Fetch clientkey if we have not received it yet.
      * clientkeyが未取得の場合は取得します。
+     * Fetch clientkey if we have not received it yet.
      */
     public void registerClient() {
         registerClient(null);
     }
 
+    /**
+     * networkIdに一致するネットワーク認証情報をAndroidから削除します。
+     * Remove network auth data that matches networkId from Android.
+     *
+     * @param networkId Network ID used by WifiManager
+     */
     public void removeWifiConfiguration(int networkId) {
         if (networkId != -1) {
             fetchWifiManager();
@@ -411,11 +469,21 @@ public class IRKit {
         }
     }
 
+    /**
+     * 現在接続済みのWi-Fiネットワークから切断します。
+     * Disconnect from current Wi-Fi network.
+     */
     public void disconnectFromCurrentWifi() {
         fetchWifiManager();
         wifiManager.disconnect();
     }
 
+    /**
+     * 現在使用しているWi-FiネットワークのWifiConfigurationを返します。
+     * Return the WifiConfiguration for the current Wi-Fi.
+     *
+     * @return WifiConfiguration
+     */
     public WifiConfiguration getCurrentWifiConfiguration() {
         fetchWifiManager();
 
@@ -436,6 +504,12 @@ public class IRKit {
         return null;
     }
 
+    /**
+     * 現在接続済みのWi-FiネットワークのWifiInfoを返します。
+     * Return the WifiInfo instance of current Wi-Fi.
+     *
+     * @return WifiInfo
+     */
     public WifiInfo getCurrentWifiInfo() {
         if (context == null) {
             Log.e(TAG, "getCurrentWifiInfo: context is null");
@@ -453,12 +527,20 @@ public class IRKit {
         }
     }
 
+    /**
+     * WifiManagerインスタンスを取得します。
+     * Fetch WifiManager instance.
+     */
     private void fetchWifiManager() {
         if (wifiManager == null) {
             wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         }
     }
 
+    /**
+     * Wi-Fi状態の監視を停止します。
+     * Stop watching for Wi-Fi state change.
+     */
     public void stopWifiStateListener() {
         if (wifiEnableEventReceiver != null) {
             wifiEnableEventReceiver.stop();
@@ -467,16 +549,34 @@ public class IRKit {
         }
     }
 
+    /**
+     * Wi-Fiを有効にします。
+     * Enable Wi-Fi.
+     *
+     * @param set Wi-Fiを有効にするにはtrue。 To enable Wi-Fi, true.
+     */
     public void setWifiEnabled(boolean set) {
         fetchWifiManager();
         wifiManager.setWifiEnabled(set);
     }
 
+    /**
+     * Wi-Fiが有効になっているかどうかを返します。
+     * Return whether Wi-Fi is enabled.
+     *
+     * @return Wi-Fiが有効な場合はtrue。 True if Wi-Fi is enabled.
+     */
     public boolean isWifiEnabled() {
         fetchWifiManager();
         return wifiManager.isWifiEnabled();
     }
 
+    /**
+     * IRKit Wi-Fiをスキャンして探します。
+     * Scan for IRKit Wi-Fi.
+     *
+     * @param listener 通知を受け取るリスナ。 Listener to be notified.
+     */
     public void scanIRKitWifi(final IRKitWifiScanResultListener listener) {
         fetchWifiManager();
 
@@ -524,11 +624,32 @@ public class IRKit {
         }
     }
 
+    /**
+     * Wi-Fiの接続状況の変化を受け取るリスナ。
+     * Listener to be notified Wi-Fi state changes.
+     */
     public interface WifiConnectionChangeListener {
+        /**
+         * 目的のWi-Fiに接続された時に呼ばれます。
+         * Called when Android is connected to target Wi-Fi.
+         *
+         * @param wifiInfo WifiInfo object
+         * @param networkInfo NetworkInfo object
+         */
         public void onTargetWifiConnected(WifiInfo wifiInfo, NetworkInfo networkInfo);
 
+        /**
+         * Wi-Fi接続エラー時に呼ばれます。
+         * Called when error occurred while connecting to the Wi-Fi.
+         *
+         * @param reason エラーメッセージ。 Error message.
+         */
         public void onError(String reason);
 
+        /**
+         * Wi-Fi接続を試みている間にタイムアウトした際に呼ばれます。
+         * Called when the attempt to connect to the Wi-Fi has timed out.
+         */
         public void onTimeout();
     }
 
@@ -536,6 +657,10 @@ public class IRKit {
         public void onIRKitWifiFound(ScanResult result);
     }
 
+    /**
+     * Wi-Fiのスキャンを停止します。
+     * Stop Wi-Fi scan.
+     */
     public void stopWifiScan() {
         if (scanResultReceiver != null) {
             scanResultReceiver.stopScan();
@@ -544,7 +669,10 @@ public class IRKit {
         }
     }
 
-    // Delete IRKit Wi-Fi configuration from Android
+    /**
+     * Androidに保存されたネットワークからIRKit Wi-Fiのものを削除します。
+     * Remove configured networks that are IRKit Wi-Fi from Android.
+     */
     public void clearIRKitWifiConfigurations() {
         fetchWifiManager();
 
@@ -556,6 +684,13 @@ public class IRKit {
         }
     }
 
+    /**
+     * ssidに該当するWifiConfigurationを返します。
+     * Return WifiConfiguration that matches the ssid.
+     *
+     * @param ssid SSID
+     * @return WifiConfiguration
+     */
     public WifiConfiguration getWifiConfigurationBySSID(String ssid) {
         List<WifiConfiguration> configs = wifiManager.getConfiguredNetworks();
         for (WifiConfiguration config : configs) {
@@ -566,6 +701,13 @@ public class IRKit {
         return null;
     }
 
+    /**
+     * 家のWi-Fi（IRKit Wi-FiではないWi-Fi）に接続します。
+     * Connect to home Wi-Fi (Wi-Fi that is not an IRKit Wi-Fi).
+     *
+     * @param wifiConfig 接続先のWifiConfiguration。 WifiConfiguration to use.
+     * @param listener WifiConnectionChangeListener
+     */
     public void connectToNormalWifi(WifiConfiguration wifiConfig, final WifiConnectionChangeListener listener) {
         fetchWifiManager();
         final WifiConnectionChangeReceiver wifiConnectionChangeReceiver = new WifiConnectionChangeReceiver(wifiManager, wifiConfig);
@@ -603,6 +745,14 @@ public class IRKit {
         wifiManager.enableNetwork(wifiConfig.networkId, true);
     }
 
+    /**
+     * IRKit Wi-Fiへの接続を試みます。
+     * Connect to IRKit Wi-Fi.
+     *
+     * @param irWifiInfo IRKit Wi-Fiの情報。 IRKit Wi-Fi info.
+     * @param listener 通知を受け取るリスナ。 Listener to be notified state changes.
+     * @return IRKit Wi-FiのNetwork ID。 Network ID of IRKit Wi-Fi.
+     */
     public int connectToIRKitWifi(IRWifiInfo irWifiInfo, final WifiConnectionChangeListener listener) {
         final String irkitSSID = "\"" + irWifiInfo.getSSID() + "\"";
 
@@ -679,6 +829,12 @@ public class IRKit {
         return irkitWifiNetworkId;
     }
 
+    /**
+     * デバッグ用の情報をJSON文字列にして返します。
+     * Return JSON string that contains debug info.
+     *
+     * @return JSON string
+     */
     public String getDebugInfo() {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
@@ -743,10 +899,23 @@ public class IRKit {
 //        Log.d(TAG, "BOARD: " + Build.BOARD);
     }
 
+    /**
+     * Androidのロケール設定に該当するregdomainを返します。
+     * Return regdomain for the default locale of this Android.
+     *
+     * @return regdomain
+     */
     public static int getRegDomainForDefaultLocale() {
         return getRegDomainForLocale(Locale.getDefault());
     }
 
+    /**
+     * localeに該当するregdomainを返します。
+     * Return regdomain for the locale.
+     *
+     * @param locale Locale
+     * @return regdomain
+     */
     public static int getRegDomainForLocale(Locale locale) {
         String countryCode = locale.getCountry();
         int regdomain;
@@ -761,6 +930,12 @@ public class IRKit {
         return regdomain;
     }
 
+    /**
+     * Wi-FiインタフェースのIPv4アドレスを返します。
+     * Return IPv4 address of Wi-Fi interface.
+     *
+     * @return Wi-FiインタフェースのIPv4アドレス。 IPv4 address of Wi-Fi interface.
+     */
     public InetAddress getWifiIPv4Address() {
         fetchWifiManager();
         int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
@@ -784,12 +959,28 @@ public class IRKit {
         return inetAddress;
     }
 
+    /**
+     * JmDNSからの通知を受け取るリスナ。
+     * Listener for JmDNS.
+     */
     class BonjourServiceListener implements ServiceListener {
+        /**
+         * サービスが追加された際に呼ばれます。
+         * Called when a service is added.
+         *
+         * @param serviceEvent ServiceEvent
+         */
         @Override
         public void serviceAdded(ServiceEvent serviceEvent) {
             jmdns.requestServiceInfo(serviceEvent.getType(), serviceEvent.getName());
         }
 
+        /**
+         * サービスが使えなくなった際に呼ばれます。
+         * Called when a service become unavailable.
+         *
+         * @param serviceEvent ServiceEvent
+         */
         @Override
         public void serviceRemoved(ServiceEvent serviceEvent) {
             String serviceName = serviceEvent.getName();
@@ -799,6 +990,12 @@ public class IRKit {
             }
         }
 
+        /**
+         * サービスが解決されてServiceInfoが利用可能になった際に呼ばれます。
+         * Called when a service is resolved and ServiceInfo become available.
+         *
+         * @param serviceEvent ServiceEvent
+         */
         @Override
         public void serviceResolved(ServiceEvent serviceEvent) {
             ServiceInfo serviceInfo = serviceEvent.getInfo();
@@ -931,10 +1128,18 @@ public class IRKit {
         }.execute();
     }
 
+    /**
+     * mDNSでの検索を開始します。
+     * Start mDNS discovery.
+     */
     public void startBonjourDiscovery() {
         pushDiscoveryQueue(true);
     }
 
+    /**
+     * mDNSでの検索を停止します。
+     * Stop mDNS discovery.
+     */
     public void stopBonjourDiscovery() {
         pushDiscoveryQueue(false);
     }
@@ -973,9 +1178,12 @@ public class IRKit {
     }
 
     /**
-     * Call _sendSignal() one by one using queue
-     *
-     * IRKit panics when received parallel requests from local network.
+     * signalをIRKitから送信します。ローカルネットワーク内でIRKitに接続できる場合はDevice HTTP APIが使われ、
+     * Device HTTP APIが利用できない場合はInternet HTTP APIで送信します。sendSignal()が短時間に複数回
+     * 呼ばれた際は、IRKitがパニックを起こさないよう1個ずつ順に送信されます。
+     * Send signal via IRKit device. When sendSignal() is called multiple times in a short period
+     * of time, it will be sent one by one to prevent IRKit device panic.
+     * NOTE: IRKit panics when received parallel requests from local network.
      *
      * @param signal
      * @param callback
@@ -1064,6 +1272,12 @@ public class IRKit {
         }
     }
 
+    /**
+     * Wi-Fiに接続済みかどうかを返します。
+     * Return whether Android is connected to Wi-Fi.
+     *
+     * @return Wi-Fiに接続済みの場合はtrue。 True if Android is connected to Wi-Fi.
+     */
     public boolean isWifiConnected() {
         ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
