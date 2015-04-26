@@ -1286,20 +1286,33 @@ public class IRKit {
 
     // Getters and setters
 
+    /**
+     * irkitEventListenerを返します。
+     * Return irkitEventListener.
+     *
+     * @return irkitEventListener
+     */
     public IRKitEventListener getIRKitEventListener() {
         return irkitEventListener;
     }
 
     /**
-     * Set an IRKitEventListener to this instance.
      * IRKitEventListenerをセットします。nullが渡された場合はリスナを解除します。
+     * Set an IRKitEventListener to this instance. When null is passed, listener will be removed.
      *
-     * @param listener IRKitEventListener instance. Pass null to unset listener.
+     * @param listener IRKitEventListenerインスタンス。あるいはリスナを解除するにはnull。
+     *                 IRKitEventListener instance, or null to remove the listener.
      */
     public void setIRKitEventListener(IRKitEventListener listener) {
         this.irkitEventListener = listener;
     }
 
+    /**
+     * Contextをセットします。
+     * Set the context.
+     *
+     * @param c Context object
+     */
     public void setContext(Context c) {
         context = c;
         if (!httpClient.hasClientKey()) {
@@ -1307,19 +1320,53 @@ public class IRKit {
         }
     }
 
+    /**
+     * Contextを返します。
+     * Return the context.
+     *
+     * @return Context object
+     */
     public Context getContext() {
         return context;
     }
 
+    /**
+     * データをロード済みかどうかを返します。
+     * Return whether the data has been loaded.
+     *
+     * @return データをロード済みの場合はtrue。 True if the data has been loaded.
+     */
     public boolean isDataLoaded() {
         return isDataLoaded;
     }
 
     // Interfaces
 
+    /**
+     * IRKitデバイスのセットアップ状況の通知を受けるためのリスナです。
+     * Listener to be notified the setup status of IRKit device.
+     */
     public interface IRKitConnectWifiListener {
+        /**
+         * セットアップ状況が変化した際に呼ばれます。
+         * Called when the setup status has changed.
+         *
+         * @param status セットアップ状況。 Setup status.
+         */
         public void onStatus(String status);
+
+        /**
+         * セットアップがエラーで中断された場合に呼ばれます。
+         * Called when the setup has failed.
+         *
+         * @param message エラーメッセージ。 Error message.
+         */
         public void onError(String message);
+
+        /**
+         * セットアップが完了した際に呼ばれます。
+         * Called when the setup has been completed.
+         */
         public void onComplete();
     }
 
@@ -1359,6 +1406,10 @@ public class IRKit {
         }
     }
 
+    /**
+     * Wi-Fi接続状況の変更通知を受け取るクラスです。
+     * Receiver for Wi-Fi state changes.
+     */
     private static class WifiConnectionChangeReceiver extends BroadcastReceiver {
         public static final String TAG = WifiConnectionChangeReceiver.class.getSimpleName();
 
@@ -1543,6 +1594,10 @@ public class IRKit {
         }
     }
 
+    /**
+     * Wi-Fiが有効になったという通知を受け取るクラスです。
+     * Receiver for the event which Wi-Fi is enabled.
+     */
     private static class WifiEnableEventReceiver extends BroadcastReceiver {
         public static final String TAG = WifiEnableEventReceiver.class.getSimpleName();
 
@@ -1580,6 +1635,10 @@ public class IRKit {
         }
     }
 
+    /**
+     * Wi-Fiスキャン結果を受け取るクラスです。
+     * Receiver for Wi-Fi scan results.
+     */
     private static class ScanResultReceiver extends BroadcastReceiver {
         public static final String TAG = ScanResultReceiver.class.getSimpleName();
 
