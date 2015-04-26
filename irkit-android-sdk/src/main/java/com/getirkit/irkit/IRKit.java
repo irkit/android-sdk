@@ -625,7 +625,7 @@ public class IRKit {
     }
 
     /**
-     * Wi-Fiの接続状況の変化を受け取るリスナ。
+     * Wi-Fiの接続状況の変化を受け取るリスナインタフェースです。
      * Listener to be notified Wi-Fi state changes.
      */
     public interface WifiConnectionChangeListener {
@@ -960,7 +960,7 @@ public class IRKit {
     }
 
     /**
-     * JmDNSからの通知を受け取るリスナ。
+     * JmDNSからの通知を受け取るリスナクラスです。
      * Listener for JmDNS.
      */
     class BonjourServiceListener implements ServiceListener {
@@ -1292,7 +1292,7 @@ public class IRKit {
 
     /**
      * Set an IRKitEventListener to this instance.
-     * IRKitEventListenerをセットします。nullが渡された場合はリスナーを解除します。
+     * IRKitEventListenerをセットします。nullが渡された場合はリスナを解除します。
      *
      * @param listener IRKitEventListener instance. Pass null to unset listener.
      */
