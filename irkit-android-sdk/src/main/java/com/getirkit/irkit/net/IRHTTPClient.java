@@ -25,12 +25,22 @@ import retrofit.mime.TypedInput;
 import retrofit.mime.TypedString;
 
 /**
- * HTTP client
+ * Device HTTP APIとInternet HTTP APIを利用するためのクラスです。
+ * Client for HTTP API and Internet HTTP API.
  */
 public class IRHTTPClient {
     public static final String TAG = IRHTTPClient.class.getSimpleName();
 
+    /**
+     * Internet HTTP APIのエンドポイントです。
+     * Endpoint for Internet HTTP API.
+     */
     public static final String APIENDPOINT_BASE = "https://api.getirkit.com";
+
+    /**
+     * IRKit Wi-Fiに接続しているときのDevice HTTP APIのエンドポイントです。
+     * Endpoint for Device HTTP API when IRKit Wi-Fi is active.
+     */
     public static final String DEVICE_API_ENDPOINT_IRKITWIFI = "http://192.168.1.1";
 
     // Retrofit
@@ -38,6 +48,7 @@ public class IRHTTPClient {
     private RestAdapter deviceRestAdapter;
     public IRInternetAPIService internetAPIService;
     public IRDeviceAPIService deviceAPIService;
+
     private String clientkey;
     private OkHttpClient internetHttpClient;
     private OkHttpClient localHttpClient;
@@ -52,6 +63,12 @@ public class IRHTTPClient {
         return ourInstance;
     }
 
+    /**
+     * コンストラクタです。インスタンスを取得するときはsharedInstance()メソッドを使ってください。
+     * Constructor. To get an instance, use sharedInstance().
+     *
+     * @see IRHTTPClient#sharedInstance()
+     */
     public IRHTTPClient() {
         internetHttpClient = new OkHttpClient();
 
@@ -81,19 +98,33 @@ public class IRHTTPClient {
         deviceAPIService = deviceRestAdapter.create(IRDeviceAPIService.class);
     }
 
+    /**
+     * clientkeyをセットします。
+     * Set a clientkey.
+     *
+     * @param key clientkey
+     */
     public void setClientKey(String key) {
         clientkey = key;
     }
 
     /**
-     * Set endpoint for IRKit Device HTTP API
+     * Device HTTP APIのエンドポイントをセットします。
+     * Set an endpoint for Device HTTP API.
      *
-     * @param endpoint e.g. "http://127.0.0.1"
+     * @param endpoint A string like "http://127.0.0.1"
      */
     public void setDeviceAPIEndpoint(String endpoint) {
         deviceEndpoint.setUrl(endpoint);
     }
 
+    /**
+     * apikeyを元にclientkeyを取得します。
+     * Fetch clientkey using apikey.
+     *
+     * @param apiKey apikey
+     * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
+     */
     public void registerClient(String apiKey, final IRAPICallback<IRInternetAPIService.GetClientsResponse> callback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("apikey", apiKey);
@@ -117,6 +148,13 @@ public class IRHTTPClient {
         });
     }
 
+    /**
+     * clientkeyを取得していない場合は取得します。
+     * Fetch clientkey if it is not fetched yet.
+     *
+     * @param apiKey apikey
+     * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
+     */
     public void ensureRegisteredAndCall(String apiKey, IRAPICallback<IRInternetAPIService.GetClientsResponse> callback) {
         if (clientkey == null) {
             IRHTTPClient.sharedInstance().registerClient(apiKey, callback);
@@ -125,6 +163,13 @@ public class IRHTTPClient {
         }
     }
 
+    /**
+     * Internet HTTP APIで赤外線信号を送信します。
+     * Send signal over Internet HTTP API.
+     *
+     * @param signal IRSignal
+     * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
+     */
     public void sendSignalOverInternet(IRSignal signal, final IRAPICallback<IRInternetAPIService.PostMessagesResponse> callback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("deviceid", signal.getDeviceId());
@@ -148,11 +193,12 @@ public class IRHTTPClient {
     }
 
     /**
-     * Send IRSignal over local network
+     * Device HTTP APIで赤外線信号を送信します。
+     * Send IRSignal over Device HTTP API.
      *
-     * @param signal
-     * @param result
-     * @param timeoutMs
+     * @param signal IRSignal
+     * @param result 結果を受け取るコールバック。 Callback to be notified a result.
+     * @param timeoutMs タイムアウト（ミリ秒）。 Timeout in milliseconds.
      */
     public void sendSignalOverLocalNetwork(final IRSignal signal, final IRAPIResult result, int timeoutMs) {
         IRDeviceAPIService.PostMessagesRequest request = new IRDeviceAPIService.PostMessagesRequest();
