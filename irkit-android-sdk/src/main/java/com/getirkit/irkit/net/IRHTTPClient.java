@@ -274,10 +274,24 @@ public class IRHTTPClient {
         });
     }
 
+    /**
+     * IRKitサーバに保存されている最新の赤外線信号を削除して、新しく赤外線信号を待機します。
+     * Clear the IR signal saved in IRKit server, then wait for a new IR signal.
+     *
+     * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
+     */
     public void waitForSignal(IRAPICallback<IRInternetAPIService.GetMessagesResponse> callback) {
         waitForSignal(callback, true);
     }
 
+    /**
+     * 赤外線信号を受信します。
+     * Receive an IR signal.
+     *
+     * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
+     * @param clear trueの場合、IRKitサーバに保存されている信号を削除して、新しい信号を待機します。
+     *              If true, delete the IR signal saved in IRKit server, then wait for a new IR signal.
+     */
     public void waitForSignal(final IRAPICallback<IRInternetAPIService.GetMessagesResponse> callback, boolean clear) {
         HashMap<String, String> params = new HashMap<>(2);
         if (clear) {
@@ -313,16 +327,47 @@ public class IRHTTPClient {
         });
     }
 
+    /**
+     * <p class="ja">
+     * waitForSignal()をキャンセルします。現在進行中のwaitForSignal()については
+     * コールバックは呼ばれません。
+     * </p>
+     *
+     * <p class="en">
+     * Cancel waitForSignal(). The callback passed to ongoing waitForSignal()
+     * will never be called.
+     * </p>
+     */
     public void cancelRequests() {
         lastRequestDate = null;
     }
 
+    /**
+     * 引数のparamsにclientkeyを追加します。
+     * Add clientkey to the given params.
+     *
+     * @param params Map object
+     */
     public void addClientKey(Map<String, String> params) {
         if (clientkey != null) {
             params.put("clientkey", clientkey);
         }
     }
 
+    /**
+     * <p class="ja">
+     * Internet HTTP APIのPOST /1/devicesのレスポンスはキャッシュされますが、
+     * そのキャッシュを削除します。IRHTTPClientインスタンスを作成するたびに
+     * キャッシュは空になります。
+     * </p>
+     *
+     * <p class="en">
+     * Delete the cached response of POST /1/devices. A newly-created
+     * IRHTTPClient instance does not have a cached response. When it
+     * receives the response of POST /1/devices of Internet HTTP API,
+     * it will be cached.
+     * </p>
+     */
     public void clearDeviceKeyCache() {
         holdingPostDevicesResponse = null;
     }
