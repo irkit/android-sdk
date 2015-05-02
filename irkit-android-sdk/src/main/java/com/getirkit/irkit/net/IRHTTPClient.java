@@ -372,6 +372,13 @@ public class IRHTTPClient {
         holdingPostDevicesResponse = null;
     }
 
+    /**
+     * devicekeyを取得します。
+     * Fetch a devicekey.
+     *
+     * @param callback devicekey取得結果を受け取るコールバック。
+     *                 Callback to be notified a result which contains devicekey.
+     */
     public void obtainDeviceKey(final IRAPICallback<IRInternetAPIService.PostDevicesResponse> callback) {
         if (clientkey == null) {
             throw new IllegalStateException("clientkey is not set");
@@ -398,6 +405,13 @@ public class IRHTTPClient {
         });
     }
 
+    /**
+     * IRKitをWi-Fiに接続させます。Device HTTP APIが使える場合のみ動作します。
+     * Connect an IRKit to Wi-Fi. This method works only if Device HTTP API is available.
+     *
+     * @param irWifiInfo 接続先のWi-Fi情報。 Target Wi-Fi.
+     * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
+     */
     public void connectDeviceToWifi(IRWifiInfo irWifiInfo, final IRAPICallback<IRDeviceAPIService.PostWifiResponse> callback) {
         if (holdingPostDevicesResponse == null) {
             throw new IllegalStateException("holdingPostDevicesResponse is null");
@@ -419,10 +433,27 @@ public class IRHTTPClient {
         });
     }
 
+    /**
+     * waitForDoor()をキャンセルします。
+     * Cancel previously called waitForDoor().
+     */
     public void cancelPostDoor() {
         lastPostDoorRequestDate = null;
     }
 
+    /**
+     * <p class="ja">
+     * POST /1/doorを呼んで結果を待機します。サーバ側でタイムアウトして408が返ってきた場合は再度リクエストして待機します。
+     * </p>
+     *
+     * <p class="en">
+     * Call POST/1/door and wait for a result. When server returns 408 (server-side timeout), another
+     * request will be sent and this method will keep waiting.
+     * </p>
+     *
+     * @param deviceId deviceid
+     * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
+     */
     public void waitForDoor(final String deviceId, final IRAPICallback<IRInternetAPIService.PostDoorResponse> callback) {
         HashMap<String, String> params = new HashMap<>(2);
         addClientKey(params);
@@ -476,18 +507,42 @@ public class IRHTTPClient {
         });
     }
 
+    /**
+     * Internet HTTP APIを直接利用するためのインスタンスを返します。
+     * Return the instance which provides direct access to Internet HTTP API.
+     *
+     * @return Internet HTTP APIを提供するインスタンス。 Instance which provides Internet HTTP API.
+     */
     public IRInternetAPIService getInternetAPIService() {
         return internetAPIService;
     }
 
+    /**
+     * Device HTTP APIを直接利用するためのインスタンスを返します。
+     * Return the instance which provides direct access to Device HTTP API.
+     *
+     * @return Device HTTP APIを提供するインスタンス。 Instance which provides Device HTTP API.
+     */
     public IRDeviceAPIService getDeviceAPIService() {
         return deviceAPIService;
     }
 
+    /**
+     * clientkeyを返します。
+     * Return the clientkey.
+     *
+     * @return clientkey
+     */
     public String getClientKey() {
         return clientkey;
     }
 
+    /**
+     * clientkeyがセット済みかどうかを返します。
+     * Return whether clientkey has been set.
+     *
+     * @return clientkeyがセット済みならtrue。 True if clientkey has been set.
+     */
     public boolean hasClientKey() {
         return clientkey != null;
     }
