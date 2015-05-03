@@ -13,7 +13,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- * List of IRPeripheral.
+ * IRPeripheralを格納するArrayList。
+ * ArrayList that stores IRPeripheral.
  */
 public class IRPeripherals extends ArrayList<IRPeripheral> {
     // Never change this or you'll get InvalidClassException!
@@ -22,6 +23,13 @@ public class IRPeripherals extends ArrayList<IRPeripheral> {
     public static final String TAG = "IRPeripherals";
     public static final String PREFS_KEY = "peripherals";
 
+    /**
+     * hostnameからIRPeripheralインスタンスを作成して追加します。
+     * Create new IRPeripheral instance from hostname then add it.
+     *
+     * @param hostname IRKitデバイスのホスト名。 Hostname of IRKit device.
+     * @return 作成されたIRPeripheralインスタンス。 IRPeripheral instance which is created.
+     */
     public IRPeripheral addPeripheral(String hostname) {
         IRPeripheral peripheral = new IRPeripheral();
         peripheral.setHostname(hostname);
@@ -31,6 +39,14 @@ public class IRPeripherals extends ArrayList<IRPeripheral> {
         return peripheral;
     }
 
+    /**
+     * deviceidが一致するIRPeripheralを返します。
+     * Return IRPeripheral that matches deviceId.
+     *
+     * @param deviceId deviceid
+     * @return 一致したIRPeripheralインスタンス。一致するものがなかった場合はnull。
+     *         Matched IRPeripheral instance, or null if not matched.
+     */
     public IRPeripheral getPeripheralByDeviceId(String deviceId) {
         for (IRPeripheral peripheral : this) {
             if (peripheral != null) {
@@ -43,6 +59,21 @@ public class IRPeripherals extends ArrayList<IRPeripheral> {
         return null;
     }
 
+    /**
+     * <p class="ja">
+     * hostnameが一致するIRPeripheralを返します。
+     * 大文字小文字に関係なくマッチします。
+     * </p>
+     *
+     * <p class="en">
+     * Return IRPeripheral that matches hostname.
+     * It will perform case-insensitive match.
+     * </p>
+     *
+     * @param name hostname
+     * @return 一致したIRPeripheralインスタンス。一致するものがなかった場合はnull。
+     *         Matched IRPeripheral instance, or null if not matched.
+     */
     public IRPeripheral getPeripheral(String name) {
         if (name == null) {
             return null;
@@ -56,6 +87,10 @@ public class IRPeripherals extends ArrayList<IRPeripheral> {
         return null;
     }
 
+    /**
+     * SharedPreferencesにデータを保存します。
+     * Save data to SharedPreferences.
+     */
     public void save() {
         String serializedStr;
         try {

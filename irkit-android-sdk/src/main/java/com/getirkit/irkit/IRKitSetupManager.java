@@ -17,6 +17,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
+ * IRKitのセットアップを担うクラスです。
  * Handles setting up an IRKit.
  */
 public class IRKitSetupManager implements IRKitEventListener {
