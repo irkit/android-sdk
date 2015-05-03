@@ -13,8 +13,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- * IRPeripheralを格納するArrayList。
- * ArrayList that stores IRPeripheral.
+ * IRPeripheralを格納するArrayListです。
+ * ArrayList that holds IRPeripheral.
  */
 public class IRPeripherals extends ArrayList<IRPeripheral> {
     // Never change this or you'll get InvalidClassException!
@@ -106,6 +106,10 @@ public class IRPeripherals extends ArrayList<IRPeripheral> {
         IRKit.sharedInstance().savePreference(PREFS_KEY, serializedStr);
     }
 
+    /**
+     * SharedPreferencesからこのインスタンスにデータを読み込みます。
+     * Load data from SharedPreferences into this instance.
+     */
     public void load() {
         this.clear();
 
@@ -129,6 +133,12 @@ public class IRPeripherals extends ArrayList<IRPeripheral> {
         }
     }
 
+    /**
+     * JSONArrayに変換したものを返します。
+     * Return JSONArray representation.
+     *
+     * @return JSONArray object
+     */
     public JSONArray toJSONArray() {
         JSONArray arr = new JSONArray();
         for (IRPeripheral peripheral : this) {
