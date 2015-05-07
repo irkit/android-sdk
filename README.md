@@ -23,6 +23,10 @@ IRKitの機能をAndroidアプリに組み込むためのSDKです。
   - [SignalActivity](#signalactivity-ja)
   - [DeviceActivity](#deviceactivity-ja)
 - [IRKitデバイス発見イベントを受け取る](#receiving-events-ja)
+- [HTTP APIを直接使う](#http-api)
+  - [Device HTTP APIの利用可否](#device-http-api-availability)
+  - [Internet HTTP API](#internet-http-api)
+  - [Device HTTP API](#device-http-api)
 - [Javadoc](http://irkit.github.io/android-sdk/javadoc/)
 - [サンプルコード](#sample-ja)
 - [サンプルアプリの動かし方](#sample-app-ja)
@@ -35,20 +39,24 @@ Android Studioをお使いの場合、モジュールのbuild.gradleの`dependen
 
 ### <a name="apikey-ja"></a>apikeyをセットする
 
-AndroidManifest.xmlの`<application>`内に以下の`<meta-data>`を追加します。`YOUR_API_KEY`の部分を取得したapikeyに置き換えてください。apikeyの取得方法は[POST /1/apps](http://getirkit.com/#IRKit-Internet-POST-1-apps)を参照してください。
+apikeyは開発時に一度だけ取得してアプリに埋め込みます。AndroidManifest.xmlの`<application>`内に以下の`<meta-data>`を追加して、`YOUR_API_KEY`を取得したapikeyに置き換えてください。
 
     <meta-data android:name="com.getirkit.IRKIT_API_KEY" android:value="YOUR_API_KEY" />
 
+apikeyの取得方法は[POST /1/apps](http://getirkit.com/#IRKit-Internet-POST-1-apps)を参照してください。curlコマンドが利用できない場合は、[Postman](https://chrome.google.com/webstore/detail/postman-rest-client-packa/fhbjgbiflinjbdggehcddcbncdddomop)（Chrome）や[Poster](https://addons.mozilla.org/ja/firefox/addon/poster/)（Firefox）などのブラウザ拡張機能を利用してapikeyを取得できます。
+
 ### <a name="classes-ja"></a>クラスの概要
 
-クラス名      | 役割
-------------- | -------------------------------
-IRKit         | SDKの基本クラス
-IRSignal      | 1つの赤外線信号を表す
-IRSignals     | IRSignalを格納するArrayList
-IRPeripheral  | 1つのIRKitデバイスを表す
-IRPeripherals | IRPeripheralを格納するArrayList
-IRHTTPClient  | HTTP APIを直接操作するためのクラス
+クラス                               | 役割
+------------------------------------ | -------------------------------
+com.getirkit.irkit.IRKit             | SDKの基本クラス
+com.getirkit.irkit.IRSignal          | 1つの赤外線信号を表す
+com.getirkit.irkit.IRSignals         | IRSignalを格納するArrayList
+com.getirkit.irkit.IRPeripheral      | 1つのIRKitデバイスを表す
+com.getirkit.irkit.IRPeripherals     | IRPeripheralを格納するArrayList
+com.getirkit.irkit.net.IRHTTPClient  | HTTP APIを直接扱うためのクラス
+
+IRHTTPClientはDevice HTTP APIやInternet HTTP APIを直接扱いたい場合に利用しますが、IRKitクラスにはより手軽に利用できるメソッドが用意されていますので、通常はIRHTTPClientを使う必要はありません。
 
 ### <a name="setup-sdk-ja"></a>SDKを組み込む
 
@@ -99,7 +107,7 @@ ActivityのonResume()とonPause()に以下のコードを追加します。
         irkit.unregisterWifiStateChangeListener();
     }
 
-SDKはローカルネットワーク内にIRKitを発見すると自動的に内部的なセットアップを行い、数秒後に赤外線信号を受信できる状態になります。
+SDKはローカルネットワーク内にIRKitを発見すると自動的にdeviceidの取得などの初期設定を内部で行います。
 
 ### <a name="receiving-signal-ja"></a>赤外線信号を受信する
 
@@ -134,7 +142,7 @@ SDKはローカルネットワーク内にIRKitを発見すると自動的に内
         }
     }, true);
 
-waitForSignal()を使わずにInternet HTTP APIを直接操作したい場合は以下のようにします。
+waitForSignal()を使わずにInternet HTTP APIを直接使いたい場合は以下のようにします。
 
     // Internet HTTP API
     IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
@@ -164,14 +172,14 @@ waitForSignal()を使わずにInternet HTTP APIを直接操作したい場合は
 
 ### <a name="get-irperipherals-ja"></a>保存済みのIRKitデバイス一覧を取得する
 
-    // SDKに保存されているIRKitデバイス一覧を取得
+    // 保存済みのIRKitデバイス一覧を取得
     IRPeripherals peripherals = IRKit.sharedInstance().peripherals;
 
 IRPeripheralsはIRPeripheralを保持するArrayListです。
 
 ### <a name="get-irsignals-ja"></a>保存済みの赤外線信号一覧を取得する
 
-    // SDKに保存されている赤外線信号一覧を取得
+    // 保存済みの赤外線信号一覧を取得
     IRSignals signals = IRKit.sharedInstance().signals;
 
 IRSignalsはIRSignalを保持するArrayListです。
@@ -214,7 +222,7 @@ IRSignalsはIRSignalを保持するArrayListです。
         }
     });
 
-上記のsendSignal()を使わずにDevice HTTP APIを直接使いたい場合は以下のようにします。
+上記のsendSignal()を使わずにDevice HTTP APIを直接使いたい場合は以下のようにします。Device HTTP APIを使って信号を送信する場合はdeviceidは不要です。
 
     IRHTTPClient httpClient = IRKit.sharedInstance().getHTTPClient();
 
@@ -483,7 +491,7 @@ IRKitデバイスの詳細情報を表示、編集、削除する画面を表示
 
 ### <a name="receiving-events-ja"></a>IRKitデバイス発見イベントを受け取る
 
-SDKはローカルネットワーク内のIRKitをmDNSで自動検出します。IRKitデバイスが見つかった際にイベントを受け取るには、IRKitEventListenerを実装して以下2つのメソッドをオーバーライドします。
+SDKはローカルネットワーク内のIRKitをmDNSで自動検出します。IRKitデバイスが見つかった際にイベントを受け取りたい場合は、IRKitEventListenerを実装して以下2つのメソッドをオーバーライドします。
 
     @Override
     public void onNewIRKitFound(IRPeripheral peripheral) {
@@ -530,6 +538,135 @@ SDKが新しいIRKitデバイスを発見した場合、内部的な設定とIRK
     signals.save();
 
 -->
+### <a name="http-api"></a>HTTP APIを直接使う
+
+#### <a name="device-http-api-availability"></a>Device HTTP APIの利用可否
+
+Internet HTTP APIはインターネット接続があれば常に利用可能ですが、Device HTTP APIは同一ネットワーク上にあるIRKitにアクセス可能な場合のみ利用できます。ただし、同一ネットワーク上にIRKitが存在してもルータ側のセキュリティ設定でクライアント同士の通信が制限されている場合などはDevice HTTP APIを利用できません。
+
+IRKitクラスのメソッドは内部でDevice HTTP APIの利用可否を判断して適切なAPIを使うようになっていますが、HTTP APIを直接使う場合はDevice HTTP APIとInternet HTTP APIのどちらを利用するかを手動で判断する必要があります。Device HTTP APIが利用できるかどうかを判断するにはIRPeripheralのisLocalAddressResolved()を呼びます。
+
+    // IRPeripheralインスタンスを何らかの方法で取得
+    IRPeripheral peripheral = IRKit.sharedInstance().peripherals.get(0);
+
+    if (peripheral.isLocalAddressResolved()) {
+        // このperipheralに対してDevice HTTP APIを利用できる
+    } else {
+        // このperipheralに対してDevice HTTP APIを利用できない
+    }
+
+#### <a name="internet-http-api"></a>Internet HTTP API
+
+    // Internet HTTP APIのインタフェースを取得
+    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+
+上のように取得したIRInternetAPIServiceインスタンスから各メソッドを呼び出すことができます。使用できるメソッド一覧は[IRInternetAPIServiceのAPIドキュメント](http://irkit.github.io/android-sdk/javadoc/com/getirkit/irkit/net/IRInternetAPIService.html)を参照してください。
+
+以下は赤外線信号を送信する例です。
+
+    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+
+    // リクエストパラメータをセット
+    HashMap<String, String> params = new HashMap<>();
+    params.put("clientkey", "XXXXXXXXXXXXXXXXXXXXXXXXXX");
+    params.put("deviceid", "XXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    params.put("message", "{"format":"raw","freq":38,"data":[18031,8755,1190,1190,1190,3341,1190,3341,1190,3341,1190,1190,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,1190,1190,1190,1190,1190,1190,1190,1190,3341,1190,3341,1190,1190,1190,3341,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,65535,0,9379,18031,4400,1190]}");
+
+    // リクエストを送信
+    internetAPIService.postMessages(params, new IRAPICallback<IRInternetAPIService.PostMessagesResponse>() {
+        @Override
+        public void success(IRInternetAPIService.PostMessagesResponse postMessagesResponse, Response response) {
+            // サーバから成功（200）レスポンスを受信した
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            // 失敗
+        }
+    });
+
+また、赤外線信号を受信するには以下のようにします。
+
+    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+
+    // リクエストパラメータをセット
+    HashMap<String, String> params = new HashMap<>(2);
+    params.put("clientkey", "XXXXXXXXXXXXXXXX");
+    params.put("clear", "1");
+
+    // リクエストを送信
+    internetAPIService.getMessages(params, new Callback<IRInternetAPIService.GetMessagesResponse>() {
+        @Override
+        public void success(IRInternetAPIService.GetMessagesResponse getMessagesResponse, Response response) {
+            // サーバから成功（200）レスポンスを受信
+            if (getMessagesResponse == null) {
+                // 一定時間内に赤外線信号を受信しなかった
+            } else {
+                // 赤外線信号を受信した
+            }
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            // 失敗
+        }
+    });
+
+#### <a name="device-http-api"></a>Device HTTP API
+
+Device HTTP APIは、Internet HTTP APIと使い方はほぼ同じですが、API呼び出しの前に送信先を以下のようにして指定する必要があります。
+
+    // Device HTTP APIのインタフェースを取得
+    IRDeviceAPIService deviceAPI = IRKit.sharedInstance().getHTTPClient().getDeviceAPIService();
+
+    // IRKitのIPアドレスをセット
+    IRKit.sharedInstance().getHTTPClient().setDeviceAPIEndpoint("http://192.168.1.1");
+
+IRPeripheralインスタンスを使って送信先をセットするには以下のようにします。
+
+    // Device HTTP APIのインタフェースを取得
+    IRDeviceAPIService deviceAPI = IRKit.sharedInstance().getHTTPClient().getDeviceAPIService();
+
+    // 何らかの方法でIRPeripheralインスタンスを取得
+    IRPeripheral peripheral = IRKit.sharedInstance().peripherals.get(0);
+
+    // Device HTTP APIの送信先をセット
+    IRKit.sharedInstance().getHTTPClient().setDeviceAPIEndpoint(peripheral.getDeviceAPIEndpoint());
+
+送信先をセットしたら、IRDeviceAPIServiceインスタンスから各メソッドを呼び出すことができます。使用できるメソッド一覧は[IRDeviceAPIServiceのAPIドキュメント](http://irkit.github.io/android-sdk/javadoc/com/getirkit/irkit/net/IRDeviceAPIService.html)を参照してください。
+
+以下は赤外線信号を送信する例です。
+
+    IRHTTPClient httpClient = IRKit.sharedInstance().getHTTPClient();
+
+    // Device HTTP APIのインタフェースを取得
+    IRDeviceAPIService deviceAPI = httpClient.getDeviceAPIService();
+
+    // 送信先のIRPeripheralインスタンスを取得
+    IRPeripheral peripheral = IRKit.sharedInstance().peripherals.get(0);
+
+    // Device HTTP APIの送信先をセット
+    httpClient.setDeviceAPIEndpoint(peripheral.getDeviceAPIEndpoint());
+
+    // リクエストパラメータ
+    IRDeviceAPIService.PostMessagesRequest request = new IRDeviceAPIService.PostMessagesRequest();
+    request.format = "raw";
+    request.freq = 38.0f;
+    request.data = new int[] { 18031,8755,1190,1190,1190,3341,1190,3341,1190,3341,1190,1190,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,1190,1190,1190,1190,1190,1190,1190,1190,3341,1190,3341,1190,1190,1190,3341,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,65535,0,9379,18031,4400,1190 };
+
+    // リクエストを送信
+    deviceAPIService.postMessages(request, new Callback<IRDeviceAPIService.PostMessagesResponse>() {
+        @Override
+        public void success(IRDeviceAPIService.PostMessagesResponse postMessagesResponse, Response response) {
+            // IRKitから成功レスポンスを受信した
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            // 失敗
+        }
+    });
+
 ### <a name="sample-ja"></a>サンプルコード
 
 その他の使い方については[app/src/main/java/com/getirkit/example/activity/MainActivity.java](app/src/main/java/com/getirkit/example/activity/MainActivity.java)を見てください。
@@ -539,7 +676,7 @@ SDKが新しいIRKitデバイスを発見した場合、内部的な設定とIRK
 1. Android Studioを開く
 2. "Open an existing Android Studio project" をクリック
 3. このフォルダを選択
-4. AndroidManifest.xmlを開いて`YOUR_API_KEY`を置き換える
+4. AndroidManifest.xmlを開いて`YOUR_API_KEY`を取得したapikeyに置き換える
 5. "Run 'app'" をクリック
 
 
