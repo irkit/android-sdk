@@ -116,15 +116,14 @@ SDKはローカルネットワーク内にIRKitを発見すると自動的にdev
     // IRHTTPClientインスタンスを取得
     IRHTTPClient httpClient = IRKit.sharedInstance().getHTTPClient();
 
-    // 赤外線信号の受信を待つ。
-    // 第2引数にtrueを指定すると、サーバに保存している赤外線信号を
-    // 消去してから新しい赤外線信号をIRKitデバイスから待ち受ける。
+    // 赤外線信号を受信する。第2引数にtrueを指定すると、
+    // 前回の赤外線信号を消去して新しい赤外線信号を待機する。
     httpClient.waitForSignal(new IRAPICallback<IRInternetAPIService.GetMessagesResponse>() {
         @Override
         public void success(IRInternetAPIService.GetMessagesResponse getMessagesResponse, Response response) {
-            // 受信成功
+            // 信号の受信に成功した
 
-            // 受信した信号をIRSignalsに保存する
+            // 受信した信号を保存する例
             IRSignals signals = IRKit.sharedInstance().signals;
             IRSignal signal = new IRSignal();
             signal.setId(signals.getNewId());
@@ -153,7 +152,6 @@ waitForSignal()を使わずにInternet HTTP APIを直接使いたい場合は以
     params.put("clear", "1");
 
     // GET /1/messages を呼ぶ
-    Log.d(TAG, "internet getMessages");
     internetAPI.getMessages(params, new Callback<IRInternetAPIService.GetMessagesResponse>() {
         @Override
         public void success(IRInternetAPIService.GetMessagesResponse getMessagesResponse, Response response) {
