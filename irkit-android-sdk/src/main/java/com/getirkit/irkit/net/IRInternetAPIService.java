@@ -147,6 +147,20 @@ public interface IRInternetAPIService {
     @GET("/1/apps/recommended")
     void getRecommendediOSApps(Callback<GetRecommendediOSAppsResponse> callback);
 
+    public static class PostAppsResponse {
+        public String message;
+    }
+
+    /**
+     * apikeyを作成します。apikeyは通常、開発時に一度だけ取得してアプリに埋め込んでおきます。
+     * 公開用アプリ内でこのメソッドを使う場合は、その必要性があるかよく確認してください。
+     *
+     * @param callback
+     */
+    @FormUrlEncoded
+    @POST("/1/apps")
+    void postApps(@FieldMap Map<String, String> params, Callback<PostAppsResponse> callback);
+
     /**
      * Response of getClients
      */
