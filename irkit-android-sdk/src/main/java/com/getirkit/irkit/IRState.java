@@ -1,7 +1,11 @@
 package com.getirkit.irkit;
 
 /**
- * Represents one of "not finished" or "finished" state.
+ * 未完了または完了のいずれかの状態を表します。メソッドはいずれもスレッドセーフでは
+ * ないため、複数のスレッドから参照する場合は適切に排他制御を行ってください。
+ *
+ * Represents either "not finished" or "finished" state. Methods of this
+ * class are not thread-safe.
  */
 public class IRState {
     public static final int STATE_NOT_FINISHED = 1;

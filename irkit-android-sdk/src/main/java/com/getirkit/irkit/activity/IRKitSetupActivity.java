@@ -19,7 +19,11 @@ import com.getirkit.irkit.fragment.WifiConnectFragment;
 import com.getirkit.irkit.fragment.WifiInputFragment;
 
 /**
- * Sets up a new IRKit. To set up, IRKit needs to be disconnected from Wi-Fi.
+ * 新しいIRKitデバイスをユーザにセットアップさせるための画面を表示します。
+ * IRKitが家のWi-Fi接続情報を記録している状態ではセットアップできません。
+ *
+ * Show UI for setting up a new IRKit. IRKit cannot be set up if
+ * it previously connected to a Wi-Fi.
  */
 public class IRKitSetupActivity extends ActionBarActivity {
     public static final String TAG = IRKitSetupActivity.class.getSimpleName();

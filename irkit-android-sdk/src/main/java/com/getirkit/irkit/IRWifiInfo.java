@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Wi-Fi接続に必要な情報を表します。
  * Encapsulates Wi-Fi network information.
  */
 public class IRWifiInfo implements Parcelable {

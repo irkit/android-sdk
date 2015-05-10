@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * IRSignalの詳細を表示します。
  * Show details of IRSignal.
  */
 public class SignalActivity extends ActionBarActivity implements SignalImageDialogFragment.SignalImageListener, SelectImageSourceDialogFragment.SelectImageSourceDialogFragmentListener {

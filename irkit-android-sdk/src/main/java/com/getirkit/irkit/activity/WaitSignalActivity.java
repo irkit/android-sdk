@@ -22,7 +22,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * Waits for an IRSignal.
+ * 赤外線信号を学習します。
+ * Learn an IR signal.
  */
 public class WaitSignalActivity extends ActionBarActivity {
     public static final String TAG = WaitSignalActivity.class.getName();

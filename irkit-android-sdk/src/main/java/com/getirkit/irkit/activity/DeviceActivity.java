@@ -20,6 +20,7 @@ import com.getirkit.irkit.dialog.SignalsToDeleteDialogFragment;
 import java.net.InetAddress;
 
 /**
+ * IRPeripheralの詳細を表示します。
  * Show details of IRPeripheral.
  */
 public class DeviceActivity extends ActionBarActivity implements SignalsToDeleteDialogFragment.SignalsToDeleteDialogFragmentListener {
