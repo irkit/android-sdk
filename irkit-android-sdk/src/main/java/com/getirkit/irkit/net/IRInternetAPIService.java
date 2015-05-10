@@ -13,7 +13,35 @@ import retrofit.http.QueryMap;
 import retrofit.mime.TypedInput;
 
 /**
- * IRKit Internet HTTP API
+ * IRKit Internet HTTP APIのインタフェースです。
+ * Interface for IRKit Internet HTTP API.
+ *
+ * <p>Example:
+ * <pre><code>
+ * // Get Internet HTTP API service
+ * IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+ *
+ * // Request parameters
+ * HashMap<String, String> params = new HashMap<>();
+ * params.put("clientkey", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+ * params.put("deviceid", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+ * params.put("message", "{\"format\":\"raw\",\"freq\":38,\"data\":[18031,8755,1190,1190,1190, ]}");
+ *
+ * // Send POST /1/messages
+ * internetAPI.postMessages(params, new Callback<IRInternetAPIService.PostMessagesResponse>() {
+ *     {@literal @}Override
+ *     public void success(IRInternetAPIService.PostMessagesResponse postMessagesResponse, Response response) {
+ *         // Success
+ *     }
+ *
+ *     {@literal @}Override
+ *     public void failure(RetrofitError error) {
+ *         // Error
+ *     }
+ * });
+ * </code></pre></p>
+ *
+ * @see <a href="http://getirkit.com/#IRKit-Internet-API">IRKit Internet HTTP API</a>
  */
 public interface IRInternetAPIService {
     /**
