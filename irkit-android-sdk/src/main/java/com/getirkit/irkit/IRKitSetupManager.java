@@ -20,7 +20,7 @@ import retrofit.client.Response;
  * IRKitのセットアップを担うクラスです。
  * Handles setting up an IRKit.
  */
-public class IRKitSetupManager implements IRKitEventListener {
+class IRKitSetupManager implements IRKitEventListener {
     public static final String TAG = IRKitSetupManager.class.getName();
 
     private Context context;
