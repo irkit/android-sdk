@@ -10,51 +10,22 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.QueryMap;
+import retrofit.mime.TypedInput;
 
 /**
- * Internet HTTP API
+ * IRKit Internet HTTP API
  */
 public interface IRInternetAPIService {
-    public static class PostDevicesResponse {
-        public String devicekey;
-        public String deviceid;
-    }
-
-    public static class PostDoorResponse {
-        /**
-         * Bonjour を使うことで同じWiFiアクセスポイントに接続したクライアントから #{hostname}.local として接続するために使います。
-         */
+    /**
+     * getMessages()のレスポンスです。
+     * Response of getMessages().
+     *
+     * @see #getMessages(Map, Callback)
+     */
+    class GetMessagesResponse {
+        public IRDeviceAPIService.GetMessagesResponse message;
         public String hostname;
-    }
-
-    public static class GetRecommendediOSAppsResponse {
-        public App[] apps;
-
-        public static class App {
-            public String title_ja;
-            public String title_en;
-            public String image_url;
-            public String detail_ja;
-            public String detail_en;
-            public String appstore_url;
-        }
-    }
-
-    public static class AndroidApp {
-        public String title_ja;
-        public String title_en;
-        public String image_url;
-        public String detail_ja;
-        public String detail_en;
-        public String package_name;
-    }
-
-    public static class GetRecommendedGooglePlayAppsResponse {
-        public AndroidApp[] apps;
-    }
-
-    public static class GetRecommendedAmazonAppsResponse {
-        public AndroidApp[] apps;
+        public String deviceid;
     }
 
     /**
@@ -70,6 +41,15 @@ public interface IRInternetAPIService {
     void getMessages(@QueryMap Map<String, String> params, Callback<GetMessagesResponse> callback);
 
     /**
+     * postMessages()のレスポンスです。
+     * Response of postMessages().
+     *
+     * @see #postMessages(Map, Callback)
+     */
+    class PostMessagesResponse {
+    }
+
+    /**
      * 赤外線信号を deviceid で指定するIRKitデバイスから送信します。
      *
      * @param params
@@ -78,6 +58,18 @@ public interface IRInternetAPIService {
     @FormUrlEncoded
     @POST("/1/messages")
     void postMessages(@FieldMap Map<String, String> params, Callback<PostMessagesResponse> callback);
+
+    /**
+     * postClients()のレスポンスです。
+     * Response of postClients().
+     *
+     * @see #postClients(Map, Callback)
+     * @since 1.1.2
+     */
+    class GetClientsResponse {
+        @SerializedName("clientkey")
+        public String clientkey;
+    }
 
     /**
      * clientkey を作成します。
@@ -90,6 +82,17 @@ public interface IRInternetAPIService {
     void postClients(@FieldMap Map<String, String> params, Callback<GetClientsResponse> callback);
 
     /**
+     * postKeys()のレスポンスです。
+     * Response of postKeys().
+     *
+     * @see #postKeys(Map, Callback)
+     */
+    class PostKeysResponse {
+        public String deviceid;
+        public String clientkey;
+    }
+
+    /**
      * deviceid を取得するために使います。 clientkey リクエストパラメータを付加すると、この clientkey と deviceid を関連づけてサーバ側に保存します。
      *
      * @param params
@@ -100,9 +103,22 @@ public interface IRInternetAPIService {
     void postKeys(@FieldMap Map<String, String> params, Callback<PostKeysResponse> callback);
 
     /**
+     * postDevices()のレスポンスです。
+     * Response of postDevices().
+     *
+     * @see #postDevices(Map, Callback)
+     */
+    public static class PostDevicesResponse {
+        public String devicekey;
+        public String deviceid;
+    }
+
+    /**
      * devicekey, deviceid を作成します。
      *
-     * この後にDevice APIのpostWifiを呼ぶ。
+     * この後にDevice APIのPOST /wifiを呼びます。
+     *
+     * @see IRDeviceAPIService#postWifi(TypedInput, Callback)
      *
      * @param params
      * @param callback
@@ -110,6 +126,19 @@ public interface IRInternetAPIService {
     @FormUrlEncoded
     @POST("/1/devices")
     void postDevices(@FieldMap Map<String, String> params, Callback<PostDevicesResponse> callback);
+
+    /**
+     * postDoor()のレスポンスです。
+     * Response of postDoor().
+     *
+     * @see #postDoor(Map, Callback)
+     */
+    public static class PostDoorResponse {
+        /**
+         * Bonjour を使うことで同じWiFiアクセスポイントに接続したクライアントから #{hostname}.local として接続するために使います。
+         */
+        public String hostname;
+    }
 
     /**
      * IRKitのアクセスポイントを使用して、家のWiFiアクセスポイントの認証情報とともにdevicekeyをIRKitデバイスに送った後(POST /wifi)、POST /1/doorを使用して、IRKitデバイスが正常に家のWiFiアクセスポイントを通してインターネットに接続できたことを確認します。
@@ -124,7 +153,43 @@ public interface IRInternetAPIService {
     void postDoor(@FieldMap Map<String, String> params, Callback<PostDoorResponse> callback);
 
     /**
-     * おすすめGoogle Playアプリの一覧を取得する。非公開API。
+     * GetRecommendedGooglePlayAppsResponseとGetRecommendedAmazonAppsResponseに含まれるappsの1エントリです。
+     * An entry in apps of GetRecommendedGooglePlayAppsResponse and GetRecommendedAmazonAppsResponse.
+     *
+     * @see GetRecommendedAmazonAppsResponse
+     * @see GetRecommendedGooglePlayAppsResponse
+     */
+    public static class AndroidApp {
+        public String title_ja;
+        public String title_en;
+        public String image_url;
+        public String detail_ja;
+        public String detail_en;
+        public String package_name;
+    }
+
+    /**
+     * getRecommendedGooglePlayApps()のレスポンスです。
+     * Response of getRecommendedGooglePlayApps().
+     *
+     * @see #getRecommendedGooglePlayApps(Callback)
+     */
+    public static class GetRecommendedGooglePlayAppsResponse {
+        public AndroidApp[] apps;
+    }
+
+    /**
+     * getRecommendedAmazonApps()のレスポンスです。
+     * Response of getRecommendedAmazonApps().
+     *
+     * @see #getRecommendedAmazonApps(Callback)
+     */
+    public static class GetRecommendedAmazonAppsResponse {
+        public AndroidApp[] apps;
+    }
+
+    /**
+     * おすすめGoogle Playアプリの一覧を取得します（非公開API）。
      *
      * @param callback
      */
@@ -132,7 +197,7 @@ public interface IRInternetAPIService {
     void getRecommendedGooglePlayApps(Callback<GetRecommendedGooglePlayAppsResponse> callback);
 
     /**
-     * おすすめAmazon Appstoreアプリの一覧を取得する。非公開API。
+     * おすすめAmazon Appstoreアプリの一覧を取得します（非公開API）。
      *
      * @param callback
      */
@@ -140,13 +205,39 @@ public interface IRInternetAPIService {
     void getRecommendedAmazonApps(Callback<GetRecommendedAmazonAppsResponse> callback);
 
     /**
-     * おすすめiOSアプリの一覧を取得する。非公開API。
+     * getRecommendediOSApps()のレスポンスです。
+     * Response of getRecommendediOSApps().
+     *
+     * @see #getRecommendediOSApps(Callback)
+     */
+    public static class GetRecommendediOSAppsResponse {
+        public App[] apps;
+
+        public static class App {
+            public String title_ja;
+            public String title_en;
+            public String image_url;
+            public String detail_ja;
+            public String detail_en;
+            public String appstore_url;
+        }
+    }
+
+    /**
+     * おすすめiOSアプリの一覧を取得します（非公開API）。
      *
      * @param callback
      */
     @GET("/1/apps/recommended")
     void getRecommendediOSApps(Callback<GetRecommendediOSAppsResponse> callback);
 
+    /**
+     * postApps()のレスポンスです。
+     * Response of postApps().
+     *
+     * @see #postApps(Map, Callback)
+     * @since 1.1.2
+     */
     public static class PostAppsResponse {
         public String message;
     }
@@ -155,40 +246,10 @@ public interface IRInternetAPIService {
      * apikeyを作成します。apikeyは通常、開発時に一度だけ取得してアプリに埋め込んでおきます。
      * 公開用アプリ内でこのメソッドを使う場合は、その必要性があるかよく確認してください。
      *
-     * @param callback
+     * @param callback レスポンスを受け取るコールバック。 Callback for receiving a response.
+     * @since 1.1.2
      */
     @FormUrlEncoded
     @POST("/1/apps")
     void postApps(@FieldMap Map<String, String> params, Callback<PostAppsResponse> callback);
-
-    /**
-     * Response of getClients
-     */
-    class GetClientsResponse {
-        @SerializedName("clientkey")
-        public String clientkey;
-    }
-
-    /**
-     * Response of getMessages
-     */
-    class GetMessagesResponse {
-        public IRDeviceAPIService.GetMessagesResponse message;
-        public String hostname;
-        public String deviceid;
-    }
-
-    /**
-     * Response of postKeys
-     */
-    class PostKeysResponse {
-        public String deviceid;
-        public String clientkey;
-    }
-
-    /**
-     * Response of postMessages
-     */
-    class PostMessagesResponse {
-    }
 }
