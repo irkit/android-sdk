@@ -124,9 +124,9 @@ public class IRKitSetupManager implements IRKitEventListener {
         }
 
         irKitConnectWifiListener.onStatus(context.getString(R.string.setup_status__obtaining_client_key));
-        irkit.getHTTPClient().ensureRegisteredAndCall(apiKey, new IRAPICallback<IRInternetAPIService.GetClientsResponse>() {
+        irkit.getHTTPClient().ensureRegisteredAndCall(apiKey, new IRAPICallback<IRInternetAPIService.PostClientsResponse>() {
             @Override
-            public void success(IRInternetAPIService.GetClientsResponse getClientsResponse, Response response) {
+            public void success(IRInternetAPIService.PostClientsResponse postClientsResponse, Response response) {
                 fetchDeviceKey();
             }
 

@@ -66,7 +66,7 @@ public interface IRInternetAPIService {
      * @see #postClients(Map, Callback)
      * @since 1.1.2
      */
-    class GetClientsResponse {
+    class PostClientsResponse {
         @SerializedName("clientkey")
         public String clientkey;
     }
@@ -79,7 +79,7 @@ public interface IRInternetAPIService {
      */
     @FormUrlEncoded
     @POST("/1/clients")
-    void postClients(@FieldMap Map<String, String> params, Callback<GetClientsResponse> callback);
+    void postClients(@FieldMap Map<String, String> params, Callback<PostClientsResponse> callback);
 
     /**
      * postKeys()のレスポンスです。

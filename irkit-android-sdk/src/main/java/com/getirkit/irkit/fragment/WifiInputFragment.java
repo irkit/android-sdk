@@ -171,9 +171,9 @@ public class WifiInputFragment extends Fragment {
 
         String apiKey = getArguments().getString("apiKey");
         final IRHTTPClient httpClient = IRKit.sharedInstance().getHTTPClient();
-        httpClient.ensureRegisteredAndCall(apiKey, new IRAPICallback<IRInternetAPIService.GetClientsResponse>() {
+        httpClient.ensureRegisteredAndCall(apiKey, new IRAPICallback<IRInternetAPIService.PostClientsResponse>() {
             @Override
-            public void success(IRInternetAPIService.GetClientsResponse getClientsResponse, Response response) {
+            public void success(IRInternetAPIService.PostClientsResponse postClientsResponse, Response response) {
                 httpClient.obtainDeviceKey(new IRAPICallback<IRInternetAPIService.PostDevicesResponse>() {
                     @Override
                     public void success(IRInternetAPIService.PostDevicesResponse postDevicesResponse, Response response) {

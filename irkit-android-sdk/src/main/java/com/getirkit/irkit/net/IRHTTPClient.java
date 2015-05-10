@@ -125,15 +125,15 @@ public class IRHTTPClient {
      * @param apiKey apikey
      * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
      */
-    public void registerClient(String apiKey, final IRAPICallback<IRInternetAPIService.GetClientsResponse> callback) {
+    public void registerClient(String apiKey, final IRAPICallback<IRInternetAPIService.PostClientsResponse> callback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("apikey", apiKey);
-        internetAPIService.postClients(params, new Callback<IRInternetAPIService.GetClientsResponse>() {
+        internetAPIService.postClients(params, new Callback<IRInternetAPIService.PostClientsResponse>() {
             @Override
-            public void success(IRInternetAPIService.GetClientsResponse getClientsResponse, Response response) {
-                clientkey = getClientsResponse.clientkey;
+            public void success(IRInternetAPIService.PostClientsResponse postClientsResponse, Response response) {
+                clientkey = postClientsResponse.clientkey;
                 IRKit.sharedInstance().savePreference("clientkey", clientkey);
-                callback.success(getClientsResponse, response);
+                callback.success(postClientsResponse, response);
             }
 
             @Override
@@ -155,7 +155,7 @@ public class IRHTTPClient {
      * @param apiKey apikey
      * @param callback 結果を受け取るコールバック。 Callback to be notified a result.
      */
-    public void ensureRegisteredAndCall(String apiKey, IRAPICallback<IRInternetAPIService.GetClientsResponse> callback) {
+    public void ensureRegisteredAndCall(String apiKey, IRAPICallback<IRInternetAPIService.PostClientsResponse> callback) {
         if (clientkey == null) {
             IRHTTPClient.sharedInstance().registerClient(apiKey, callback);
         } else {

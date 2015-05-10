@@ -444,9 +444,9 @@ public class IRKit {
             apikey = getIRKitAPIKey();
         }
         if (apikey != null) {
-            IRHTTPClient.sharedInstance().ensureRegisteredAndCall(apikey, new IRAPICallback<IRInternetAPIService.GetClientsResponse>() {
+            IRHTTPClient.sharedInstance().ensureRegisteredAndCall(apikey, new IRAPICallback<IRInternetAPIService.PostClientsResponse>() {
                 @Override
-                public void success(IRInternetAPIService.GetClientsResponse getClientsResponse, Response response) {
+                public void success(IRInternetAPIService.PostClientsResponse postClientsResponse, Response response) {
                     // Client has been registered or already registered
                 }
 
