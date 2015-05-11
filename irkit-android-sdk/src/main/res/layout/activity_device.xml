@@ -9,8 +9,8 @@
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="40dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/irkit_activity_horizontal_margin"
+        android:paddingRight="@dimen/irkit_activity_horizontal_margin"
         android:paddingTop="40dp">
 
         <!-- Name -->

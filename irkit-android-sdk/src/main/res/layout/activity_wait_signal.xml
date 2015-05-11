@@ -13,8 +13,8 @@
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingBottom="40dp"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/irkit_activity_horizontal_margin"
+            android:paddingRight="@dimen/irkit_activity_horizontal_margin"
             android:paddingTop="40dp">
 
             <TextView
@@ -70,8 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/irkit_activity_horizontal_margin"
+        android:paddingRight="@dimen/irkit_activity_horizontal_margin"
         android:visibility="gone">
 
         <ImageView
