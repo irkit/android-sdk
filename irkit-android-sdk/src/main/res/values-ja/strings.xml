@@ -7,8 +7,6 @@
         <item>パスワードなし</item>
     </string-array>
 
-    <string name="app_name">リモコン</string>
-
     <string name="url_buy_irkit">http://api.getirkit.com/store</string>
 
     <string name="activity_signal__title_new">ボタンの登録</string>

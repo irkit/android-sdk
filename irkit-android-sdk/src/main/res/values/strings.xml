@@ -6,7 +6,6 @@
         <item>Open (No password)</item>
     </string-array>
 
-    <string name="app_name">IRKit</string>
     <string name="preferences_file_key" translatable="false">com.getirkit.irkit.preferences</string>
 
     <string name="url_buy_irkit">http://api.getirkit.com/store</string>
