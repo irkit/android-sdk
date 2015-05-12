@@ -22,6 +22,7 @@ IRKitの機能をAndroidアプリに組み込むためのSDKです。
   - [WaitSignalActivity](#waitsignalactivity-ja)
   - [SignalActivity](#signalactivity-ja)
   - [DeviceActivity](#deviceactivity-ja)
+  - [見た目を変更する](#changing-activity-style)
 - [IRKitデバイス発見イベントを受け取る](#receiving-events-ja)
 - [HTTP APIを直接使う](#http-api)
   - [Device HTTP APIの利用可否](#device-http-api-availability)
@@ -317,16 +318,16 @@ Internet HTTP APIを直接使いたい場合は以下のようにします。
 
 ### <a name="activities-ja"></a>Activityの使い方
 
-SDKには4つのActivityが用意されています。
+SDKには4つのActivityが含まれており、IRKitのセットアップや信号学習などのUIを簡単に組み込むことができます。
 
-Activity           | 用途
------------------- | -------------------------------
-IRKitSetupActivity | IRKitをセットアップする
-DeviceActivity     | IRKitデバイス詳細情報を表示・編集する
-WaitSignalActivity | リモコン信号を学習する
-SignalActivity     | ボタン（信号）情報を表示・編集する
+Activity                                       | 用途
+---------------------------------------------- | -------------------------------
+com.getirkit.irkit.activity.IRKitSetupActivity | IRKitをセットアップする
+com.getirkit.irkit.activity.DeviceActivity     | IRKitデバイス詳細情報を表示・編集する
+com.getirkit.irkit.activity.WaitSignalActivity | リモコン信号を学習する
+com.getirkit.irkit.activity.SignalActivity     | ボタン（信号）情報を表示・編集する
 
-これらのActivityを使うと、IRKitのセットアップや信号学習などのUIを簡単に組み込むことができます。まず、各Activityから返される値を受け取るために以下のような定数を定義しておきます。
+まず、各Activityの処理結果を受け取るために以下のような定数を定義しておきます。
 
     private static final int REQUEST_IRKIT_SETUP   = 1;
     private static final int REQUEST_SIGNAL_DETAIL = 2;
@@ -487,6 +488,25 @@ IRKitデバイスの詳細情報を表示、編集、削除する画面を表示
             }
         }
     }
+
+#### <a name="changing-activity-style"></a>見た目を変更する
+
+各ActivityはデフォルトでTheme.AppCompat.Light.DarkActionBarのスタイルを使うようになっていますが、これを変更したい場合はAndroidManifest.xmlで以下のようにandroid:themeをセットし、`tools:replace="android:theme"`を指定してください。
+
+    <!-- IRKitSetupActivityにCustomActionBarThemeを適用する -->
+    <activity
+        android:name="com.getirkit.irkit.activity.IRKitSetupActivity"
+        android:theme="@style/CustomActionBarTheme"
+        tools:replace="android:theme" />
+
+さらにandroid:labelも変更したい場合は以下のようにします。tools:replaceはカンマ区切りで指定します。
+
+    <!-- IRKitSetupActivityのthemeとlabelを変更する -->
+    <activity
+        android:name="com.getirkit.irkit.activity.IRKitSetupActivity"
+        android:label="@string/new_title"
+        android:theme="@style/CustomActionBarTheme"
+        tools:replace="android:theme, android:label" />
 
 ### <a name="receiving-events-ja"></a>IRKitデバイス発見イベントを受け取る
 
