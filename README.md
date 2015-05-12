@@ -30,6 +30,7 @@ IRKitの機能をAndroidアプリに組み込むためのSDKです。
 - [Javadoc](http://irkit.github.io/android-sdk/javadoc/)
 - [サンプルコード](#sample-ja)
 - [サンプルアプリの動かし方](#sample-app-ja)
+- [バージョンごとの変更点](CHANGELOG.md)
 
 ### <a name="download-ja"></a>ダウンロード
 
