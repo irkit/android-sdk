@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getirkit.irkit.R;
 import com.getirkit.irkit.net.IRHTTPClient;
@@ -165,7 +166,14 @@ public class WifiInputFragment extends Fragment {
                     int security = securitySpinner.getSelectedItemPosition();
                     wifiInfo.setSecurity(security);
                     if (security != IRWifiInfo.SECURITY_NONE) {
-                        wifiInfo.setPassword( passwordEditText.getText().toString() );
+                        String password = passwordEditText.getText().toString();
+                        if (password.equals("")) {
+                            // Error: password is empty
+                            Toast.makeText(getActivity(), R.string.wifi_input__enter_wifi_password, Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            wifiInfo.setPassword(password);
+                        }
                     }
                     wifiInputFragmentListener.onClickOK(wifiInfo);
                 }

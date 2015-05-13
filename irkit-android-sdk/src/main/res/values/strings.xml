@@ -53,6 +53,7 @@
     <string name="wifi_input__password">Password</string>
     <string name="wifi_input__show_password">Show password</string>
     <string name="wifi_input__ok">Next</string>
+    <string name="wifi_input__enter_wifi_password">Enter Wi-Fi Password</string>
 
     <plurals name="dialog_signals_to_delete__text">
         <item quantity="one">You have a button associated with this device. This button will also be deleted if you remove this IRKit.</item>

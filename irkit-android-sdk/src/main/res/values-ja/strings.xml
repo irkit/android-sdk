@@ -51,6 +51,7 @@
     <string name="wifi_input__password">パスワード</string>
     <string name="wifi_input__show_password">パスワードを表示</string>
     <string name="wifi_input__ok">次へ</string>
+    <string name="wifi_input__enter_wifi_password">Wi-Fiのパスワードを入力してください</string>
 
     <string name="wifi_connect__status">接続中…</string>
 
