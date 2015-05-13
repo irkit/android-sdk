@@ -1,5 +1,6 @@
 package com.getirkit.irkit.fragment;
 
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -89,27 +90,31 @@ public class WifiInputFragment extends Fragment {
             }
         });
 
+        int security = args.getInt("security");  // default is 0
+        securitySpinner.setSelection(security);
+
         String ssid = args.getString("ssid");
         if (ssid == null) {
             if (IRKit.sharedInstance().isWifiConnected()) {
-                // IRKit instance is already initialized at IRKitSetupActivity.onCreate()
-                WifiInfo wifiInfo = IRKit.sharedInstance().getCurrentWifiInfo();
-                /**
-                 * From http://developer.android.com/reference/android/net/wifi/WifiInfo.html#getSSID():
-                 *
-                 *   If the SSID can be decoded as UTF-8, it will be returned surrounded by double quotation marks.
-                 *   Otherwise, it is returned as a string of hex digits. The SSID may be null if there is no
-                 *   network currently connected.
-                 *
-                 * But Android pre-4.2 returns SSID without surrounding quotation marks!
-                 */
-                if (wifiInfo != null) { // wifi is connected
-                    ssid = wifiInfo.getSSID();
-                    if (ssid != null && ssid.charAt(0) == '"' && ssid.charAt(ssid.length() - 1) == '"') {
-                        ssid = ssid.substring(1, ssid.length() - 1);
-                        ssidEditText.setText(ssid);
-                    } else { // no surrounding double quotes
-                        ssidEditText.setText(ssid);
+                // Fill SSID and security using current Wi-Fi configuration
+
+                WifiConfiguration wifiConfig = IRKit.sharedInstance().getCurrentWifiConfiguration();
+                if (wifiConfig != null && !IRWifiInfo.isIRKitWifi(wifiConfig)) {
+                    // Get SSID
+                    ssidEditText.setText(IRWifiInfo.getRawSSID(wifiConfig.SSID));
+
+                    // Get security
+                    // NOTE: We never can read the actual password.
+                    //       preSharedKey and wepKeys[0] will return just "*" if they are set.
+                    if (wifiConfig.preSharedKey != null) {
+                        // Detected WPA
+                        securitySpinner.setSelection(IRWifiInfo.SECURITY_WPA_WPA2);
+                    } else if (wifiConfig.wepKeys != null && wifiConfig.wepKeys[0] != null) {
+                        // Detected WEP
+                        securitySpinner.setSelection(IRWifiInfo.SECURITY_WEP);
+                    } else {
+                        // Detected open network (no password)
+                        securitySpinner.setSelection(IRWifiInfo.SECURITY_NONE);
                     }
                 }
             }
@@ -120,8 +125,6 @@ public class WifiInputFragment extends Fragment {
         if (password != null) {
             passwordEditText.setText(password);
         }
-        int security = args.getInt("security");  // default is 0
-        securitySpinner.setSelection(security);
 
         // Don't call passwordEditText.requestFocus(), as it makes
         // keyboard difficult to appear on Android 2.3
