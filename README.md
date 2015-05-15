@@ -45,7 +45,9 @@ apikeyは開発時に一度だけ取得してアプリに埋め込みます。An
 
     <meta-data android:name="com.getirkit.IRKIT_API_KEY" android:value="YOUR_API_KEY" />
 
-apikeyの取得方法は[POST /1/apps](http://getirkit.com/#IRKit-Internet-POST-1-apps)を参照してください。curlコマンドが利用できない場合は、[Postman](https://chrome.google.com/webstore/detail/postman-rest-client-packa/fhbjgbiflinjbdggehcddcbncdddomop)（Chrome）や[Poster](https://addons.mozilla.org/ja/firefox/addon/poster/)（Firefox）などのブラウザ拡張機能を利用してapikeyを取得できます。
+apikeyの取得方法は[POST /1/apps](http://getirkit.com/#IRKit-Internet-POST-1-apps)を参照してください。curlコマンドが利用できない場合は、[Postman](https://chrome.google.com/webstore/detail/postman-rest-client-packa/fhbjgbiflinjbdggehcddcbncdddomop)（Chrome）や[Poster](https://addons.mozilla.org/ja/firefox/addon/poster/)（Firefox）などのブラウザ拡張機能を利用してapikeyを取得できます。  
+[Postmanでの実行例](https://raw.githubusercontent.com/irkit/android-sdk/master/images/postman.png)  
+Posterでの実行例：[手順1](https://raw.githubusercontent.com/irkit/android-sdk/master/images/poster-1.png) [手順2](https://raw.githubusercontent.com/irkit/android-sdk/master/images/poster-2.png)
 
 ### <a name="classes-ja"></a>クラスの概要
 
