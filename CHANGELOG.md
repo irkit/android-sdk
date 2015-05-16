@@ -1,6 +1,23 @@
 Change Log
 ==========
 
+Version 1.1.3 *(2015-05-16)*
+----------------------------
+
+### 変更点
+
+- IRKitSetupActivity
+  - 現在接続されているWi-Fi情報を使ってセキュリティを自動選択するようにしました。
+  - Wi-Fiパスワードが空欄のまま次へ進もうとした際にエラー表示を出すようにしました。
+
+
+### Changes
+
+- IRKitSetupActivity
+  - Automatically select Wi-Fi security based on currently connected Wi-Fi.
+  - Show error when user attempts to proceed without entering Wi-Fi password.
+
+
 Version 1.1.2 *(2015-05-11)*
 ----------------------------
 
