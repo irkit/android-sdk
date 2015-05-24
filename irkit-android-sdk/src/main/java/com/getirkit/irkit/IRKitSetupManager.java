@@ -251,6 +251,7 @@ class IRKitSetupManager implements IRKitEventListener {
             if (isSettingUpIRKit) {
                 isSettingUpIRKit = false;
                 irKitConnectWifiListener.onError(context.getString(R.string.setup_status__error_connect_irkit_to_wifi));
+                revertToNormalWifi();
             }
             return;
         }
