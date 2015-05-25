@@ -11,7 +11,7 @@ import android.support.v4.app.DialogFragment;
 import com.getirkit.example.R;
 
 /**
- * Created by nao on 3/8/15.
+ * Dialog for selecting what action to be done for the signal.
  */
 public class SelectSignalActionDialogFragment extends DialogFragment {
     public static final String TAG = SelectSignalActionDialogFragment.class.getSimpleName();
