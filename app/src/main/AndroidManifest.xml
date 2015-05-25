@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.getirkit.example" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.getirkit.example">
 
     <!-- Permissions used by IRKit SDK -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -29,19 +30,27 @@
         <!-- Setup activity -->
         <activity
             android:name="com.getirkit.irkit.activity.IRKitSetupActivity"
-            android:label="@string/title_activity_irkitsetup" />
+            android:label="@string/title_activity_irkitsetup"
+            android:theme="@style/AppTheme"
+            tools:replace="android:theme" />
         <!-- Signal detail activity -->
         <activity
             android:name="com.getirkit.irkit.activity.SignalActivity"
-            android:label="@string/title_activity_signal" />
+            android:label="@string/title_activity_signal"
+            android:theme="@style/AppTheme"
+            tools:replace="android:theme" />
         <!-- Wait for signal activity -->
         <activity
             android:name="com.getirkit.irkit.activity.WaitSignalActivity"
-            android:label="@string/title_activity_wait_signal" />
+            android:label="@string/title_activity_wait_signal"
+            android:theme="@style/AppTheme"
+            tools:replace="android:theme" />
         <!-- Device activity -->
         <activity
             android:name="com.getirkit.irkit.activity.DeviceActivity"
-            android:label="@string/title_activity_device" />
+            android:label="@string/title_activity_device"
+            android:theme="@style/AppTheme"
+            tools:replace="android:theme" />
 
         <!-- IRKit apikey -->
         <!-- See http://getirkit.com/en/ for details -->
