@@ -2,7 +2,13 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Main theme colors -->
+        <!-- App bar -->
+        <item name="colorPrimary">@color/primary</item>
+        <!-- Status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!-- Navigation drawer selection color (>= HONEYCOMB), checkboxes, text fields, etc. -->
+        <item name="colorAccent">@color/accent</item>
     </style>
 
 </resources>
