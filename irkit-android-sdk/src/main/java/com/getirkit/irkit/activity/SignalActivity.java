@@ -11,7 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,7 +37,7 @@ import java.io.InputStream;
  * IRSignalの詳細を表示します。
  * Show details of IRSignal.
  */
-public class SignalActivity extends ActionBarActivity implements SignalImageDialogFragment.SignalImageListener, SelectImageSourceDialogFragment.SelectImageSourceDialogFragmentListener {
+public class SignalActivity extends AppCompatActivity implements SignalImageDialogFragment.SignalImageListener, SelectImageSourceDialogFragment.SelectImageSourceDialogFragmentListener {
     public static final String TAG = SignalActivity.class.getSimpleName();
 
     public static final String TMP_BITMAP_FILENAME = "tmp_bitmap.png";

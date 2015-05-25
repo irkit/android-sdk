@@ -3,7 +3,7 @@ package com.getirkit.irkit.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,7 +25,7 @@ import retrofit.client.Response;
  * 赤外線信号を学習します。
  * Learn an IR signal.
  */
-public class WaitSignalActivity extends ActionBarActivity {
+public class WaitSignalActivity extends AppCompatActivity {
     public static final String TAG = WaitSignalActivity.class.getName();
 
     private static final int REQUEST_SIGNAL_DETAIL = 1;

@@ -2,7 +2,7 @@ package com.getirkit.irkit.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,7 +23,7 @@ import java.net.InetAddress;
  * IRPeripheralの詳細を表示します。
  * Show details of IRPeripheral.
  */
-public class DeviceActivity extends ActionBarActivity implements SignalsToDeleteDialogFragment.SignalsToDeleteDialogFragmentListener {
+public class DeviceActivity extends AppCompatActivity implements SignalsToDeleteDialogFragment.SignalsToDeleteDialogFragmentListener {
     public static final String TAG = DeviceActivity.class.getName();
 
     private IRPeripheral peripheral;

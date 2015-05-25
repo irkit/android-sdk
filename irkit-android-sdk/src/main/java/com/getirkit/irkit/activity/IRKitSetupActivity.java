@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -25,7 +25,7 @@ import com.getirkit.irkit.fragment.WifiInputFragment;
  * Show UI for setting up a new IRKit. IRKit cannot be set up if
  * it previously connected to a Wi-Fi.
  */
-public class IRKitSetupActivity extends ActionBarActivity {
+public class IRKitSetupActivity extends AppCompatActivity {
     public static final String TAG = IRKitSetupActivity.class.getSimpleName();
 
     private int currentScreen = 0;
