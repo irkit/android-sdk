@@ -2,7 +2,6 @@ package com.getirkit.irkit.fragment;
 
 import android.graphics.Typeface;
 import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
