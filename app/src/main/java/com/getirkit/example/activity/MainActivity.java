@@ -298,7 +298,6 @@ public class MainActivity extends AppCompatActivity
                 Bundle args = data.getExtras();
                 String action = args.getString("action");
                 IRSignal signal = args.getParcelable("signal");
-                int mode = args.getInt("mode");
                 IRKit irkit = IRKit.sharedInstance();
                 switch (action) {
                     case "save":
