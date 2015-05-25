@@ -3,6 +3,7 @@ package com.getirkit.example.fragment;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -98,9 +99,16 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+        int listItemResourceId;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            // This causes exception on pre-Honeycomb
+            listItemResourceId = android.R.layout.simple_list_item_activated_1;
+        } else {
+            listItemResourceId = android.R.layout.simple_list_item_1;
+        }
         mDrawerListView.setAdapter(new ArrayAdapter<>(
                 getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_1,
+                listItemResourceId,
                 android.R.id.text1,
                 new String[]{
                         getString(R.string.title_signals),
