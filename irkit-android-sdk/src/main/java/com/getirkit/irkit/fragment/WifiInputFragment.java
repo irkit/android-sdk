@@ -1,5 +1,6 @@
 package com.getirkit.irkit.fragment;
 
+import android.graphics.Typeface;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.os.Bundle;
@@ -138,9 +139,11 @@ public class WifiInputFragment extends Fragment {
         if (showPasswordCheckBox.isChecked()) {
             // show password
             passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+            passwordEditText.setTypeface(Typeface.MONOSPACE);
         } else {
             // hide password
             passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            passwordEditText.setTypeface(Typeface.MONOSPACE);
         }
         showPasswordCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,9 +152,11 @@ public class WifiInputFragment extends Fragment {
                 if (checked) {
                     // show password
                     passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    passwordEditText.setTypeface(Typeface.MONOSPACE);
                 } else {
                     // hide password
                     passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    passwordEditText.setTypeface(Typeface.MONOSPACE);
                 }
             }
         });
