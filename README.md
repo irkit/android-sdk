@@ -32,6 +32,7 @@ IRKitの機能をAndroidアプリに組み込むためのSDKです。
 - [サンプルコード](#sample-ja)
 - [サンプルアプリの動かし方](#sample-app-ja)
 - [バージョンごとの変更点](CHANGELOG.md)
+- [SDKに関するお問い合わせ](#inquiry-ja)
 
 ### <a name="download-ja"></a>ダウンロード
 
@@ -699,6 +700,10 @@ IRPeripheralインスタンスを使って送信先をセットするには以�
 3. このフォルダを選択
 4. AndroidManifest.xmlを開いて`YOUR_API_KEY`を取得したapikeyに置き換える
 5. "Run 'app'" をクリック
+
+### <a name="inquiry-ja"></a>SDKに関するお問い合わせ
+
+SDKについて不明な点がありましたらGitHubの[Issue](https://github.com/irkit/android-sdk/issues)を作成していただくか、またはメールで support@getirkit.com までお問い合わせください。
 
 
 ## Features
