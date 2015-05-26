@@ -1049,8 +1049,9 @@ public class IRKit {
                         p.fetchDeviceId();
                     }
                 }, 2000);
-            } else if (!peripheral.hasModelInfo()) {
-                // Wait 500 ms to settle.
+            } else {
+                // Retrieve the model info every time as it may change.
+                // Wait 500 ms to settle before request.
                 // We can't use Handler nor AsyncTask because we aren't on the UI thread.
                 Timer t = new Timer();
                 t.schedule(new TimerTask() {
