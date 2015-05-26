@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
+import retrofit.client.Header;
 import retrofit.client.OkClient;
 import retrofit.client.Response;
 import retrofit.mime.TypedInput;
@@ -502,6 +503,99 @@ public class IRHTTPClient {
                 } else {
                     Log.e(TAG, "postDoor failure: " + error);
                     callback.failure(error);
+                }
+            }
+        });
+    }
+
+    /**
+     * Checks if the response header denotes IRKit.
+     *
+     * @param response Response object
+     * @param result If the response header denotes IRKit, onSuccess() will be called.
+     *               Otherwise onError() will be called with a null argument.
+     */
+    private void checkIfResponseDenotesIRKit(Response response, IRAPIResult result) {
+        for (Header header : response.getHeaders()) {
+            String name = header.getName();
+            if (name != null && name.toLowerCase().equals("server")) {
+                String value = header.getValue();
+                if (value != null) {
+                    Map<String, String> map = IRPeripheral.parseServerHeaderValue(value);
+                    String modelName = map.get("modelName");
+                    if (modelName != null && modelName.equals(IRPeripheral.IRKIT_MODEL_NAME)) {
+                        result.onSuccess();
+                        return;
+                    }
+                }
+            }
+        }
+        result.onError(null);
+    }
+
+    /**
+     * 192.168.1.1にリクエストを発行してレスポンスヘッダに"IRKit"が含まれていることを確認します。
+     * Sends a request to 192.168.1.1 and checks if the response header contains "IRKit".
+     *
+     * @param result レスポンスヘッダにIRKitが含まれていればonSuccess()、含まれていなければonError()が呼ばれる。
+     *               If the response header contains "IRKit", onSuccess() will be called.
+     *               Otherwise onError() will be called.
+     */
+    public void testIfIRKitWifiConnected(final IRAPIResult result) {
+        setDeviceAPIEndpoint(DEVICE_API_ENDPOINT_IRKITWIFI);
+
+        final IRState state = new IRState();
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                boolean isTimedOut = false;
+                synchronized (state) {
+                    if ( !state.isFinished() ) {
+                        state.finish();
+                        isTimedOut = true;
+                    }
+                }
+                if (isTimedOut) {
+                    Log.e(TAG, "testIfIRKitWifiConnected: timeout");
+                    result.onTimeout();
+                }
+            }
+        };
+        handler.postDelayed(r, 3000);
+
+        deviceAPIService.getHome(new Callback<IRDeviceAPIService.GetHomeResponse>() {
+            @Override
+            public void success(IRDeviceAPIService.GetHomeResponse getRootResponse, Response response) {
+                boolean isTimedOut = false;
+                synchronized (state) {
+                    if (state.isFinished()) {
+                        isTimedOut = true;
+                    } else {
+                        state.finish();
+                    }
+                }
+                if (!isTimedOut) {
+                    handler.removeCallbacks(r);
+                    checkIfResponseDenotesIRKit(response, result);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                // Actually this is success (IRKit returns 404 when a clients requests /)
+
+                boolean isTimedOut = false;
+                synchronized (state) {
+                    if (state.isFinished()) {
+                        isTimedOut = true;
+                    } else {
+                        state.finish();
+                    }
+                }
+                if (!isTimedOut) {
+                    handler.removeCallbacks(r);
+                    checkIfResponseDenotesIRKit(error.getResponse(), result);
                 }
             }
         });
