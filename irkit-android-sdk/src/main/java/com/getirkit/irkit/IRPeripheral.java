@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -32,6 +33,7 @@ public class IRPeripheral implements Serializable, Parcelable {
     private static final long serialVersionUID = 1L;
 
     public transient static final String TAG = "IRPeripheral";
+    public transient static final String IRKIT_MODEL_NAME = "IRKit";
 
     /**
      * IRKitデバイスに固有のホスト名。ホスト名はIRKitをリセットしても変わりません。
@@ -188,20 +190,42 @@ public class IRPeripheral implements Serializable, Parcelable {
      * @return modelNameまたはfirmwareVersionの値が更新された場合はtrue。
      *         True if modelName or firmwareVersion has modified.
      */
-    public boolean parseServerValue(String server) {
-        String[] params = server.split("/", 2);
+    public boolean storeServerHeaderValue(String server) {
+        Map<String, String> map = parseServerHeaderValue(server);
         boolean isModified = false;
-        if (params.length >= 2) {
-            if (modelName == null || !modelName.equals(params[0])) {
-                modelName = params[0];
+        String fetchedModelName = map.get("modelName");
+        if (fetchedModelName != null) {
+            if (modelName == null || !modelName.equals(fetchedModelName)) {
+                modelName = fetchedModelName;
                 isModified = true;
             }
-            if (firmwareVersion == null || !firmwareVersion.equals(params[1])) {
-                firmwareVersion = params[1];
+        }
+        String fetchedFirmwareVersion = map.get("firmwareVersion");
+        if (fetchedFirmwareVersion != null) {
+            if (firmwareVersion == null || !firmwareVersion.equals(fetchedFirmwareVersion)) {
+                firmwareVersion = fetchedFirmwareVersion;
                 isModified = true;
             }
         }
         return isModified;
+    }
+
+    /**
+     * Device HTTP APIのレスポンスに含まれるServerヘッダの値を解釈した結果を返します。
+     * Returns parsed result of Server header contained in a response of Device HTTP API.
+     *
+     * @param server Serverヘッダの値。 Server header value.
+     * @return modelNameとfirmwareVersionをキーとして含むMap。
+     *         Map containing modelName and firmwareVersion as the keys.
+     */
+    public static Map<String, String> parseServerHeaderValue(String server) {
+        String[] params = server.split("/", 2);
+        HashMap<String, String> map = new HashMap<>();
+        if (params.length >= 2) {
+            map.put("modelName", params[0]);
+            map.put("firmwareVersion", params[1]);
+        }
+        return map;
     }
 
     /**
@@ -217,7 +241,7 @@ public class IRPeripheral implements Serializable, Parcelable {
             if (name != null && name.toLowerCase().equals("server")) {
                 String value = header.getValue();
                 if (value != null) {
-                    return parseServerValue(value);
+                    return storeServerHeaderValue(value);
                 }
             }
         }
