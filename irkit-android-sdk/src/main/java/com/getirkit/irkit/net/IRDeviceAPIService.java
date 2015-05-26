@@ -131,4 +131,21 @@ public interface IRDeviceAPIService {
      */
     @POST("/wifi")
     void postWifi(@Body TypedInput body, Callback<PostWifiResponse> callback);
+
+    /**
+     * getHome()のレスポンスです。
+     *
+     * @see #getHome(Callback)
+     */
+    public static class GetHomeResponse {
+    }
+
+    /**
+     * "/"（トップページ）にアクセスします。実質的な影響のないリクエストです。接続確認やヘッダ取得用に使います。
+     * Fetches "/" (root). This request has no effect. Used for checking connection or retrieving headers.
+     *
+     * @param callback レスポンスを受け取るコールバック。 Callback for receiving the response.
+     */
+    @GET("/")
+    void getHome(Callback<GetHomeResponse> callback);
 }
