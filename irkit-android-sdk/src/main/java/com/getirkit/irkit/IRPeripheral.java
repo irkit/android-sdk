@@ -186,7 +186,7 @@ public class IRPeripheral implements Serializable, Parcelable {
      * Parse the value of Server header in Device HTTP API response.
      * modelName and firmwareVersion may be updated.
      *
-     * @param server Server header value
+     * @param server Serverヘッダの値。 Server header value.
      * @return modelNameまたはfirmwareVersionの値が更新された場合はtrue。
      *         True if modelName or firmwareVersion has modified.
      */
