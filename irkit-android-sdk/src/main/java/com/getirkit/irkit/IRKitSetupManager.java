@@ -299,7 +299,13 @@ class IRKitSetupManager implements IRKitEventListener {
                         handler.removeCallbacks(runnable);
                         if (isSettingUpIRKit) {
                             Log.e(TAG, "connectIRKitToWifi failure: " + error.getMessage() + "; retrying");
-                            connectIRKitToWifi(retryCount + 1);
+                            // Wait 1000ms before retry
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    connectIRKitToWifi(retryCount + 1);
+                                }
+                            }, 1000);
                         }
                     }
                 }

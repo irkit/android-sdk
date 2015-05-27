@@ -1,6 +1,7 @@
 package com.getirkit.irkit;
 
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -295,7 +296,14 @@ public class IRPeripheral implements Serializable, Parcelable {
             @Override
             public void failure(RetrofitError error) {
                 Log.e(TAG, "device getMessages failure: " + error.getMessage());
-                fetchModelInfo(retryCount + 1);
+
+                // We can use a Handler because Retrofit callback is executed on the UI thread.
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fetchModelInfo(retryCount + 1);
+                    }
+                }, 1000);
             }
         });
     }
@@ -380,7 +388,14 @@ public class IRPeripheral implements Serializable, Parcelable {
                 Log.w(TAG, "local postkeys failure: message=" + error.getMessage() +
                         " kind=" + error.getKind() + "; retrying");
                 isFetchingDeviceId = false;
-                fetchDeviceId(retryCount + 1);
+
+                // We can use a Handler because Retrofit callback is executed on the UI thread.
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fetchDeviceId(retryCount + 1);
+                    }
+                }, 1000);
             }
         });
     }
