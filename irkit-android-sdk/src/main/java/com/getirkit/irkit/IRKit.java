@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -65,6 +66,7 @@ public class IRKit {
     public static final String PREF_KEY_BONJOUR_HOSTNAME = "debuginfo.bonjour.hostname";
     public static final String PREF_KEY_BONJOUR_RESOLVED_AT = "debuginfo.bonjour.resolved_at";
     private static final int SEND_SIGNAL_LOCAL_TIMEOUT_MS = 3000;
+    private static final long SEND_SIGNAL_INTERVAL_MS = 1000;
 
     /**
      * 既存のIRPeripheralインスタンスが格納されたIRPeripheralsインスタンスです。
@@ -1260,10 +1262,24 @@ public class IRKit {
         };
 
         if ( peripheral != null && peripheral.isLocalAddressResolved() ) {
+            // Throttle Device HTTP API access to one request per second
+            long diffTime = SystemClock.elapsedRealtime() - peripheral.getLastAccessTimeOverDeviceHTTPAPI();
+            if (peripheral.getLastAccessTimeOverDeviceHTTPAPI() != -1 && diffTime < SEND_SIGNAL_INTERVAL_MS) {
+                // Postpone this _sendSignal()
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        _sendSignal(signal, callback);
+                    }
+                }, SEND_SIGNAL_INTERVAL_MS - diffTime);
+                return;
+            }
+
             httpClient.setDeviceAPIEndpoint(peripheral.getDeviceAPIEndpoint());
             httpClient.sendSignalOverLocalNetwork(signal, new IRAPIResult() {
                 @Override
                 public void onSuccess() {
+                    peripheral.setLastAccessTimeOverDeviceHTTPAPI(SystemClock.elapsedRealtime());
                     if (callback != null) {
                         callback.onSuccess();
                     }
@@ -1272,12 +1288,14 @@ public class IRKit {
 
                 @Override
                 public void onError(IRAPIError error) {
+                    peripheral.setLastAccessTimeOverDeviceHTTPAPI(SystemClock.elapsedRealtime());
                     // Try to send signal over Internet
                     httpClient.sendSignalOverInternet(signal, internetAPICallback);
                 }
 
                 @Override
                 public void onTimeout() {
+                    peripheral.setLastAccessTimeOverDeviceHTTPAPI(SystemClock.elapsedRealtime());
                     peripheral.lostLocalAddress();
                     // Try to send signal over Internet
                     httpClient.sendSignalOverInternet(signal, internetAPICallback);

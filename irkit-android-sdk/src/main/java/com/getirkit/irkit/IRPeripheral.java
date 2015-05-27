@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.getirkit.irkit.net.IRDeviceAPIService;
@@ -76,6 +77,15 @@ public class IRPeripheral implements Serializable, Parcelable {
     private transient InetAddress host;
     private transient int port;
     private transient boolean isFetchingDeviceId = false;
+
+    /**
+     * Device HTTP APIで最後にアクセスした時刻です。時刻はSystemClock.elapsedRealtime()で表されます。
+     * The time when the most recent access was made over Device HTTP API. The time is expressed in SystemClock.elapsedRealtime().
+     *
+     * @see SystemClock#elapsedRealtime()
+     * @since 1.2.1
+     */
+    private transient long lastAccessTimeOverDeviceHTTPAPI;
 
     @Override
     public String toString() {
@@ -179,6 +189,35 @@ public class IRPeripheral implements Serializable, Parcelable {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    /**
+     * Device HTTP APIで最後にアクセスした時刻を返します。時刻はSystemClock.elapsedRealtime()で表されます。
+     * IRKitの動作が不安定にならないようにするため、直前のリクエストから1秒以上空けて次のリクエストを行うようにします。
+     *
+     * Returns the time when the most recent access was made over Device HTTP API. The time is expressed in SystemClock.elapsedRealtime().
+     * This information is used for throttling Device HTTP API access to one request per second.
+     *
+     * @return Device HTTP APIで最後にアクセスした時刻。
+     *         The time when the most recent access was made over Device HTTP API.
+     * @see SystemClock#elapsedRealtime()
+     * @since 1.2.1
+     */
+    public long getLastAccessTimeOverDeviceHTTPAPI() {
+        return lastAccessTimeOverDeviceHTTPAPI;
+    }
+
+    /**
+     * Device HTTP APIで最後にアクセスした時刻をセットします。時刻はSystemClock.elapsedRealtime()で表します。
+     * Sets the time when the most recent access was made over Device HTTP API. The time should be expressed in SystemClock.elapsedRealtime().
+     *
+     * @param lastAccessTimeOverDeviceHTTPAPI Device HTTP APIで最後にアクセスした時刻。
+     *                                        The time when the most recent access was made over Device HTTP API.
+     * @see SystemClock#elapsedRealtime()
+     * @since 1.2.1
+     */
+    public void setLastAccessTimeOverDeviceHTTPAPI(long lastAccessTimeOverDeviceHTTPAPI) {
+        this.lastAccessTimeOverDeviceHTTPAPI = lastAccessTimeOverDeviceHTTPAPI;
     }
 
     /**

@@ -14,6 +14,8 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Callback;
@@ -208,13 +210,13 @@ public class IRHTTPClient {
         request.data = signal.getData();
 
         final IRState state = new IRState();
-        final Handler handler = new Handler();
-        final Runnable r = new Runnable() {
+        final Timer timeoutTimer = new Timer();
+        timeoutTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 boolean isTimedOut = false;
                 synchronized (state) {
-                    if ( !state.isFinished() ) {
+                    if (!state.isFinished()) {
                         state.finish();
                         isTimedOut = true;
                     }
@@ -224,8 +226,7 @@ public class IRHTTPClient {
                     result.onTimeout();
                 }
             }
-        };
-        handler.postDelayed(r, timeoutMs);
+        }, timeoutMs);
 
         deviceAPIService.postMessages(request, new Callback<IRDeviceAPIService.PostMessagesResponse>() {
             @Override
@@ -247,7 +248,7 @@ public class IRHTTPClient {
                     }
                 }
                 if (!isTimedOut) {
-                    handler.removeCallbacks(r);
+                    timeoutTimer.cancel();
                     if (result != null) {
                         result.onSuccess();
                     }
@@ -266,7 +267,7 @@ public class IRHTTPClient {
                     }
                 }
                 if (!isTimedOut) {
-                    handler.removeCallbacks(r);
+                    timeoutTimer.cancel();
                     if (result != null) {
                         result.onError(new IRAPIError(error.getMessage()));
                     }
