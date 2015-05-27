@@ -136,6 +136,7 @@ public interface IRDeviceAPIService {
      * getHome()のレスポンスです。
      *
      * @see #getHome(Callback)
+     * @since 1.2.0
      */
     public static class GetHomeResponse {
     }
@@ -145,6 +146,7 @@ public interface IRDeviceAPIService {
      * Fetches "/" (root). This request has no effect. Used for checking connection or retrieving headers.
      *
      * @param callback レスポンスを受け取るコールバック。 Callback for receiving the response.
+     * @since 1.2.0
      */
     @GET("/")
     void getHome(Callback<GetHomeResponse> callback);

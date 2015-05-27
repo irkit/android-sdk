@@ -540,6 +540,7 @@ public class IRHTTPClient {
      * @param result レスポンスヘッダにIRKitが含まれていればonSuccess()、含まれていなければonError()が呼ばれる。
      *               If the response header contains "IRKit", onSuccess() will be called.
      *               Otherwise onError() will be called.
+     * @since 1.2.0
      */
     public void testIfIRKitWifiConnected(final IRAPIResult result) {
         setDeviceAPIEndpoint(DEVICE_API_ENDPOINT_IRKITWIFI);

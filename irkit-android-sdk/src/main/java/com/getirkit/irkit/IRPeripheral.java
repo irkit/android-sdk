@@ -218,6 +218,7 @@ public class IRPeripheral implements Serializable, Parcelable {
      * @param server Serverヘッダの値。 Server header value.
      * @return modelNameとfirmwareVersionをキーとして含むMap。
      *         Map containing modelName and firmwareVersion as the keys.
+     * @since 1.2.0
      */
     public static Map<String, String> parseServerHeaderValue(String server) {
         String[] params = server.split("/", 2);
