@@ -1040,7 +1040,7 @@ public class IRKit {
             peripheral.setPort(port);
             final IRPeripheral p = peripheral;
             if (!peripheral.hasDeviceId()) {
-                // Wait 2000 ms to settle.
+                // Wait 1000 ms to settle before sending a request.
                 // We can't use Handler nor AsyncTask because we aren't on the UI thread.
                 Timer t = new Timer();
                 t.schedule(new TimerTask() {
@@ -1048,10 +1048,10 @@ public class IRKit {
                     public void run() {
                         p.fetchDeviceId();
                     }
-                }, 2000);
+                }, 1000);
             } else {
                 // Retrieve the model info every time as it may change.
-                // Wait 500 ms to settle before request.
+                // Wait 1000 ms to settle before sending a request.
                 // We can't use Handler nor AsyncTask because we aren't on the UI thread.
                 Timer t = new Timer();
                 t.schedule(new TimerTask() {
@@ -1059,7 +1059,7 @@ public class IRKit {
                     public void run() {
                         p.fetchModelInfo();
                     }
-                }, 500);
+                }, 1000);
             }
         }
     }
