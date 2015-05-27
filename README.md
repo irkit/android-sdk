@@ -296,7 +296,7 @@ Internet HTTP APIを直接使いたい場合は以下のようにします。
     // apikeyをAndroidManifest.xmlから取得する
     String apikey = IRKit.sharedInstance().getIRKitAPIKey();
 
-    // IRKitのセットアップを開始（UIスレッドから呼ぶ必要あり）
+    // IRKitのセットアップを開始
     IRKit.sharedInstance().setupIRKit(apikey, irWifiInfo, irkitWifiPassword, new IRKit.IRKitConnectWifiListener() {
         @Override
         public void onStatus(String status) {
