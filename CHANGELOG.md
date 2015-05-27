@@ -1,6 +1,53 @@
 Change Log
 ==========
 
+Version 1.2.0 *(2015-05-28)*
+----------------------------
+
+### 変更点
+
+- mDNSでIRKitを発見した際に毎回modelNameとfirmwareVersionを取得するようにしました。
+- Device HTTP APIのリクエスト送信前の待ち時間を調整しました。
+- IRKitにWi-Fi情報を送信する場面でエラーが発生しセットアップが中断した場合、自動的に家のWi-Fiに接続し直すようにしました。
+- appcompat-v7サポートライブラリを22.1.1に更新しました。
+  - ActionBarActivityの代わりにAppCompatActivityを使うようにしました。
+- IRKitSetupActivity
+  - パスワード入力フィールドを2つともmonospaceフォントに変更しました。
+- IRKitクラス
+  - setupIRKit()をどのスレッドからでも呼べるようにしました。
+- IRHTTPClientクラス
+  - testIfIRKitWifiConnected()を追加しました。
+- IRDeviceAPIServiceクラス
+  - getHome()を追加しました。
+- IRPeripheralクラス
+  - parseServerHeaderValue()を追加しました。
+- サンプルアプリ（appモジュール）
+  - テーマカラーを変更しました。
+  - Navigation Drawerで選択しているアイテムを強調表示するようにしました。
+
+
+### Changes
+
+- Retrieve modelName and firmwareVersion every time SDK finds an IRKit over mDNS.
+- Modify wait times before sending requests to Device HTTP API.
+- Reconnect to home Wi-Fi if IRKit setup has interrupted due to error sending Wi-Fi information to IRKit.
+- Update appcompat-v7 version to 22.1.1.
+  - Replace ActionBarActivity with AppCompatActivity.
+- IRKitSetupActivity
+  - Change the font of password fields to monospace.
+- IRKit class
+  - Make setupIRKit() callable from any thread.
+- IRHTTPClient class
+  - Add testIfIRKitWifiConnected().
+- IRDeviceAPIService class
+  - Add getHome().
+- IRPeripheral
+  - Add parseServerHeaderValue().
+- Example app (app module)
+  - Change the theme color.
+  - Highlight the selected item in the navigation drawer.
+
+
 Version 1.1.3 *(2015-05-16)*
 ----------------------------
 
