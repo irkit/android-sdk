@@ -13,6 +13,9 @@ import com.getirkit.irkit.net.IRAPIResult;
 import com.getirkit.irkit.net.IRDeviceAPIService;
 import com.getirkit.irkit.net.IRInternetAPIService;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -53,10 +56,12 @@ class IRKitSetupManager implements IRKitEventListener {
     public void fetchDeviceKey() {
         irKitConnectWifiListener.onStatus(context.getString(R.string.setup_status__obtaining_device_key));
 
-        // timeout handler
-        final Handler handler = new Handler();
+        // Timeout handler
+        // We should avoid using a Handler because this might be
+        // executed on a background thread.
         final IRState state = new IRState();
-        final Runnable runnable = new Runnable() {
+        final Timer timeoutTimer = new Timer();
+        timeoutTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 synchronized (state) {
@@ -69,8 +74,7 @@ class IRKitSetupManager implements IRKitEventListener {
                     }
                 }
             }
-        };
-        handler.postDelayed(runnable, 30000);
+        }, 30000);
 
         // Obtain device key and device id
         IRKit.sharedInstance().getHTTPClient().obtainDeviceKey(new IRAPICallback<IRInternetAPIService.PostDevicesResponse>() {
@@ -79,7 +83,7 @@ class IRKitSetupManager implements IRKitEventListener {
                 synchronized (state) {
                     if (!state.isFinished()) {
                         state.finish();
-                        handler.removeCallbacks(runnable);
+                        timeoutTimer.cancel();
                         if (isSettingUpIRKit) {
                             setupDeviceId = postDevicesResponse.deviceid;
                             scanIRKitWifi();
@@ -93,7 +97,7 @@ class IRKitSetupManager implements IRKitEventListener {
                 synchronized (state) {
                     if (!state.isFinished()) {
                         state.finish();
-                        handler.removeCallbacks(runnable);
+                        timeoutTimer.cancel();
                         Log.e(TAG, "Failed to get device key");
                         if (isSettingUpIRKit) {
                             isSettingUpIRKit = false;
@@ -145,10 +149,12 @@ class IRKitSetupManager implements IRKitEventListener {
         }
         irKitConnectWifiListener.onStatus(context.getString(R.string.setup_status__scanning_for_irkit_wifi));
 
-        // timeout handler
-        final Handler handler = new Handler();
+        // Timeout handler
+        // We should avoid using a Handler because this might be
+        // executed on a background thread.
         final IRState state = new IRState();
-        final Runnable runnable = new Runnable() {
+        final Timer timeoutTimer = new Timer();
+        timeoutTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 synchronized (state) {
@@ -163,8 +169,7 @@ class IRKitSetupManager implements IRKitEventListener {
                     }
                 }
             }
-        };
-        handler.postDelayed(runnable, 50000);
+        }, 50000);
 
         IRKit.sharedInstance().scanIRKitWifi(new IRKit.IRKitWifiScanResultListener() {
             @Override
@@ -172,7 +177,7 @@ class IRKitSetupManager implements IRKitEventListener {
                 synchronized (state) {
                     if (!state.isFinished()) {
                         state.finish();
-                        handler.removeCallbacks(runnable);
+                        timeoutTimer.cancel();
                         if (isSettingUpIRKit) {
                             irkitWifiSSID = result.SSID;
                             changeToIRKitWifi();

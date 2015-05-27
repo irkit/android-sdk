@@ -160,11 +160,11 @@ public class IRKit {
 
     /**
      * <p class="ja">
-     * IRKitデバイスのセットアップを開始します。すでにセットアップが進行中の場合はlistenerの更新だけを行います。このメソッドはUIスレッドから呼ぶ必要があります。
+     * IRKitデバイスのセットアップを開始します。すでにセットアップが進行中の場合はlistenerの更新だけを行います。
      * </p>
      *
      * <p class="en">
-     * Begin IRKit device setup. If a setup is already started, it only updates the listener. This method needs to be called from the UI thread.
+     * Begin IRKit device setup. If a setup is already started, it only updates the listener.
      * </p>
      *
      * @param apiKey apikey
