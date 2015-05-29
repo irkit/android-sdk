@@ -82,6 +82,7 @@ public class IRHTTPClient {
         localHttpClient = new OkHttpClient();
         localHttpClient.setConnectTimeout(5, TimeUnit.SECONDS);
         localHttpClient.setReadTimeout(10, TimeUnit.SECONDS);
+        localHttpClient.getDispatcher().setMaxRequestsPerHost(1);
 
         internetRestAdapter = new RestAdapter.Builder()
                 .setClient(new OkClient(internetHttpClient))
