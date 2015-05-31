@@ -69,6 +69,16 @@ public class IRKit {
     private static final long SEND_SIGNAL_INTERVAL_MS = 1000;
 
     /**
+     * How long do we wait before retrieving a deviceId.
+     */
+    private static final int FETCH_DEVICE_ID_DELAY_MS = 1000;
+
+    /**
+     * How long do we wait before retrieving a model info (modelName and firmwareVersion).
+     */
+    private static final int FETCH_MODEL_INFO_DELAY_MS = 100;
+
+    /**
      * 既存のIRPeripheralインスタンスが格納されたIRPeripheralsインスタンスです。
      * IRPeripherals instance which holds existing IRPeripheral instances.
      */
@@ -1050,9 +1060,9 @@ public class IRKit {
                     public void run() {
                         p.fetchDeviceId();
                     }
-                }, 1000);
+                }, FETCH_DEVICE_ID_DELAY_MS);
             } else {
-                // Retrieve the model info every time as it may change.
+                // Retrieve the model info (modelName and firmwareVersion) every time as it may change.
                 // Wait 1000 ms to settle before sending a request.
                 // We can't use Handler nor AsyncTask because we aren't on the UI thread.
                 Timer t = new Timer();
@@ -1061,7 +1071,7 @@ public class IRKit {
                     public void run() {
                         p.fetchModelInfo();
                     }
-                }, 1000);
+                }, FETCH_MODEL_INFO_DELAY_MS);
             }
         }
     }
