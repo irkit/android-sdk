@@ -1217,23 +1217,28 @@ public class IRKit {
      * @param callback 結果を受け取るコールバック。 Callback for receiving the result.
      */
     public void sendSignal(IRSignal signal, IRAPIResult callback) {
+        boolean doSendSignal = false;
         synchronized (sendSignalQueue) {
             sendSignalQueue.add(new SendSignalItem(signal, callback));
             if (sendSignalQueue.size() == 1) {
                 // Do it now
-                _sendSignal(signal, callback);
+                doSendSignal = true;
             }
+        }
+        if (doSendSignal) {
+            _sendSignal(signal, callback);
         }
     }
 
     private void consumeNextSendSignal() {
+        SendSignalItem sendSignalItem = null;
         synchronized (sendSignalQueue) {
             sendSignalQueue.removeFirst();
-            SendSignalItem sendSignalItem = sendSignalQueue.peek();
-            if (sendSignalItem != null) {
-                // Consume the next signal
-                _sendSignal(sendSignalItem.signal, sendSignalItem.callback);
-            }
+            sendSignalItem = sendSignalQueue.peek();
+        }
+        if (sendSignalItem != null) {
+            // Consume the next signal
+            _sendSignal(sendSignalItem.signal, sendSignalItem.callback);
         }
     }
 
@@ -1487,15 +1492,19 @@ public class IRKit {
                 timeoutRunnable = new Runnable() {
                     @Override
                     public void run() {
+                        boolean isReallyTimedOut = false;
                         synchronized (this) {
                             if (!isCanceled && !isFinished) {
                                 isFinished = true;
-                                if (wifiConnectionChangeListener != null) {
-                                    wifiConnectionChangeListener.onTimeout();
-                                }
+                                isReallyTimedOut = true;
                             }
                             timeoutRunnable = null;
                             timeoutHandler = null;
+                        }
+                        if (isReallyTimedOut) {
+                            if (wifiConnectionChangeListener != null) {
+                                wifiConnectionChangeListener.onTimeout();
+                            }
                         }
                     }
                 };
@@ -1569,17 +1578,21 @@ public class IRKit {
                     if (wifiInfo != null) {
                         String currentSSID = wifiInfo.getSSID();
                         if (matchesSSID(currentSSID, targetSSID)) { // Connected to target Wi-Fi
+                            boolean isReallySucceeded = false;
                             synchronized (this) {
                                 if (!isCanceled && !isFinished) {
+                                    isReallySucceeded = true;
                                     isFinished = true;
                                     if (timeoutHandler != null) {
                                         timeoutHandler.removeCallbacks(timeoutRunnable);
                                         timeoutRunnable = null;
                                         timeoutHandler = null;
                                     }
-                                    if (wifiConnectionChangeListener != null) {
-                                        wifiConnectionChangeListener.onTargetWifiConnected(wifiInfo, info);
-                                    }
+                                }
+                            }
+                            if (isReallySucceeded) {
+                                if (wifiConnectionChangeListener != null) {
+                                    wifiConnectionChangeListener.onTargetWifiConnected(wifiInfo, info);
                                 }
                             }
                         }
@@ -1595,32 +1608,40 @@ public class IRKit {
                         long diff = System.currentTimeMillis() - startTime;
                         Log.e(TAG, "Wifi authentication failed (count=" + authFailedCount + " diff=" + diff + "ms)");
                         if (++authFailedCount >= 2) {
+                            boolean isReallyError = false;
                             synchronized (this) {
                                 if (!isCanceled && !isFinished) {
+                                    isReallyError = true;
                                     isFinished = true;
                                     if (timeoutHandler != null) {
                                         timeoutHandler.removeCallbacks(timeoutRunnable);
                                         timeoutRunnable = null;
                                         timeoutHandler = null;
                                     }
-                                    if (wifiConnectionChangeListener != null) {
-                                        wifiConnectionChangeListener.onError("Authentication failed");
-                                    }
+                                }
+                            }
+                            if (isReallyError) {
+                                if (wifiConnectionChangeListener != null) {
+                                    wifiConnectionChangeListener.onError("Authentication failed");
                                 }
                             }
                         }
                         if (diff >= ERROR_TIME_THRESHOLD) {
+                            boolean isReallyError = false;
                             synchronized (this) {
                                 if (!isCanceled && !isFinished) {
+                                    isReallyError = true;
                                     isFinished = true;
                                     if (timeoutHandler != null) {
                                         timeoutHandler.removeCallbacks(timeoutRunnable);
                                         timeoutRunnable = null;
                                         timeoutHandler = null;
                                     }
-                                    if (wifiConnectionChangeListener != null) {
-                                        wifiConnectionChangeListener.onError("Authentication failed");
-                                    }
+                                }
+                            }
+                            if (isReallyError) {
+                                if (wifiConnectionChangeListener != null) {
+                                    wifiConnectionChangeListener.onError("Authentication failed");
                                 }
                             }
                         }
