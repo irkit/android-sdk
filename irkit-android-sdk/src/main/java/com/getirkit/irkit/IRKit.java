@@ -1467,10 +1467,10 @@ public class IRKit {
         private String lastSeenSSID;
         private long startTime;
         private static final int ERROR_TIME_THRESHOLD = 3000; // milliseconds
-        private boolean isFinished = false;
+        private volatile boolean isFinished = false;
         private int authFailedCount = 0;
         private WifiManager wifiManager;
-        private boolean isCanceled = false;
+        private volatile boolean isCanceled = false;
         private Handler timeoutHandler;
         private Runnable timeoutRunnable;
 
