@@ -21,7 +21,7 @@ public class SignalsFragment extends Fragment {
     public static final String TAG = SignalsFragment.class.getSimpleName();
 
     public interface SignalsFragmentListener {
-        public void onSignalClick(int position);
+        void onSignalClick(int position);
     }
 
     private SignalsFragmentListener listener;

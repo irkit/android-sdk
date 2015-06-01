@@ -136,7 +136,7 @@ public interface IRInternetAPIService {
      *
      * @see #postDevices(Map, Callback)
      */
-    public static class PostDevicesResponse {
+    class PostDevicesResponse {
         public String devicekey;
         public String deviceid;
     }
@@ -161,7 +161,7 @@ public interface IRInternetAPIService {
      *
      * @see #postDoor(Map, Callback)
      */
-    public static class PostDoorResponse {
+    class PostDoorResponse {
         /**
          * Bonjour を使うことで同じWiFiアクセスポイントに接続したクライアントから #{hostname}.local として接続するために使います。
          */
@@ -187,7 +187,7 @@ public interface IRInternetAPIService {
      * @see GetRecommendedAmazonAppsResponse
      * @see GetRecommendedGooglePlayAppsResponse
      */
-    public static class AndroidApp {
+    class AndroidApp {
         public String title_ja;
         public String title_en;
         public String image_url;
@@ -202,7 +202,7 @@ public interface IRInternetAPIService {
      *
      * @see #getRecommendedGooglePlayApps(Callback)
      */
-    public static class GetRecommendedGooglePlayAppsResponse {
+    class GetRecommendedGooglePlayAppsResponse {
         public AndroidApp[] apps;
     }
 
@@ -212,7 +212,7 @@ public interface IRInternetAPIService {
      *
      * @see #getRecommendedAmazonApps(Callback)
      */
-    public static class GetRecommendedAmazonAppsResponse {
+    class GetRecommendedAmazonAppsResponse {
         public AndroidApp[] apps;
     }
 
@@ -238,7 +238,7 @@ public interface IRInternetAPIService {
      *
      * @see #getRecommendediOSApps(Callback)
      */
-    public static class GetRecommendediOSAppsResponse {
+    class GetRecommendediOSAppsResponse {
         public App[] apps;
 
         public static class App {
@@ -266,7 +266,7 @@ public interface IRInternetAPIService {
      * @see #postApps(Map, Callback)
      * @since 1.1.2
      */
-    public static class PostAppsResponse {
+    class PostAppsResponse {
         public String message;
     }
 

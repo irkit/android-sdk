@@ -27,7 +27,7 @@ public class DevicesFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     public interface DevicesFragmentListener {
-        public void onDeviceClick(int position);
+        void onDeviceClick(int position);
     }
 
     private DevicesFragmentListener listener;

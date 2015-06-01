@@ -22,8 +22,8 @@ import com.getirkit.irkit.R;
  */
 public class WifiConnectFragment extends Fragment implements IRKit.IRKitConnectWifiListener {
     public interface WifiConnectFragmentListener {
-        public void onSuccess();
-        public void onError(String message);
+        void onSuccess();
+        void onError(String message);
     }
 
     public static final String TAG = WifiConnectFragment.class.getSimpleName();

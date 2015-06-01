@@ -18,7 +18,7 @@ public class TurnOnIRKitFragment extends Fragment {
     public static final String TAG = TurnOnIRKitFragment.class.getSimpleName();
 
     public interface TurnOnIRKitFragmentListener {
-        public void onClickNext();
+        void onClickNext();
     }
 
     private TurnOnIRKitFragmentListener turnOnIRKitFragmentListener;

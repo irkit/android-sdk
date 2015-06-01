@@ -25,8 +25,8 @@ public class SignalImageDialogFragment extends DialogFragment {
     public static final String TAG = SignalImageDialogFragment.class.getSimpleName();
 
     public interface SignalImageListener {
-        public void onSignalImageSelect(int resourceId);
-        public void onSignalImageCancel();
+        void onSignalImageSelect(int resourceId);
+        void onSignalImageCancel();
     }
 
     private SignalImageListener listener;

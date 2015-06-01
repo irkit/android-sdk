@@ -37,7 +37,7 @@ public class WifiInputFragment extends Fragment {
     private WifiInputFragmentListener wifiInputFragmentListener;
 
     public interface WifiInputFragmentListener {
-        public void onClickOK(IRWifiInfo irWifiInfo);
+        void onClickOK(IRWifiInfo irWifiInfo);
     }
 
     @Override

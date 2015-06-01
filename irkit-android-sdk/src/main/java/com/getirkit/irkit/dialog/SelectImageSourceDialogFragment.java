@@ -17,10 +17,10 @@ public class SelectImageSourceDialogFragment extends DialogFragment {
     public static final String TAG = SelectImageSourceDialogFragment.class.getSimpleName();
 
     public interface SelectImageSourceDialogFragmentListener {
-        public void onRequestSelectFromPreset();
-        public void onRequestTakePhoto();
-        public void onRequestSelectPhotoFromLibrary();
-        public void onCancel();
+        void onRequestSelectFromPreset();
+        void onRequestTakePhoto();
+        void onRequestSelectPhotoFromLibrary();
+        void onCancel();
     }
 
     private SelectImageSourceDialogFragmentListener selectImageSourceDialogFragmentListener;

@@ -656,7 +656,7 @@ public class IRKit {
          * @param wifiInfo WifiInfo object
          * @param networkInfo NetworkInfo object
          */
-        public void onTargetWifiConnected(WifiInfo wifiInfo, NetworkInfo networkInfo);
+        void onTargetWifiConnected(WifiInfo wifiInfo, NetworkInfo networkInfo);
 
         /**
          * Wi-Fi接続エラー時に呼ばれます。
@@ -664,17 +664,17 @@ public class IRKit {
          *
          * @param reason エラーメッセージ。 Error message.
          */
-        public void onError(String reason);
+        void onError(String reason);
 
         /**
          * Wi-Fi接続を試みている間にタイムアウトした際に呼ばれます。
          * Called when the attempt to connect to the Wi-Fi has timed out.
          */
-        public void onTimeout();
+        void onTimeout();
     }
 
     public interface IRKitWifiScanResultListener {
-        public void onIRKitWifiFound(ScanResult result);
+        void onIRKitWifiFound(ScanResult result);
     }
 
     /**
@@ -1394,7 +1394,7 @@ public class IRKit {
          *
          * @param status セットアップ状況。 Setup status.
          */
-        public void onStatus(String status);
+        void onStatus(String status);
 
         /**
          * セットアップがエラーで中断された場合に呼ばれます。
@@ -1402,13 +1402,13 @@ public class IRKit {
          *
          * @param message エラーメッセージ。 Error message.
          */
-        public void onError(String message);
+        void onError(String message);
 
         /**
          * セットアップが完了した際に呼ばれます。
          * Called when the setup has been completed.
          */
-        public void onComplete();
+        void onComplete();
     }
 
     // Inner classes
@@ -1659,7 +1659,7 @@ public class IRKit {
         public static final String TAG = WifiEnableEventReceiver.class.getSimpleName();
 
         private interface WifiEnableEventReceiverListener {
-            public void onWifiEnabled();
+            void onWifiEnabled();
         }
 
         private WifiEnableEventReceiverListener listener;

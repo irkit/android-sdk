@@ -17,8 +17,8 @@ public class SelectSignalActionDialogFragment extends DialogFragment {
     public static final String TAG = SelectSignalActionDialogFragment.class.getSimpleName();
 
     public interface SelectSignalActionDialogFragmentListener {
-        public void onSelectSignalActionSend();
-        public void onSelectSignalActionEdit();
+        void onSelectSignalActionSend();
+        void onSelectSignalActionEdit();
     }
 
     private SelectSignalActionDialogFragmentListener selectSignalActionDialogFragmentListener;

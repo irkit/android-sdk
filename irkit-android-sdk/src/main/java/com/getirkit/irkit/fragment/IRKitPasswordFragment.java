@@ -23,7 +23,7 @@ public class IRKitPasswordFragment extends Fragment {
     private EditText passwordEditText;
 
     public interface IRKitPasswordFragmentListener {
-        public void onClickOK(String password);
+        void onClickOK(String password);
     }
 
     private IRKitPasswordFragmentListener irkitPasswordFragmentListener;

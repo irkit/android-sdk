@@ -91,7 +91,7 @@ public interface IRDeviceAPIService {
      *
      * @see #postMessages(PostMessagesRequest, Callback)
      */
-    public static class PostMessagesRequest {
+    class PostMessagesRequest {
         public String format;
         public float freq;
         public int[] data;
@@ -103,7 +103,7 @@ public interface IRDeviceAPIService {
      *
      * @see #postMessages(PostMessagesRequest, Callback)
      */
-    public static class PostMessagesResponse {
+    class PostMessagesResponse {
     }
 
     /**
@@ -121,7 +121,7 @@ public interface IRDeviceAPIService {
      *
      * @see #postWifi(TypedInput, Callback)
      */
-    public static class PostWifiResponse {
+    class PostWifiResponse {
     }
 
     /**
@@ -138,7 +138,7 @@ public interface IRDeviceAPIService {
      * @see #getHome(Callback)
      * @since 1.2.0
      */
-    public static class GetHomeResponse {
+    class GetHomeResponse {
     }
 
     /**

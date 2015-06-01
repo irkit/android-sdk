@@ -89,11 +89,11 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     public interface IRPeripheralListener {
-        public void onErrorFetchingDeviceId(String message);
-        public void onDeviceIdStatusChange();
-        public void onFetchDeviceIdSuccess();
-        public void onFetchModelInfoSuccess();
-        public void onErrorFetchingModelInfo(String message);
+        void onErrorFetchingDeviceId(String message);
+        void onDeviceIdStatusChange();
+        void onFetchDeviceIdSuccess();
+        void onFetchModelInfoSuccess();
+        void onErrorFetchingModelInfo(String message);
     }
 
     // listener won't be packed in a Parcelable since it's transient
@@ -494,13 +494,13 @@ public class IRPeripheral implements Serializable, Parcelable {
          * IRKitがローカルネットワーク内で到達可能な時に呼ばれます。この場合はDevice HTTP APIを利用できます。
          * Called when IRKit is reachable on local network. Device HTTP API is available.
          */
-        public void reachable();
+        void reachable();
 
         /**
          * IRKitがローカルネットワーク内で到達できない時に呼ばれます。この場合はDevice HTTP APIを利用できません。
          * Called when IRKit is not reachable on local network. Device HTTP API is unavailable.
          */
-        public void notReachable();
+        void notReachable();
     }
 
     /**

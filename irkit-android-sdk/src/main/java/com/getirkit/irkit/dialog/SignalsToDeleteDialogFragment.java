@@ -24,8 +24,8 @@ public class SignalsToDeleteDialogFragment extends DialogFragment {
     public static final String TAG = SignalsToDeleteDialogFragment.class.getSimpleName();
 
     public interface SignalsToDeleteDialogFragmentListener {
-        public void onClickDeleteAllSignals();
-        public void onClickCancelDeleteSignals();
+        void onClickDeleteAllSignals();
+        void onClickCancelDeleteSignals();
     }
 
     private SignalsToDeleteDialogFragmentListener signalsToDeleteDialogFragmentListener;

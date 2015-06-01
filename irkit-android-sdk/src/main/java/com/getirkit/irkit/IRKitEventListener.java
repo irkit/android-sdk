@@ -18,7 +18,7 @@ public interface IRKitEventListener {
      *
      * @param peripheral 新しく発見したIRKitデバイス。 Newly found IRKit device.
      */
-    public void onNewIRKitFound(IRPeripheral peripheral);
+    void onNewIRKitFound(IRPeripheral peripheral);
 
     /**
      * <p class="ja">
@@ -33,5 +33,5 @@ public interface IRKitEventListener {
      *
      * @param peripheral 発見したIRKitデバイス。 Found IRKit device.
      */
-    public void onExistingIRKitFound(IRPeripheral peripheral);
+    void onExistingIRKitFound(IRPeripheral peripheral);
 }
