@@ -38,7 +38,7 @@ IRKitの機能をAndroidアプリに組み込むためのSDKです。
 
 Android Studioをお使いの場合、モジュールのbuild.gradleの`dependencies`内に以下の1行を追加してください。
 
-    compile 'com.getirkit:irkit-android-sdk:1.2.0'
+    compile 'com.getirkit:irkit-android-sdk:1.2.1'
 
 ### <a name="apikey-ja"></a>apikeyをセットする
 
@@ -716,7 +716,7 @@ SDKについて不明な点がありましたらGitHubの[Issue](https://github.
 
 If you are using Android Studio, add the following line to the `dependencies` section in your module-level build.gradle.
 
-    compile 'com.getirkit:irkit-android-sdk:1.2.0'
+    compile 'com.getirkit:irkit-android-sdk:1.2.1'
 
 ## How to run the example app
 
