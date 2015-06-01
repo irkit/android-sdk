@@ -1,6 +1,23 @@
 Change Log
 ==========
 
+Version 1.2.1 *(2015-06-02)*
+----------------------------
+
+### 変更点
+
+- HTTP API通信の安定性を向上し、IRKitが不安定な状態に陥ることが少なくなるようにしました。
+- IRHTTPClientクラス
+  - インスタンス変数internetAPIServiceとdeviceAPIServiceをprivateにしました。アクセスするにはGetterを使ってください。
+
+
+### Changes
+
+- Improve the stability of HTTP API. IRKit is less likely to get panic.
+- IRHTTPClient class
+  - Change internetAPIService and internetAPIService to private variables. Use getters to access them.
+
+
 Version 1.2.0 *(2015-05-28)*
 ----------------------------
 
