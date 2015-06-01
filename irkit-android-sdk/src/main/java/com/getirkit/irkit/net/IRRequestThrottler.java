@@ -1,7 +1,6 @@
 package com.getirkit.irkit.net;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.getirkit.irkit.IRPeripheral;
 
@@ -157,7 +156,6 @@ public class IRRequestThrottler {
             public void run() {
                 synchronized (pendingCalls) {
                     pendingCalls.poll();
-                    Log.d(TAG, "remaining pending calls: " + pendingCalls.size());
                 }
                 consumeNextRequest();
             }
@@ -171,10 +169,8 @@ public class IRRequestThrottler {
      * @param call キューに追加するAPI呼び出し。 API call which will be added to the queue.
      */
     private void request(APICall call) {
-        Log.d(TAG, "request: " + call);
         boolean consumeRequest = false;
         synchronized (pendingCalls) {
-            Log.d(TAG, "pendingCalls.add");
             pendingCalls.add(call);
             if (pendingCalls.size() == 1) {
                 consumeRequest = true;
