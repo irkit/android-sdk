@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.SystemClock;
 import android.util.Log;
 
 import com.getirkit.irkit.net.IRDeviceAPIService;
@@ -79,13 +78,10 @@ public class IRPeripheral implements Serializable, Parcelable {
     private transient boolean isFetchingDeviceId = false;
 
     /**
-     * Device HTTP APIで最後にアクセスした時刻です。時刻はSystemClock.elapsedRealtime()で表されます。
-     * The time when the most recent access was made over Device HTTP API. The time is expressed in SystemClock.elapsedRealtime().
-     *
-     * @see SystemClock#elapsedRealtime()
-     * @since 1.2.1
+     * IRKitをmDNSで発見し、自動設定を現在待機中の場合のみtrue。
+     * True if this peripheral was found over mDNS and currently waiting for auto configuration.
      */
-    private transient long lastAccessTimeOverDeviceHTTPAPI;
+    private transient boolean isWaitingForConfiguration = false;
 
     @Override
     public String toString() {
@@ -192,32 +188,26 @@ public class IRPeripheral implements Serializable, Parcelable {
     }
 
     /**
-     * Device HTTP APIで最後にアクセスした時刻を返します。時刻はSystemClock.elapsedRealtime()で表されます。
-     * IRKitの動作が不安定にならないようにするため、直前のリクエストから1秒以上空けて次のリクエストを行うようにします。
+     * 自動設定を現在待機中かどうかを返します。
+     * Returns whether this peripheral is waiting for auto configuration.
      *
-     * Returns the time when the most recent access was made over Device HTTP API. The time is expressed in SystemClock.elapsedRealtime().
-     * This information is used for throttling Device HTTP API access to one request per second.
-     *
-     * @return Device HTTP APIで最後にアクセスした時刻。
-     *         The time when the most recent access was made over Device HTTP API.
-     * @see SystemClock#elapsedRealtime()
+     * @return 自動設定を待機中ならtrue。 True if this peripheral is waiting for auto configuration.
      * @since 1.2.1
      */
-    public long getLastAccessTimeOverDeviceHTTPAPI() {
-        return lastAccessTimeOverDeviceHTTPAPI;
+    public boolean isWaitingForConfiguration() {
+        return isWaitingForConfiguration;
     }
 
     /**
-     * Device HTTP APIで最後にアクセスした時刻をセットします。時刻はSystemClock.elapsedRealtime()で表します。
-     * Sets the time when the most recent access was made over Device HTTP API. The time should be expressed in SystemClock.elapsedRealtime().
+     * 自動設定を現在待機中かどうかをセットします。
+     * Sets whether this peripheral is waiting for auto configuration.
      *
-     * @param lastAccessTimeOverDeviceHTTPAPI Device HTTP APIで最後にアクセスした時刻。
-     *                                        The time when the most recent access was made over Device HTTP API.
-     * @see SystemClock#elapsedRealtime()
+     * @param isWaitingForConfiguration 自動設定を待機中かどうか。
+     *                                  Whether this peripheral is waiting for auto configuration.
      * @since 1.2.1
      */
-    public void setLastAccessTimeOverDeviceHTTPAPI(long lastAccessTimeOverDeviceHTTPAPI) {
-        this.lastAccessTimeOverDeviceHTTPAPI = lastAccessTimeOverDeviceHTTPAPI;
+    public void setIsWaitingForConfiguration(boolean isWaitingForConfiguration) {
+        this.isWaitingForConfiguration = isWaitingForConfiguration;
     }
 
     /**
@@ -311,7 +301,7 @@ public class IRPeripheral implements Serializable, Parcelable {
             }
             return;
         }
-        if (retryCount > 5) {
+        if (retryCount >= 3) {
             Log.e(TAG, "fetchModelInfo: exceeded max retry count");
             if (listener != null) {
                 listener.onErrorFetchingModelInfo("error");
@@ -320,11 +310,11 @@ public class IRPeripheral implements Serializable, Parcelable {
         }
         IRHTTPClient httpClient = IRKit.sharedInstance().getHTTPClient();
         httpClient.setDeviceAPIEndpoint("http://" + this.host.getHostAddress() + ":" + this.port);
-        IRDeviceAPIService deviceAPIService = httpClient.getDeviceAPIService();
-        deviceAPIService.getMessages(new Callback<IRDeviceAPIService.GetMessagesResponse>() {
+        httpClient.getThrottledDeviceAPIService(this).getHome(new Callback<IRDeviceAPIService.GetHomeResponse>() {
             @Override
-            public void success(IRDeviceAPIService.GetMessagesResponse getMessagesResponse, Response response) {
-                // fetchModelInfo success
+            public void success(IRDeviceAPIService.GetHomeResponse getHomeResponse, Response response) {
+                // This should not happen as "GET /" always returns 404, but it might change in future versions.
+
                 if (storeResponseHeaders(response)) {
                     IRKit.sharedInstance().peripherals.save();
                 }
@@ -335,15 +325,24 @@ public class IRPeripheral implements Serializable, Parcelable {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(TAG, "device getMessages failure: " + error.getMessage());
-
-                // We can use a Handler because Retrofit callback is executed on the UI thread.
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        fetchModelInfo(retryCount + 1);
+                if (error == null || error.getResponse() == null) {
+                    Log.e(TAG, "fetchModelInfo failure: error is null; retrying");
+                    // We can use a Handler because Retrofit callback is executed on the UI thread.
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            fetchModelInfo(retryCount + 1);
+                        }
+                    }, 1000);
+                } else {
+                    // fetchModelInfo success
+                    if (storeResponseHeaders(error.getResponse())) {
+                        IRKit.sharedInstance().peripherals.save();
                     }
-                }, 1000);
+                    if (listener != null) {
+                        listener.onFetchModelInfoSuccess();
+                    }
+                }
             }
         });
     }
@@ -374,7 +373,7 @@ public class IRPeripheral implements Serializable, Parcelable {
             }
             return;
         }
-        if (retryCount > 5) {
+        if (retryCount >= 3) {
             Log.e(TAG, "fetchDeviceId exceeded max retry count");
             if (listener != null) {
                 isFetchingDeviceId = false;
@@ -389,9 +388,9 @@ public class IRPeripheral implements Serializable, Parcelable {
         if (listener != null) {
             listener.onDeviceIdStatusChange();
         }
-        IRHTTPClient.sharedInstance().setDeviceAPIEndpoint("http://" + this.host.getHostAddress() + ":" + this.port);
-        IRDeviceAPIService deviceAPIService = IRHTTPClient.sharedInstance().getDeviceAPIService();
-        deviceAPIService.postKeys(new Callback<IRDeviceAPIService.PostKeysResponse>() {
+        IRHTTPClient httpClient = IRHTTPClient.sharedInstance();
+        httpClient.setDeviceAPIEndpoint("http://" + this.host.getHostAddress() + ":" + this.port);
+        httpClient.getThrottledDeviceAPIService(this).postKeys(new Callback<IRDeviceAPIService.PostKeysResponse>() {
             @Override
             public void success(IRDeviceAPIService.PostKeysResponse postKeysResponse, Response response) {
                 if (storeResponseHeaders(response)) {

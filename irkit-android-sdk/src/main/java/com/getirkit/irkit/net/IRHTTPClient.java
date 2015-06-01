@@ -14,8 +14,6 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Callback;
@@ -180,7 +178,7 @@ public class IRHTTPClient {
         params.put("deviceid", signal.getDeviceId());
         params.put("message", signal.toJson());
         this.addClientKey(params);
-        internetAPIService.postMessages(params, new IRAPICallback<IRInternetAPIService.PostMessagesResponse>() {
+        getThrottledInternetAPIService(signal.getDeviceId()).postMessages(params, new IRAPICallback<IRInternetAPIService.PostMessagesResponse>() {
             @Override
             public void success(IRInternetAPIService.PostMessagesResponse postMessagesResponse, Response response) {
                 if (callback != null) {
@@ -203,73 +201,37 @@ public class IRHTTPClient {
      *
      * @param signal IRSignal
      * @param result 結果を受け取るコールバック。 Callback to be notified a result.
-     * @param timeoutMs タイムアウト（ミリ秒）。 Timeout in milliseconds.
      */
-    public void sendSignalOverLocalNetwork(final IRSignal signal, final IRAPIResult result, int timeoutMs) {
+    public void sendSignalOverLocalNetwork(final IRSignal signal, final IRAPIResult result) {
         IRDeviceAPIService.PostMessagesRequest request = new IRDeviceAPIService.PostMessagesRequest();
         request.format = signal.getFormat();
         request.freq = signal.getFrequency();
         request.data = signal.getData();
 
-        final IRState state = new IRState();
-        final Timer timeoutTimer = new Timer();
-        timeoutTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                boolean isTimedOut = false;
-                synchronized (state) {
-                    if (!state.isFinished()) {
-                        state.finish();
-                        isTimedOut = true;
-                    }
-                }
-                if (isTimedOut) {
-                    Log.e(TAG, "sendSignalOverLocalNetwork: timeout");
-                    result.onTimeout();
-                }
-            }
-        }, timeoutMs);
-
-        deviceAPIService.postMessages(request, new Callback<IRDeviceAPIService.PostMessagesResponse>() {
+        getThrottledDeviceAPIService(signal.getDeviceId()).postMessages(request, new Callback<IRDeviceAPIService.PostMessagesResponse>() {
             @Override
             public void success(IRDeviceAPIService.PostMessagesResponse postMessagesResponse, Response response) {
                 IRPeripherals peripherals = IRKit.sharedInstance().peripherals;
-                IRPeripheral peripheral = peripherals.getPeripheralByDeviceId( signal.getDeviceId() );
+                IRPeripheral peripheral = peripherals.getPeripheralByDeviceId(signal.getDeviceId());
                 if (peripheral != null) {
                     if (peripheral.storeResponseHeaders(response)) {
                         peripherals.save();
                     }
                 }
 
-                boolean isTimedOut = false;
-                synchronized (state) {
-                    if ( state.isFinished() ) {
-                        isTimedOut = true;
-                    } else {
-                        state.finish();
-                    }
-                }
-                if (!isTimedOut) {
-                    timeoutTimer.cancel();
-                    if (result != null) {
-                        result.onSuccess();
-                    }
+                if (result != null) {
+                    result.onSuccess();
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(TAG, "device postMessages failure: " + error.getMessage());
-                boolean isTimedOut = false;
-                synchronized (state) {
-                    if ( state.isFinished() ) {
-                        isTimedOut = true;
-                    } else {
-                        state.finish();
+                Log.e(TAG, "device postMessages failure: message=" + error.getMessage() + " kind=" + error.getKind());
+                if (error.getKind() == RetrofitError.Kind.NETWORK) { // network error
+                    if (result != null) {
+                        result.onTimeout();
                     }
-                }
-                if (!isTimedOut) {
-                    timeoutTimer.cancel();
+                } else {
                     if (result != null) {
                         result.onError(new IRAPIError(error.getMessage()));
                     }
@@ -568,6 +530,7 @@ public class IRHTTPClient {
         };
         handler.postDelayed(r, 3000);
 
+        // TODO: throttle?
         deviceAPIService.getHome(new Callback<IRDeviceAPIService.GetHomeResponse>() {
             @Override
             public void success(IRDeviceAPIService.GetHomeResponse getRootResponse, Response response) {

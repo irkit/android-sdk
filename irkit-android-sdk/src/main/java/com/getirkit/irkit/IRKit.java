@@ -18,7 +18,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -66,12 +65,11 @@ public class IRKit {
     public static final String PREF_KEY_BONJOUR_HOSTNAME = "debuginfo.bonjour.hostname";
     public static final String PREF_KEY_BONJOUR_RESOLVED_AT = "debuginfo.bonjour.resolved_at";
     private static final int SEND_SIGNAL_LOCAL_TIMEOUT_MS = 3000;
-    private static final long SEND_SIGNAL_INTERVAL_MS = 1000;
 
     /**
      * How long do we wait before retrieving a deviceId.
      */
-    private static final int FETCH_DEVICE_ID_DELAY_MS = 1000;
+    private static final int FETCH_DEVICE_ID_DELAY_MS = 100;
 
     /**
      * How long do we wait before retrieving a model info (modelName and firmwareVersion).
@@ -1038,8 +1036,42 @@ public class IRKit {
             savePreference(PREF_KEY_BONJOUR_HOSTNAME, serviceEvent.getInfo().getQualifiedName());
             savePreference(PREF_KEY_BONJOUR_RESOLVED_AT, String.valueOf(new Date().getTime() / 1000));
             IRPeripheral peripheral = peripherals.getPeripheral(serviceName);
+            boolean isNewIRKit = false;
             if (peripheral == null) { // Found new IRKit
                 peripheral = peripherals.addPeripheral(serviceName);
+                isNewIRKit = true;
+            }
+            peripheral.setHost(host);
+            peripheral.setPort(port);
+            final IRPeripheral p = peripheral;
+            if (!peripheral.hasDeviceId()) {
+                // Wait a short period of time to settle before sending a request.
+                // We can't use Handler nor AsyncTask here since we aren't on the UI thread.
+                p.setIsWaitingForConfiguration(true);
+                Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        p.setIsWaitingForConfiguration(false);
+                        p.fetchDeviceId();
+                    }
+                }, FETCH_DEVICE_ID_DELAY_MS);
+            } else {
+                // Retrieve the model info (modelName and firmwareVersion) every time as it may change.
+                // Wait a short period of time to settle before sending a request.
+                // We can't use Handler nor AsyncTask here since we aren't on the UI thread.
+                p.setIsWaitingForConfiguration(true);
+                Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        p.setIsWaitingForConfiguration(false);
+                        p.fetchModelInfo();
+                    }
+                }, FETCH_MODEL_INFO_DELAY_MS);
+            }
+
+            if (isNewIRKit) {
                 if (irkitEventListener != null) {
                     irkitEventListener.onNewIRKitFound(peripheral);
                 }
@@ -1047,31 +1079,6 @@ public class IRKit {
                 if (irkitEventListener != null) {
                     irkitEventListener.onExistingIRKitFound(peripheral);
                 }
-            }
-            peripheral.setHost(host);
-            peripheral.setPort(port);
-            final IRPeripheral p = peripheral;
-            if (!peripheral.hasDeviceId()) {
-                // Wait 1000 ms to settle before sending a request.
-                // We can't use Handler nor AsyncTask because we aren't on the UI thread.
-                Timer t = new Timer();
-                t.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        p.fetchDeviceId();
-                    }
-                }, FETCH_DEVICE_ID_DELAY_MS);
-            } else {
-                // Retrieve the model info (modelName and firmwareVersion) every time as it may change.
-                // Wait 1000 ms to settle before sending a request.
-                // We can't use Handler nor AsyncTask because we aren't on the UI thread.
-                Timer t = new Timer();
-                t.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        p.fetchModelInfo();
-                    }
-                }, FETCH_MODEL_INFO_DELAY_MS);
             }
         }
     }
@@ -1276,25 +1283,12 @@ public class IRKit {
             }
         };
 
+        // Try to send a message via local network
         if ( peripheral != null && peripheral.isLocalAddressResolved() ) {
-            // Throttle Device HTTP API access to one request per second
-            long diffTime = SystemClock.elapsedRealtime() - peripheral.getLastAccessTimeOverDeviceHTTPAPI();
-            if (peripheral.getLastAccessTimeOverDeviceHTTPAPI() != -1 && diffTime < SEND_SIGNAL_INTERVAL_MS) {
-                // Postpone this _sendSignal()
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        _sendSignal(signal, callback);
-                    }
-                }, SEND_SIGNAL_INTERVAL_MS - diffTime);
-                return;
-            }
-
             httpClient.setDeviceAPIEndpoint(peripheral.getDeviceAPIEndpoint());
             httpClient.sendSignalOverLocalNetwork(signal, new IRAPIResult() {
                 @Override
                 public void onSuccess() {
-                    peripheral.setLastAccessTimeOverDeviceHTTPAPI(SystemClock.elapsedRealtime());
                     if (callback != null) {
                         callback.onSuccess();
                     }
@@ -1303,19 +1297,17 @@ public class IRKit {
 
                 @Override
                 public void onError(IRAPIError error) {
-                    peripheral.setLastAccessTimeOverDeviceHTTPAPI(SystemClock.elapsedRealtime());
                     // Try to send signal over Internet
                     httpClient.sendSignalOverInternet(signal, internetAPICallback);
                 }
 
                 @Override
                 public void onTimeout() {
-                    peripheral.setLastAccessTimeOverDeviceHTTPAPI(SystemClock.elapsedRealtime());
                     peripheral.lostLocalAddress();
                     // Try to send signal over Internet
                     httpClient.sendSignalOverInternet(signal, internetAPICallback);
                 }
-            }, SEND_SIGNAL_LOCAL_TIMEOUT_MS);
+            });
         } else {  // Local address isn't resolved
             httpClient.sendSignalOverInternet(signal, internetAPICallback);
         }
