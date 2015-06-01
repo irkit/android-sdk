@@ -626,6 +626,50 @@ public class IRHTTPClient {
     }
 
     /**
+     * スロットル制御を行いながらDevice HTTP APIにアクセスするためのオブジェクトを返します。
+     * Returns an object which accesses Device HTTP API with request throttling.
+     *
+     * @param peripheral 対象となるIRKitデバイス。 Target IRKit device.
+     * @return IRDeviceAPIService instance.
+     */
+    public IRDeviceAPIService getThrottledDeviceAPIService(IRPeripheral peripheral) {
+        return IRRequestThrottler.getThrottler(peripheral, deviceAPIService, internetAPIService).getDeviceAPIRequester();
+    }
+
+    /**
+     * スロットル制御を行いながらDevice HTTP APIにアクセスするためのオブジェクトを返します。
+     * Returns an object which accesses Device HTTP API with request throttling.
+     *
+     * @param deviceId 対象となるIRKitデバイスのdeviceid。 Deviceid of the target IRKit device.
+     * @return IRDeviceAPIService instance.
+     */
+    public IRDeviceAPIService getThrottledDeviceAPIService(String deviceId) {
+        return IRRequestThrottler.getThrottler(deviceId, deviceAPIService, internetAPIService).getDeviceAPIRequester();
+    }
+
+    /**
+     * スロットル制御を行いながらInternet HTTP APIにアクセスするためのオブジェクトを返します。
+     * Returns an object which accesses Internet HTTP API with request throttling.
+     *
+     * @param peripheral 対象となるIRKitデバイス。 Target IRKit device.
+     * @return IRInternetAPIService instance.
+     */
+    public IRInternetAPIService getThrottledInternetAPIService(IRPeripheral peripheral) {
+        return IRRequestThrottler.getThrottler(peripheral, deviceAPIService, internetAPIService).getInternetAPIRequester();
+    }
+
+    /**
+     * スロットル制御を行いながらInternet HTTP APIにアクセスするためのオブジェクトを返します。
+     * Returns an object which accesses Internet HTTP API with request throttling.
+     *
+     * @param deviceId 対象となるIRKitデバイスのdeviceid。 Deviceid of the target IRKit device.
+     * @return IRInternetAPIService instance.
+     */
+    public IRInternetAPIService getThrottledInternetAPIService(String deviceId) {
+        return IRRequestThrottler.getThrottler(deviceId, deviceAPIService, internetAPIService).getInternetAPIRequester();
+    }
+
+    /**
      * clientkeyを返します。
      * Return the clientkey.
      *
