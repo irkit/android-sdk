@@ -677,7 +677,7 @@ IRPeripheralインスタンスを使って送信先をセットするには以�
     request.data = new int[] { 18031,8755,1190,1190,1190,3341,1190,3341,1190,3341,1190,1190,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,1190,1190,1190,1190,1190,1190,1190,1190,3341,1190,3341,1190,1190,1190,3341,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,1190,3341,1190,3341,1190,3341,1190,3341,1190,3341,1190,65535,0,9379,18031,4400,1190 };
 
     // リクエストを送信
-    deviceAPIService.postMessages(request, new Callback<IRDeviceAPIService.PostMessagesResponse>() {
+    deviceAPI.postMessages(request, new Callback<IRDeviceAPIService.PostMessagesResponse>() {
         @Override
         public void success(IRDeviceAPIService.PostMessagesResponse postMessagesResponse, Response response) {
             // IRKitから成功レスポンスを受信した
