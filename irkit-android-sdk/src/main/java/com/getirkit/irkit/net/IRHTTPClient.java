@@ -49,8 +49,8 @@ public class IRHTTPClient {
     // Retrofit
     private RestAdapter internetRestAdapter;
     private RestAdapter deviceRestAdapter;
-    public IRInternetAPIService internetAPIService;
-    public IRDeviceAPIService deviceAPIService;
+    private IRInternetAPIService internetAPIService;
+    private IRDeviceAPIService deviceAPIService;
 
     private String clientkey;
     private OkHttpClient internetHttpClient;
