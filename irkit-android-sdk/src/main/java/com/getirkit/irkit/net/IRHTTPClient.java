@@ -14,6 +14,7 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Callback;
@@ -589,7 +590,17 @@ public class IRHTTPClient {
     }
 
     /**
-     * スロットル制御を行いながらDevice HTTP APIにアクセスするためのオブジェクトを返します。
+     * ランダムな文字列を返します。
+     * Returns a random string.
+     *
+     * @return ランダムな文字列。 A random string.
+     */
+    private String getRandomString() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    /**
+     * 特定のIRKitに対してスロットル制御を行いながらDevice HTTP APIにアクセスするためのオブジェクトを返します。
      * Returns an object which accesses Device HTTP API with request throttling.
      *
      * @param peripheral 対象となるIRKitデバイス。 Target IRKit device.
@@ -600,7 +611,7 @@ public class IRHTTPClient {
     }
 
     /**
-     * スロットル制御を行いながらDevice HTTP APIにアクセスするためのオブジェクトを返します。
+     * 特定のIRKitに対してスロットル制御を行いながらDevice HTTP APIにアクセスするためのオブジェクトを返します。
      * Returns an object which accesses Device HTTP API with request throttling.
      *
      * @param deviceId 対象となるIRKitデバイスのdeviceid。 Deviceid of the target IRKit device.
@@ -611,7 +622,17 @@ public class IRHTTPClient {
     }
 
     /**
-     * スロットル制御を行いながらInternet HTTP APIにアクセスするためのオブジェクトを返します。
+     * スロットル制御を行いながらDevice HTTP APIにアクセスするためのオブジェクトを返します。
+     * Returns an object which accesses Device HTTP API with request throttling.
+     *
+     * @return IRDeviceAPIService instance.
+     */
+    public IRDeviceAPIService getThrottledDeviceAPIService() {
+        return IRRequestThrottler.getThrottler(getRandomString(), deviceAPIService, internetAPIService).getDeviceAPIRequester();
+    }
+
+    /**
+     * 特定のIRKitに対してスロットル制御を行いながらInternet HTTP APIにアクセスするためのオブジェクトを返します。
      * Returns an object which accesses Internet HTTP API with request throttling.
      *
      * @param peripheral 対象となるIRKitデバイス。 Target IRKit device.
@@ -622,7 +643,7 @@ public class IRHTTPClient {
     }
 
     /**
-     * スロットル制御を行いながらInternet HTTP APIにアクセスするためのオブジェクトを返します。
+     * 特定のIRKitに対してスロットル制御を行いながらInternet HTTP APIにアクセスするためのオブジェクトを返します。
      * Returns an object which accesses Internet HTTP API with request throttling.
      *
      * @param deviceId 対象となるIRKitデバイスのdeviceid。 Deviceid of the target IRKit device.
