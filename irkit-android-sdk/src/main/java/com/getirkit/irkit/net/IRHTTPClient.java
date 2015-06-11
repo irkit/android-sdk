@@ -605,6 +605,7 @@ public class IRHTTPClient {
      *
      * @param peripheral 対象となるIRKitデバイス。 Target IRKit device.
      * @return IRDeviceAPIService instance.
+     * @since 1.2.1
      */
     public IRDeviceAPIService getThrottledDeviceAPIService(IRPeripheral peripheral) {
         return IRRequestThrottler.getThrottler(peripheral, deviceAPIService, internetAPIService).getDeviceAPIRequester();
@@ -616,6 +617,7 @@ public class IRHTTPClient {
      *
      * @param deviceId 対象となるIRKitデバイスのdeviceid。 Deviceid of the target IRKit device.
      * @return IRDeviceAPIService instance.
+     * @since 1.2.1
      */
     public IRDeviceAPIService getThrottledDeviceAPIService(String deviceId) {
         return IRRequestThrottler.getThrottler(deviceId, deviceAPIService, internetAPIService).getDeviceAPIRequester();
@@ -626,6 +628,7 @@ public class IRHTTPClient {
      * Returns an object which accesses Device HTTP API with request throttling.
      *
      * @return IRDeviceAPIService instance.
+     * @since 1.2.2
      */
     public IRDeviceAPIService getThrottledDeviceAPIService() {
         return IRRequestThrottler.getThrottler(getRandomString(), deviceAPIService, internetAPIService).getDeviceAPIRequester();
@@ -637,6 +640,7 @@ public class IRHTTPClient {
      *
      * @param peripheral 対象となるIRKitデバイス。 Target IRKit device.
      * @return IRInternetAPIService instance.
+     * @since 1.2.1
      */
     public IRInternetAPIService getThrottledInternetAPIService(IRPeripheral peripheral) {
         return IRRequestThrottler.getThrottler(peripheral, deviceAPIService, internetAPIService).getInternetAPIRequester();
@@ -648,6 +652,7 @@ public class IRHTTPClient {
      *
      * @param deviceId 対象となるIRKitデバイスのdeviceid。 Deviceid of the target IRKit device.
      * @return IRInternetAPIService instance.
+     * @since 1.2.1
      */
     public IRInternetAPIService getThrottledInternetAPIService(String deviceId) {
         return IRRequestThrottler.getThrottler(deviceId, deviceAPIService, internetAPIService).getInternetAPIRequester();
@@ -658,6 +663,7 @@ public class IRHTTPClient {
      * Returns an object which accesses Internet HTTP API with request throttling.
      *
      * @return IRInternetAPIService instance.
+     * @since 1.2.2
      */
     public IRInternetAPIService getThrottledInternetAPIService() {
         return IRRequestThrottler.getThrottler(getRandomString(), deviceAPIService, internetAPIService).getInternetAPIRequester();
