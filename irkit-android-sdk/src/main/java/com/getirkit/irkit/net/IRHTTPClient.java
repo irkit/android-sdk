@@ -654,6 +654,16 @@ public class IRHTTPClient {
     }
 
     /**
+     * スロットル制御を行いながらInternet HTTP APIにアクセスするためのオブジェクトを返します。
+     * Returns an object which accesses Internet HTTP API with request throttling.
+     *
+     * @return IRInternetAPIService instance.
+     */
+    public IRInternetAPIService getThrottledInternetAPIService() {
+        return IRRequestThrottler.getThrottler(getRandomString(), deviceAPIService, internetAPIService).getInternetAPIRequester();
+    }
+
+    /**
      * clientkeyを返します。
      * Return the clientkey.
      *
