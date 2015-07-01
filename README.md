@@ -89,13 +89,21 @@ ActivityのonResume()とonPause()に以下のコードを追加します。
         IRKit irkit = IRKit.sharedInstance();
 
         // ローカルネットワーク内のIRKit検索を開始
+        // Start discovering IRKit on the local network
+        // 開始搜尋區域網路內的IRKit
         irkit.startServiceDiscovery();
 
         // Wi-Fi接続状態の変化を監視して、Wi-Fiが有効になった際に
         // IRKit検索を開始し、Wi-Fiが無効になった際に検索を停止する
+        // Start watching for Wi-Fi state change. IRKit discovery will automatically
+        // start when Wi-Fi is enabled, and will stop when Wi-Fi is disabled.
+        // 監控Wi-Fi的連接狀況，Wi-Fi連接時開始搜索IRKit，Wi-Fi
+        // 斷掉時停止搜索。
         irkit.registerWifiStateChangeListener();
 
         // clientkeyを取得していない場合は取得する
+        // Obtain clientkey if we do not have one.
+        // 假如還沒拿到clientkey就拿一個
         irkit.registerClient();
     }
 
@@ -106,9 +114,13 @@ ActivityのonResume()とonPause()に以下のコードを追加します。
         IRKit irkit = IRKit.sharedInstance();
 
         // ローカルネットワーク内のIRKit検索を停止
+        // Stop discovering IRKit on the local network
+        // 停止搜尋區域網路內的IRKit
         irkit.stopServiceDiscovery();
 
         // Wi-Fi状態の変化の監視をやめる
+        // Stop watching for Wi-Fi state change
+        // 停止監視Wi-Fi狀態
         irkit.unregisterWifiStateChangeListener();
     }
 
