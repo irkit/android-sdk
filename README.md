@@ -161,7 +161,7 @@ SDKはローカルネットワーク内にIRKitを発見すると自動的にdev
 waitForSignal()を使わずにInternet HTTP APIを直接使いたい場合は以下のようにします。
 
     // Internet HTTP API
-    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getThrottledInternetAPIService();
 
     // リクエストパラメータを作成
     HashMap<String, String> params = new HashMap<>();
@@ -245,7 +245,7 @@ IRSignalsはIRSignalを保持するArrayListです。
     httpClient.setDeviceAPIEndpoint("http://192.168.1.1");
 
     // Device HTTP API
-    IRDeviceAPIService deviceAPI = httpClient.getDeviceAPIService();
+    IRDeviceAPIService deviceAPI = httpClient.getThrottledDeviceAPIService();
 
     // リクエストパラメータを作成
     IRDeviceAPIService.PostMessagesRequest req = new IRDeviceAPIService.PostMessagesRequest();
@@ -271,7 +271,7 @@ IRSignalsはIRSignalを保持するArrayListです。
 Internet HTTP APIを直接使いたい場合は以下のようにします。
 
     // Internet HTTP API
-    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getThrottledInternetAPIService();
 
     // リクエストパラメータを作成
     HashMap<String, String> params = new HashMap<>();
@@ -592,13 +592,13 @@ IRKitクラスのメソッドは内部でDevice HTTP APIの利用可否を判断
 #### <a name="internet-http-api"></a>Internet HTTP API
 
     // Internet HTTP APIのインタフェースを取得
-    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getThrottledInternetAPIService();
 
 上のように取得したIRInternetAPIServiceインスタンスから各メソッドを呼び出すことができます。使用できるメソッド一覧は[IRInternetAPIServiceのAPIドキュメント](http://irkit.github.io/android-sdk/javadoc/com/getirkit/irkit/net/IRInternetAPIService.html)を参照してください。
 
 以下は赤外線信号を送信する例です。
 
-    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getThrottledInternetAPIService();
 
     // リクエストパラメータをセット
     HashMap<String, String> params = new HashMap<>();
@@ -621,7 +621,7 @@ IRKitクラスのメソッドは内部でDevice HTTP APIの利用可否を判断
 
 また、赤外線信号を受信するには以下のようにします。
 
-    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getInternetAPIService();
+    IRInternetAPIService internetAPI = IRKit.sharedInstance().getHTTPClient().getThrottledInternetAPIService();
 
     // リクエストパラメータをセット
     HashMap<String, String> params = new HashMap<>(2);
@@ -651,7 +651,7 @@ IRKitクラスのメソッドは内部でDevice HTTP APIの利用可否を判断
 Device HTTP APIは、Internet HTTP APIと使い方はほぼ同じですが、API呼び出しの前に送信先を以下のようにして指定する必要があります。
 
     // Device HTTP APIのインタフェースを取得
-    IRDeviceAPIService deviceAPI = IRKit.sharedInstance().getHTTPClient().getDeviceAPIService();
+    IRDeviceAPIService deviceAPI = IRKit.sharedInstance().getHTTPClient().getThrottledDeviceAPIService();
 
     // IRKitのIPアドレスをセット
     IRKit.sharedInstance().getHTTPClient().setDeviceAPIEndpoint("http://192.168.1.1");
@@ -659,7 +659,7 @@ Device HTTP APIは、Internet HTTP APIと使い方はほぼ同じですが、API
 IRPeripheralインスタンスを使って送信先をセットするには以下のようにします。
 
     // Device HTTP APIのインタフェースを取得
-    IRDeviceAPIService deviceAPI = IRKit.sharedInstance().getHTTPClient().getDeviceAPIService();
+    IRDeviceAPIService deviceAPI = IRKit.sharedInstance().getHTTPClient().getThrottledDeviceAPIService();
 
     // 何らかの方法でIRPeripheralインスタンスを取得
     IRPeripheral peripheral = IRKit.sharedInstance().peripherals.get(0);
@@ -674,7 +674,7 @@ IRPeripheralインスタンスを使って送信先をセットするには以�
     IRHTTPClient httpClient = IRKit.sharedInstance().getHTTPClient();
 
     // Device HTTP APIのインタフェースを取得
-    IRDeviceAPIService deviceAPI = httpClient.getDeviceAPIService();
+    IRDeviceAPIService deviceAPI = httpClient.getThrottledDeviceAPIService();
 
     // 送信先のIRPeripheralインスタンスを取得
     IRPeripheral peripheral = IRKit.sharedInstance().peripherals.get(0);
