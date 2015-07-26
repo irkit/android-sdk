@@ -18,6 +18,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Callback;
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Header;
@@ -44,6 +45,12 @@ public class IRHTTPClient {
      * Endpoint for Device HTTP API when IRKit Wi-Fi is active.
      */
     public static final String DEVICE_API_ENDPOINT_IRKITWIFI = "http://192.168.1.1";
+
+    /**
+     * Device HTTP APIのリクエストに付けるX-Requested-Withヘッダの値。
+     * Value of X-Requested-With header which is added to every request to Device HTTP API.
+     */
+    public static final String DEVICE_API_X_REQUESTED_WITH = "IRKit Android SDK";
 
     // Retrofit
     private RestAdapter internetRestAdapter;
@@ -94,9 +101,18 @@ public class IRHTTPClient {
         deviceEndpoint = new IRDeviceEndpoint();
         deviceEndpoint.setUrl(DEVICE_API_ENDPOINT_IRKITWIFI);
 
+        // Add X-Requested-With header to every request to Device HTTP API
+        RequestInterceptor requestInterceptor = new RequestInterceptor() {
+            @Override
+            public void intercept(RequestFacade request) {
+                request.addHeader("X-Requested-With", DEVICE_API_X_REQUESTED_WITH);
+            }
+        };
+
         deviceRestAdapter = new RestAdapter.Builder()
                 .setClient(new OkClient(localHttpClient))
                 .setEndpoint(deviceEndpoint)
+                .setRequestInterceptor(requestInterceptor)
 //                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
         deviceAPIService = deviceRestAdapter.create(IRDeviceAPIService.class);
