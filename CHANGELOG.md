@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+Version 1.3.0 *(2015-07-27)*
+----------------------------
+
+### 変更点
+
+- Device HTTP APIへのリクエストにX-Requested-Withヘッダを追加しました。
+
+
+### Changes
+
+- Added X-Requested-With header to requests to Device HTTP API.
+
+
 Version 1.2.1 *(2015-06-02)*
 ----------------------------
 
