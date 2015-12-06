@@ -713,9 +713,11 @@ public class IRKit {
      */
     public WifiConfiguration getWifiConfigurationBySSID(String ssid) {
         List<WifiConfiguration> configs = wifiManager.getConfiguredNetworks();
-        for (WifiConfiguration config : configs) {
-            if (config.SSID.equals(ssid)) {
-                return config;
+        if (configs != null) {
+            for (WifiConfiguration config : configs) {
+                if (config.SSID.equals(ssid)) {
+                    return config;
+                }
             }
         }
         return null;
