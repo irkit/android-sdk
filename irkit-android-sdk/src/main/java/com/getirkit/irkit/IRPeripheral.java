@@ -393,6 +393,21 @@ public class IRPeripheral implements Serializable, Parcelable {
         httpClient.getThrottledDeviceAPIService(this).postKeys(new Callback<IRDeviceAPIService.PostKeysResponse>() {
             @Override
             public void success(IRDeviceAPIService.PostKeysResponse postKeysResponse, Response response) {
+                if (postKeysResponse == null) {
+                    // Retry
+                    Log.e(TAG, "postKeysResponse is null; retrying");
+                    isFetchingDeviceId = false;
+
+                    // We can use a Handler because Retrofit callback is executed on the UI thread.
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            fetchDeviceId(retryCount + 1);
+                        }
+                    }, 1000);
+                    return;
+                }
+
                 if (storeResponseHeaders(response)) {
                     IRKit.sharedInstance().peripherals.save();
                 }
