@@ -877,28 +877,21 @@ public class IRKit {
     public int connectToIRKitWifi(IRWifiInfo irWifiInfo, final WifiConnectionChangeListener listener) {
         final String irkitSSID = "\"" + irWifiInfo.getSSID() + "\"";
 
+        // Remove existing config rather than updating it
         WifiConfiguration wifiConfig = getWifiConfigurationBySSID(irkitSSID);
-        int irkitWifiNetworkId;
         if (wifiConfig != null) {
-            // Update existing IRKit Wi-Fi configuration
-            wifiConfig.preSharedKey = "\"" + irWifiInfo.getPassword() + "\"";
-            irkitWifiNetworkId = wifiManager.updateNetwork(wifiConfig);
-            if (irkitWifiNetworkId == -1) {
-                Log.e(TAG, "Failed to update network configuration");
-                listener.onError("Failed to update network configuration");
-                return irkitWifiNetworkId;
-            }
-        } else {
-            // Add IRKit Wi-Fi configuration
-            wifiConfig = new WifiConfiguration();
-            wifiConfig.SSID = irkitSSID;
-            wifiConfig.preSharedKey = "\"" + irWifiInfo.getPassword() + "\"";
-            irkitWifiNetworkId = wifiManager.addNetwork(wifiConfig);
-            if (irkitWifiNetworkId == -1) {
-                Log.e(TAG, "Failed to add network configuration");
-                listener.onError("Failed to add network configuration");
-                return irkitWifiNetworkId;
-            }
+            boolean result = wifiManager.removeNetwork(wifiConfig.networkId);
+        }
+
+        // Add IRKit Wi-Fi configuration
+        wifiConfig = new WifiConfiguration();
+        wifiConfig.SSID = irkitSSID;
+        wifiConfig.preSharedKey = "\"" + irWifiInfo.getPassword() + "\"";
+        int irkitWifiNetworkId = wifiManager.addNetwork(wifiConfig);
+        if (irkitWifiNetworkId == -1) {
+            Log.e(TAG, "Failed to add network configuration");
+            listener.onError("Failed to add network configuration");
+            return irkitWifiNetworkId;
         }
 
         long irkitWifiConnectionTimeout = 30000;
