@@ -9,7 +9,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -18,6 +21,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -191,6 +195,100 @@ public class IRKit {
         setupManager = new IRKitSetupManager(context);
         setupManager.setIrKitConnectWifiListener(listener);
         setupManager.start(apiKey, connectDestination, irkitWifiPassword);
+    }
+
+    /**
+     * <p class="ja">
+     * Lollipop以上の環境において、以降の通信にモバイルデータ接続ではなくWi-Fiを使うよう強制します。
+     * IRKit Wi-Fiはインターネット接続がないため、Device HTTP APIを確実にWi-Fi経由で送信するために使います。
+     * Lollipop未満の環境では何も実行されずにcallbackのonSuccess()が呼ばれます。
+     * 制限を解除するにはunforceIRKitWifi()を呼んでください。
+     * </p>
+     *
+     * <p class="en">
+     * On Lollipop or later, force network connection to use Wi-Fi instead of mobile network.
+     * Because IRKit Wi-Fi has no internet access, use this method to make sure that Device HTTP
+     * API requests will be sent over Wi-Fi. On earlier than Lollipop, onSuccess() method of callback
+     * will be called with doing nothing. To lift the restriction, use unforceIRKitWifi().
+     * </p>
+     *
+     * @param callback 成功した場合はonSuccess()、時間内に成功しなかった場合はonTimeout()が呼ばれる。
+     *                 When success, onSuccess() will be called. Otherwise onTimeout() will be called.
+     * @see #unforceIRKitWifi()
+     */
+    public void forceIRKitWifi(final IRCallback callback) {
+        final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            NetworkRequest.Builder builder = new NetworkRequest.Builder();
+            builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+
+            final IRState state = new IRState();
+            final Handler handler = new Handler();
+            final Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    boolean isTimedOut = false;
+                    synchronized (state) {
+                        if ( !state.isFinished() ) {
+                            state.finish();
+                            isTimedOut = true;
+                        }
+                    }
+                    if (isTimedOut) {
+                        Log.e(TAG, "forceIRKitWIfi: timeout");
+                        callback.onTimeout();
+                    }
+                }
+            };
+            handler.postDelayed(r, 15000); // timeout after 15 seconds
+
+            cm.requestNetwork(builder.build(), new ConnectivityManager.NetworkCallback() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onAvailable(Network network) {
+                    boolean isSuccess = false;
+                    synchronized (state) {
+                        if ( !state.isFinished() ) {
+                            state.finish();
+                            isSuccess = true;
+                        }
+                    }
+                    if (isSuccess) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            cm.bindProcessToNetwork(network);
+                        } else {
+                            cm.setProcessDefaultNetwork(network);
+                        }
+                        cm.unregisterNetworkCallback(this);
+                        callback.onSuccess();
+                    }
+                }
+            });
+        } else { // < Lollipop (21)
+            // Do not call cm.setNetworkPreference() for < Lollipop
+            callback.onSuccess();
+        }
+    }
+
+    /**
+     * <p class="ja">
+     * forceIRKitWifi() で行われたネットワークの制限を解除します。
+     * </p>
+     *
+     * <p class="en">
+     * Stop restricting network which is caused by forceIRKitWifi().
+     * </p>
+     *
+     * @see #forceIRKitWifi(IRCallback)
+     */
+    public void unforceIRKitWifi() {
+        final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            cm.bindProcessToNetwork(null);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cm.setProcessDefaultNetwork(null);
+        }
+        // Do not call cm.setNetworkPreference() for < Lollipop
     }
 
     /**

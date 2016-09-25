@@ -102,6 +102,9 @@
     <string name="signals_to_delete__delete_button">Delete</string>
     <string name="signals_to_delete__cancel_button">Cancel</string>
 
+    <string name="request_permission_location__title">Location access required</string>
+    <string name="request_permission_location__message">Please grant access to location on the next screen in order to scan IRKit Wi-Fi around you</string>
+
     <string name="setup_status__scanning_for_irkit_wifi">Scanning for IRKit Wi-Fi…</string>
     <string name="setup_status__obtaining_client_key">Obtaining a client key…</string>
     <string name="setup_status__obtaining_device_key">Obtaining a device key…</string>

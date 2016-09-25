@@ -116,6 +116,7 @@ class IRKitSetupManager implements IRKitEventListener {
 
         isSettingUpIRKit = true;
         IRKit irkit = IRKit.sharedInstance();
+        irkit.unforceIRKitWifi();
         isOriginallyWifiEnabled = irkit.isWifiEnabled();
         this.irWifiInfo = connectDestination;
         this.irkitWifiPassword = irkitWifiPassword;
@@ -215,9 +216,26 @@ class IRKitSetupManager implements IRKitEventListener {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            connectIRKitToWifi();
+                            IRKit.sharedInstance().forceIRKitWifi(new IRCallback() {
+                                @Override
+                                public void onSuccess() {
+                                    if (isSettingUpIRKit) {
+                                        connectIRKitToWifi();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Exception ex) {
+                                    // will not be called
+                                }
+
+                                @Override
+                                public void onTimeout() {
+
+                                }
+                            });
                         }
-                    }, 1000);
+                    }, 2000);
                 }
             }
 
@@ -304,13 +322,21 @@ class IRKitSetupManager implements IRKitEventListener {
                         handler.removeCallbacks(runnable);
                         if (isSettingUpIRKit) {
                             Log.e(TAG, "connectIRKitToWifi failure: " + error.getMessage() + "; retrying");
-                            // Wait 1000ms before retry
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    connectIRKitToWifi(retryCount + 1);
+
+                            if (error.getMessage().equals("Machine is not on the network")) {
+                                // IRKit Wi-Fi is no longer available (maybe success)
+                                if (isSettingUpIRKit) {
+                                    changeToNormalWifi();
                                 }
-                            }, 1000);
+                            } else {
+                                // Wait 1000ms before retry
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        connectIRKitToWifi(retryCount + 1);
+                                    }
+                                }, 1000);
+                            }
                         }
                     }
                 }
@@ -319,6 +345,7 @@ class IRKitSetupManager implements IRKitEventListener {
     }
 
     private void revertToNormalWifi() {
+        IRKit.sharedInstance().unforceIRKitWifi();
         if (normalWifiConfiguration != null) {
             IRKit.sharedInstance().connectToNormalWifi(normalWifiConfiguration, new IRKit.WifiConnectionChangeListener() {
                 @Override
@@ -351,6 +378,7 @@ class IRKitSetupManager implements IRKitEventListener {
             return;
         }
 
+        IRKit.sharedInstance().unforceIRKitWifi();
         if (normalWifiConfiguration != null) {
             irKitConnectWifiListener.onStatus(context.getString(R.string.setup_status__connecting_to_normal_wifi));
             IRKit.sharedInstance().connectToNormalWifi(normalWifiConfiguration, new IRKit.WifiConnectionChangeListener() {
@@ -531,6 +559,7 @@ class IRKitSetupManager implements IRKitEventListener {
             IRKit.sharedInstance().getHTTPClient().cancelPostDoor();
             revertToNormalWifi();
         }
+        IRKit.sharedInstance().unforceIRKitWifi();
     }
 
     private void checkBothDoorAndLocal() {

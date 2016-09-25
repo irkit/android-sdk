@@ -1,11 +1,17 @@
 package com.getirkit.irkit.activity;
 
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,6 +33,7 @@ import com.getirkit.irkit.fragment.WifiInputFragment;
  */
 public class IRKitSetupActivity extends AppCompatActivity {
     public static final String TAG = IRKitSetupActivity.class.getSimpleName();
+    private static final int PERMISSION_REQUEST__COARSE_LOCATION = 1;
 
     private int currentScreen = 0;
     private IRWifiInfo irWifiInfo;
@@ -80,6 +87,40 @@ public class IRKitSetupActivity extends AppCompatActivity {
             goToScreen(currentScreen, true, true, false);
         } else {
             goToScreen(currentScreen, true, false, false);
+        }
+
+        // Request Wi-Fi scan permission
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // Not having permission
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.request_permission_location__title));
+                builder.setMessage(getString(R.string.request_permission_location__message));
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        ActivityCompat.requestPermissions(IRKitSetupActivity.this,
+                                new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION},
+                                PERMISSION_REQUEST__COARSE_LOCATION);
+                    }
+                });
+                builder.show();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST__COARSE_LOCATION: {
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    // User did not grant permission
+                    IRKit.sharedInstance().cancelIRKitSetup();
+                    finish();
+                }
+                return;
+            }
         }
     }
 
