@@ -435,6 +435,10 @@ class IRKitSetupManager implements IRKitEventListener {
     }
 
     private void checkConnectivity() {
+        checkConnectivity(0);
+    }
+
+    private void checkConnectivity(final int retryCount) {
         if (!isSettingUpIRKit) {
             return;
         }
@@ -519,9 +523,22 @@ class IRKitSetupManager implements IRKitEventListener {
             @Override
             public void failure(RetrofitError error) {
                 Log.e(TAG, "postdoor failure: " + error.getMessage());
-                if (isSettingUpIRKit) {
-                    isSettingUpIRKit = false;
-                    irKitConnectWifiListener.onError(context.getString(R.string.setup_status__error_postdoor));
+                if (!isSettingUpIRKit) {
+                    return;
+                }
+                if (error.getKind() == RetrofitError.Kind.NETWORK && retryCount < 1) {
+                    // Wait 1000ms and retry
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            checkConnectivity(retryCount + 1);
+                        }
+                    }, 1000);
+                } else {
+                    if (isSettingUpIRKit) {
+                        isSettingUpIRKit = false;
+                        irKitConnectWifiListener.onError(context.getString(R.string.setup_status__error_postdoor));
+                    }
                 }
             }
         });
