@@ -85,15 +85,15 @@
     <string name="oss_components">
         <a href="http://square.github.io/okhttp/">OkHttp</a>\n
         Copyright 2014 Square, Inc.\n
-        Licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>\n
+        Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>\n
         \n
         <a href="http://square.github.io/retrofit/">Retrofit</a>\n
         Copyright 2013 Square, Inc.\n
-        Licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>\n
+        Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>\n
         \n
         <a href="http://jmdns.sourceforge.net/">JmDNS</a>\n
         Copyright 2003-2005 Arthur van Hoff, Rick Blair\n
-        Licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>
+        Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>
     </string>
     <plurals name="signals_to_delete__title">
         <item quantity="one">Delete button too?</item>

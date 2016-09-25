@@ -68,6 +68,7 @@ public class IRKit {
     public static final String SERVICE_TYPE = "_irkit._tcp.local.";
     public static final String PREF_KEY_BONJOUR_HOSTNAME = "debuginfo.bonjour.hostname";
     public static final String PREF_KEY_BONJOUR_RESOLVED_AT = "debuginfo.bonjour.resolved_at";
+    public static final String PREFS_KEY_CLIENTKEY = "clientkey";
     private static final int SEND_SIGNAL_LOCAL_TIMEOUT_MS = 3000;
 
     /**
@@ -1457,7 +1458,7 @@ public class IRKit {
     public void setContext(Context c) {
         context = c;
         if (!httpClient.hasClientKey()) {
-            httpClient.setClientKey(this.getPreference("clientkey"));
+            httpClient.setClientKey(this.getPreference(PREFS_KEY_CLIENTKEY));
         }
     }
 
