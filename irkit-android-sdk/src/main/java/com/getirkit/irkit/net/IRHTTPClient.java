@@ -86,7 +86,7 @@ public class IRHTTPClient {
         internetHttpClient.setReadTimeout(0, TimeUnit.SECONDS);
 
         localHttpClient = new OkHttpClient();
-        localHttpClient.setConnectTimeout(3, TimeUnit.SECONDS);
+        localHttpClient.setConnectTimeout(5, TimeUnit.SECONDS);
         // A request may take 2-24 seconds
         localHttpClient.setReadTimeout(30, TimeUnit.SECONDS);
         localHttpClient.getDispatcher().setMaxRequestsPerHost(1);
