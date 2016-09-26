@@ -1,6 +1,27 @@
 Change Log
 ==========
 
+Version 1.3.1 *(2016-09-26)*
+----------------------------
+
+### 変更点
+
+- Android 6.0以上でデバイスのセットアップが動作しない問題を修正しました。
+- compileSdkVersionとtargetSdkVersionを24に更新しました。
+- appcompat-v7を24.2.1に更新しました。
+- OkHttpを2.7.5に更新しました。
+- Device HTTP APIの接続タイムアウトを5秒に変更しました。
+
+
+### Changes
+
+- Fix bug where device setup not working on Android >= 6.0.
+- Update compileSdkVersion and targetSdkVersion to 24.
+- Update appcompat-v7 to 24.2.1.
+- Update OkHttp to 2.7.5.
+- Change connection timeout for Device HTTP API to 5 seconds.
+
+
 Version 1.3.0 *(2015-07-27)*
 ----------------------------
 
