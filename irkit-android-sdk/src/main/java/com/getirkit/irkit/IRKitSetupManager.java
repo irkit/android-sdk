@@ -321,7 +321,7 @@ class IRKitSetupManager implements IRKitEventListener {
                         state.finish();
                         handler.removeCallbacks(runnable);
                         if (isSettingUpIRKit) {
-                            Log.e(TAG, "connectIRKitToWifi failure: " + error.getMessage() + "; retrying");
+                            Log.e(TAG, "connectIRKitToWifi failure: " + error.getMessage());
 
                             if (error.getMessage().equals("Machine is not on the network")) {
                                 // IRKit Wi-Fi is no longer available (maybe success)
@@ -329,6 +329,7 @@ class IRKitSetupManager implements IRKitEventListener {
                                     changeToNormalWifi();
                                 }
                             } else {
+                                Log.e(TAG, "retrying connectIRKitToWifi");
                                 // Wait 1000ms before retry
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
