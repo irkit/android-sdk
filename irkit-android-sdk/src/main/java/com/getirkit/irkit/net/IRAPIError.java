@@ -1,12 +1,9 @@
 package com.getirkit.irkit.net;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * API error
  */
 public class IRAPIError {
-    @SerializedName("message")
     public String message;
 
     /**

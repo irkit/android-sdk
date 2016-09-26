@@ -1,7 +1,5 @@
 package com.getirkit.irkit.net;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Map;
 
 import retrofit.Callback;
@@ -95,7 +93,6 @@ public interface IRInternetAPIService {
      * @since 1.1.2
      */
     class PostClientsResponse {
-        @SerializedName("clientkey")
         public String clientkey;
     }
 
