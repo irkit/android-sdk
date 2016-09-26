@@ -216,6 +216,7 @@ public class IRKit {
      * @param callback 成功した場合はonSuccess()、時間内に成功しなかった場合はonTimeout()が呼ばれる。
      *                 When success, onSuccess() will be called. Otherwise onTimeout() will be called.
      * @see #unforceIRKitWifi()
+     * @since 1.3.1
      */
     public void forceIRKitWifi(final IRCallback callback) {
         final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -273,7 +274,7 @@ public class IRKit {
 
     /**
      * <p class="ja">
-     * forceIRKitWifi() で行われたネットワークの制限を解除します。
+     * forceIRKitWifi() で行われたネットワークの限定を解除します。
      * </p>
      *
      * <p class="en">
@@ -281,6 +282,7 @@ public class IRKit {
      * </p>
      *
      * @see #forceIRKitWifi(IRCallback)
+     * @since 1.3.1
      */
     public void unforceIRKitWifi() {
         final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
