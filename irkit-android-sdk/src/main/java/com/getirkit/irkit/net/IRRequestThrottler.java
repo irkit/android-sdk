@@ -15,6 +15,7 @@ import retrofit.http.Body;
 import retrofit.http.FieldMap;
 import retrofit.http.QueryMap;
 import retrofit.mime.TypedInput;
+import retrofit.mime.TypedString;
 
 /**
  * Device HTTP APIとInternet HTTP APIにスロットル制御付きでアクセスするためのクラスです。
@@ -194,7 +195,8 @@ public class IRRequestThrottler {
         if (call != null) {
             switch (call.method) {
                 case DEVICE_POST_KEYS:
-                    deviceAPIService.postKeys(call.callback);
+                    TypedInput emptyBody = new TypedString("");
+                    deviceAPIService.postKeys(emptyBody, call.callback);
                     break;
                 case DEVICE_GET_MESSAGES:
                     deviceAPIService.getMessages(call.callback);
@@ -226,8 +228,8 @@ public class IRRequestThrottler {
      */
     private class IRDeviceAPIRequester implements IRDeviceAPIService {
         @Override
-        public void postKeys(Callback<PostKeysResponse> callback) {
-            request(new APICall(APICall.Method.DEVICE_POST_KEYS, null, createCallback(callback)));
+        public void postKeys(@Body TypedInput emptyBody, Callback<PostKeysResponse> callback) {
+            request(new APICall(APICall.Method.DEVICE_POST_KEYS, emptyBody, createCallback(callback)));
         }
 
         @Override

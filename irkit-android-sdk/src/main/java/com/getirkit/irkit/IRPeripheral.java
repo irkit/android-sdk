@@ -24,6 +24,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Header;
 import retrofit.client.Response;
+import retrofit.mime.TypedInput;
+import retrofit.mime.TypedString;
 
 /**
  * IRKitデバイスを表します。
@@ -390,7 +392,8 @@ public class IRPeripheral implements Serializable, Parcelable {
         }
         IRHTTPClient httpClient = IRHTTPClient.sharedInstance();
         httpClient.setDeviceAPIEndpoint("http://" + this.host.getHostAddress() + ":" + this.port);
-        httpClient.getThrottledDeviceAPIService(this).postKeys(new Callback<IRDeviceAPIService.PostKeysResponse>() {
+        TypedInput emptyBody = new TypedString("");
+        httpClient.getThrottledDeviceAPIService(this).postKeys(emptyBody, new Callback<IRDeviceAPIService.PostKeysResponse>() {
             @Override
             public void success(IRDeviceAPIService.PostKeysResponse postKeysResponse, Response response) {
                 if (postKeysResponse == null) {

@@ -51,7 +51,7 @@ public interface IRDeviceAPIService {
      * postKeys()のレスポンスです。
      * Response of postKeys().
      *
-     * @see #postKeys(Callback)
+     * @see #postKeys(TypedInput, Callback)
      */
     class PostKeysResponse {
         public String clienttoken;
@@ -63,7 +63,7 @@ public interface IRDeviceAPIService {
      * @param callback
      */
     @POST("/keys")
-    void postKeys(Callback<PostKeysResponse> callback);
+    void postKeys(@Body TypedInput emptyBody, Callback<PostKeysResponse> callback);
 
     /**
      * getMessages()のレスポンスです。
