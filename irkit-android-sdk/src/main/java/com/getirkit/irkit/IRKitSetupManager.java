@@ -322,9 +322,9 @@ class IRKitSetupManager implements IRKitEventListener {
                         handler.removeCallbacks(runnable);
                         if (isSettingUpIRKit) {
                             Log.e(TAG, "connectIRKitToWifi failure: " + error.getMessage());
-
-                            if (error.getMessage().equals("Machine is not on the network")) {
-                                // IRKit Wi-Fi is no longer available (maybe success)
+                            if (retryCount >= 1 && error.getKind() == RetrofitError.Kind.NETWORK) {
+                                // Maybe IRKit Wi-Fi is no longer available because IRKit is
+                                // trying to connect to home Wi-Fi
                                 if (isSettingUpIRKit) {
                                     changeToNormalWifi();
                                 }
