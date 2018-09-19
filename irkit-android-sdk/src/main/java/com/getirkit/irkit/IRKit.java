@@ -798,9 +798,11 @@ public class IRKit {
         fetchWifiManager();
 
         List<WifiConfiguration> configs = wifiManager.getConfiguredNetworks();
-        for (WifiConfiguration config : configs) {
-            if (IRWifiInfo.isIRKitWifi(config)) {
-                wifiManager.removeNetwork(config.networkId);
+        if (configs != null) {
+            for (WifiConfiguration config : configs) {
+                if (IRWifiInfo.isIRKitWifi(config)) {
+                    wifiManager.removeNetwork(config.networkId);
+                }
             }
         }
     }
