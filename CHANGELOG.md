@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+Version 1.3.2 *(2018-09-22)*
+----------------------------
+
+### 変更点
+
+- デバイスセットアップ中にNullPointerExceptionが発生することがある問題を修正しました。
+
+
+### Changes
+
+- Fix NullPointerException that occurs during device setup in some cases.
+
+
 Version 1.3.1 *(2016-09-26)*
 ----------------------------
 
