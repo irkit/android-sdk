@@ -818,7 +818,7 @@ public class IRKit {
         List<WifiConfiguration> configs = wifiManager.getConfiguredNetworks();
         if (configs != null) {
             for (WifiConfiguration config : configs) {
-                if (config.SSID.equals(ssid)) {
+                if (config.SSID != null && config.SSID.equals(ssid)) {
                     return config;
                 }
             }
